@@ -36,45 +36,49 @@ $fechaini = (isset($_POST["fechaini"])) ? $_POST["fechaini"] : date('d-m-Y');
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header bg-primary">
-                                <h3 class="card-title justify-content-center">COTIZADOR</h3>
+                                <h3 class="card-title">COTIZADOR</h3>
                             </div>
                             <div class="card-body">
+
                                 <form method="post">
+
                                     <div class="row justify-content-center">
 
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="valter"> VALOR TERRENO:</label>
-                                                <input name="valter" class="form-control" id="valter" type="text" value="<?php echo $valter ?>" placeholder="Valor Terreno"> <br><br>
+                                                <input name="valter" class="form-control" id="valter" type="text" value="<?php echo $valter ?>" placeholder="Valor Terreno">
                                             </div>
                                         </div>
 
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="nmens"> NO. MENSUALIDADES:</label>
-                                                <input name="nmens" class="form-control" id="nmens" type="number" value="<?php echo $nmens ?>" placeholder="No. Mensualidades"> <br><br>
+                                                <input name="nmens" class="form-control" id="nmens" type="number" value="<?php echo $nmens ?>" placeholder="No. Mensualidades">
                                             </div>
                                         </div>
 
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="tinteres"> TASA DE INTERES:</label>
-                                                <input name="tinteres" class="form-control" id="tinteres" type="text" value="<?php echo $tinteres ?>" placeholder="Tasa de Interes"> <br><br>
+                                                <input name="tinteres" class="form-control" id="tinteres" type="text" value="<?php echo $tinteres ?>" placeholder="Tasa de Interes">
                                             </div>
                                         </div>
 
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="fechaini"> FECHA DE INICIO:</label>
-                                                <input name="fechaini" class="form-control" id="fechaini" type="date" value="<?php echo $fechaini ?>" placeholder="Fecha de Inicio"> <br><br>
+                                                <input name="fechaini" class="form-control" id="fechaini" type="date" value="<?php echo $fechaini ?>" placeholder="Fecha de Inicio">
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="row justify-content-center">
-                                            <div class="col-sm-6">
-                                                <input type="submit" class="btn-primary btn-block" value="CALCULAR">
-                                            </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-sm-6">
+                                            <input type="submit" class="btn-primary btn-block" value="CALCULAR">
                                         </div>
+                                    </div>
+
 
                                 </form>
                                 <?php if ($valter != 0) { ?>
