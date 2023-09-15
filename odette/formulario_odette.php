@@ -35,8 +35,11 @@ $fechaini = (isset($_POST["fechaini"])) ? $_POST["fechaini"] : date('d-m-Y');
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header bg-primary">
+                            <div class="card-header bg-info">
+                                <div class="row justify-content-center">
                                 <h3 class="card-title">COTIZADOR</h3>
+                                </div>
+                                
                             </div>
                             <div class="card-body">
 
@@ -75,7 +78,7 @@ $fechaini = (isset($_POST["fechaini"])) ? $_POST["fechaini"] : date('d-m-Y');
 
                                     <div class="row justify-content-center">
                                         <div class="col-sm-6">
-                                            <input type="submit" class="btn-primary btn-block" value="CALCULAR">
+                                            <input type="submit" class="btn-info btn-block" value="CALCULAR">
                                         </div>
                                     </div>
 
@@ -83,8 +86,8 @@ $fechaini = (isset($_POST["fechaini"])) ? $_POST["fechaini"] : date('d-m-Y');
                                 </form>
                                 <?php if ($valter != 0) { ?>
 
-                                    <table class="table table-borderer table-condensed table-hover">
-                                        <thead>
+                                    <table class="table table-borderer table-sm table-condensed table-condensed table-hover">
+                                        <thead class="bg-info">
                                             <tr>
                                                 <th>MENSUALIDAD</th>
                                                 <th>FECHA</th>
