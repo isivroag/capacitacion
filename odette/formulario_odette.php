@@ -71,7 +71,7 @@ $fechaini = (isset($_POST["fechaini"])) ? $_POST["fechaini"] : date('d-m-Y');
                                         </div>
 
                                         <div class="row justify-content-center">
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-6">
                                                 <input type="submit" class="btn-primary btn-block" value="CALCULAR">
                                             </div>
                                         </div>
