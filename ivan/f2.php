@@ -1,10 +1,7 @@
 <?php
 date_default_timezone_set('America/Mexico_City');
 
-$vt = (isset($_GET['vt'])) ? $_GET['vt'] : 0;
-$nmens = (isset($_GET['nmens'])) ? $_GET['nmens'] : 0;
-$tinteres = (isset($_GET['tinteres'])) ? $_GET['tinteres'] : 0;
-$fechaini = (isset($_GET['fechaini'])) ? $_GET['fechaini'] : date('Y-m-d');
+
 
 ?>
 
@@ -49,27 +46,27 @@ $fechaini = (isset($_GET['fechaini'])) ? $_GET['fechaini'] : date('Y-m-d');
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="vt">Valor Terreno:</label>
-                                            <input type="text" class="form-control" id="vt" name="vt" value="<?php echo $vt ?>" placeholder="Valor Terreno">
+                                            <input type="text" class="form-control" id="vt" name="vt"  placeholder="Valor Terreno">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="nmens">No. Mensualidades:</label>
-                                            <input type="number" class="form-control" id="nmens" name="nmens" value="<?php echo $nmens ?>" placeholder="# Mensualidades">
+                                            <input type="number" class="form-control" id="nmens" name="nmens"  placeholder="# Mensualidades">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="tinteres">Tasa de Interes:</label>
-                                            <input type="text" class="form-control" id="tinteres" name="tinteres" value="<?php echo $tinteres ?>" placeholder="Tasa de Interes">
+                                            <input type="text" class="form-control" id="tinteres" name="tinteres"  placeholder="Tasa de Interes">
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="fechaini">Fecha Inicio:</label>
-                                            <input type="date" class="form-control" id="fechaini" name="fechaini" value="<?php echo $fechaini ?>" placeholder="Fecha Inicio">
+                                            <input type="date" class="form-control" id="fechaini" name="fechaini"  placeholder="Fecha Inicio">
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +86,7 @@ $fechaini = (isset($_GET['fechaini'])) ? $_GET['fechaini'] : date('Y-m-d');
                                             <th class="text-center">FECHA</th>
                                             <th class="text-center">CAPITAL</th>
                                             <th class="text-center">INTERES</th>
-                                            <th class="text-center">MENSUALIDAD</th>
+                                            <th class="text-center">TOTAL</th>
                                             <th class="text-center">SALDO</th>
                                             <th class="text-center">ACCIONES</th>
                                         </tr>
@@ -113,7 +110,7 @@ $fechaini = (isset($_GET['fechaini'])) ? $_GET['fechaini'] : date('Y-m-d');
 
 
 <script src="../plugins/jquery/jquery.min.js"></script>
-<script src="../fjs/formulario_ivan.js?v=<?php echo (rand()); ?>"></script>
+<script src="../fjs/f2.js?v=<?php echo (rand()); ?>"></script>
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>

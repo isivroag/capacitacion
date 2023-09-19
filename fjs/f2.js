@@ -17,6 +17,12 @@ $(document).ready(function() {
                                     </div>\
                                 </div>"
             },
+            { className: 'text-center', targets: [0] },
+            { className: 'text-center', targets: [1] },
+            { className: 'text-right', targets: [2] },
+            { className: 'text-right', targets: [3] },
+            { className: 'text-right', targets: [4] },
+            { className: 'text-right', targets: [5] },
         ],
 
         //Para cambiar el lenguaje a español
@@ -47,36 +53,9 @@ $(document).ready(function() {
         tabla.clear()
         tabla.draw()
 
-        mensualidad = Math.round(vt / nmens)
-        interes = (tinteres / 100) / 12
-        saldo = vt
-        console.log(vt)
-        console.log(nmens)
-        console.log(tinteres)
-        console.log(fechaini)
-     
-
-        for (i = 1; i <= nmens; i++){
-            minteres =  Math.round(saldo * interes)
-            saldo = saldo - mensualidad
-
-            tabla.row
-            .add([
-            i,
-            fechaini,
-            mensualidad,
-            minteres,
-            mensualidad+minteres,
-             saldo,
-            
-            ])
-            .draw()
-        }
-
-        /*
         $.ajax({
 
-            url: "..bd/calcular.php",
+            url: "../bd/calcular.php",
             type: "POST",
             dataType: "json",
             data: { vt: vt, nmens: nmens, tinteres: tinteres, fechaini: fechaini },
@@ -84,22 +63,24 @@ $(document).ready(function() {
             success: function(res) {
             
                 for (var i = 0; i < res.length; i++) {
-                    tablac.row
+                    tabla.row
                       .add([
-                        res[i].id_reg,
-                        res[i].id_her,
-                        res[i].tipo,
-                        res[i].clave_her,
-                        res[i].nom_her,
-                        res[i].cantidad_her,
-                        res[i].obs,
-                        res[i].estado,
+                        res[i].id,
+                        res[i].fecha,
+                        res[i].capital,
+                        res[i].interes,
+                        res[i].sumaTotal,
+                        res[i].saldo,
+                        
                       
                       ])
                       .draw()
                   }
+            },
+            error: function(){
+                alert("Funcion Error")
             }
-        });*/
+        });
        
     });
 
