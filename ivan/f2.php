@@ -30,47 +30,128 @@ date_default_timezone_set('America/Mexico_City');
     <section class="content">
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="col-md-6">
+                <div class="col-sm-8 ">
                     <div class="card">
                         <div class="card-header bg-navy">
                             <div class="row justify-content-center">
                                 <h3 class="card-title">Cotizador</h3>
                             </div>
-                          
+
                         </div>
                         <div class="card-body">
 
                             <form method="get">
+                                <div class="row justify-content ">
+                                    <span>
+                                        <h5>DATOS GENERALES</h5>
+                                    </span>
+                                </div>
 
                                 <div class="row justify-content-center">
                                     <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="vt">Valor Terreno:</label>
-                                            <input type="text" class="form-control" id="vt" name="vt"  placeholder="Valor Terreno">
+                                        <div class="form-group form-group-sm">
+
+                                            <label for="vt" class="form-control-sm">Valor Terreno:</label>
+                                            <div class="input-group input-group-sm">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">$</span>
+                                                </div>
+                                                <input type="text" class="form-control form-control-sm" id="vt" name="vt" placeholder="Valor Terreno" onkeypress="return filterFloat(event,this);">
+                                            </div>
+
                                         </div>
                                     </div>
 
                                     <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="nmens">No. Mensualidades:</label>
-                                            <input type="number" class="form-control" id="nmens" name="nmens"  placeholder="# Mensualidades">
+                                        <div class="form-group form-group-sm">
+                                            <label for="nmens" class="form-control-sm"># Mensualidades:</label>
+                                            <input type="number" class="form-control form-control-sm" id="nmens" name="nmens" placeholder="# Mensualidades">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="tinteres">Tasa de Interes:</label>
-                                            <input type="text" class="form-control" id="tinteres" name="tinteres"  placeholder="Tasa de Interes">
+                                        <div class="form-group form-group-sm">
+                                            <label for="tinteres" class="form-control-sm">Tasa de Interes:</label>
+
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control form-control-sm" id="tinteres" name="tinteres" placeholder="Tasa de Interes">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="fechaini">Fecha Inicio:</label>
-                                            <input type="date" class="form-control" id="fechaini" name="fechaini"  placeholder="Fecha Inicio">
+                                        <div class="form-group form-group-sm">
+                                            <label for="fechaini" class="form-control-sm">Fecha Inicio:</label>
+                                            <input type="date" class="form-control form-control-sm" id="fechaini" name="fechaini" placeholder="Fecha Inicio">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center ">
+                                    <div class="col-sm-7  text-center">
+                                        <span>
+                                            <h5>INFORMACION ENGANCHE</h5>
+                                        </span>
+                                        <div class="row justify-content-center">
+                                            <div class="col-sm-3">
+                                                <div class="form-group form-group-sm">
+
+                                                    <label for="poreng" class="form-control-sm">% Eng:</label>
+                                                    <div class="input-group input-group-sm">
+
+                                                        <input type="text" class="form-control form-control-sm" id="poreng" name="poreng" placeholder="% Enganche" onkeypress="return filterFloat(event,this);">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">%</span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group form-group-sm">
+                                                    <label for="montoeng" class="form-control-sm">Monto Enganche:</label>
+                                                    <div class="input-group input-group-sm">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">$</span>
+                                                        </div>
+                                                        <input type="text" class="form-control form-control-sm" id="montoeng" name="montoeng" placeholder="Monto Enganche" onkeypress="return filterFloat(event,this);">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group form-group-sm">
+                                                    <label for="nmenseng" class="form-control-sm"># Mens Engache:</label>
+                                                    <input type="number" class="form-control form-control-sm" id="nmenseng" name="nmenseng" placeholder="# Mens. Eng.">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5 text-center">
+                                        <span>
+                                            <h5>INFORMACION PAGOS</h5>
+                                        </span>
+                                        <div class="row justify-content-center">
+                                            <div class="col-sm-6">
+                                                <div class="form-group form-group-sm">
+                                                    <label for="nmenssin" class="form-control-sm"># Mens Sin Interes:</label>
+                                                    <input type="number" class="form-control form-control-sm" id="nmenssin" name="nmenssin" placeholder="# Mens. S/Interes">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group form-group-sm">
+                                                    <label for="nmenscon" class="form-control-sm"># Mens Con Interes:</label>
+                                                    <input type="number" class="form-control form-control-sm" id="nmenscon" name="nmenscon" placeholder="# Mens. C/Interes">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
+                       
                                 <div class="row justify-content-center">
                                     <div class="col-sm-12">
                                         <input type="button" class="btn-success btn-block" value="Calcular" id="btnCalcular">
@@ -78,24 +159,26 @@ date_default_timezone_set('America/Mexico_City');
                                 </div>
 
                             </form>
-                        
-                                <table class="table table-borderer table-sm table-condensed table-hover" name="tabla" id="tabla">
-                                    <thead class="bg-gradient-navy">
-                                        <tr>
-                                            <th class="text-center">MESUALIDAD</th>
-                                            <th class="text-center">FECHA</th>
-                                            <th class="text-center">CAPITAL</th>
-                                            <th class="text-center">INTERES</th>
-                                            <th class="text-center">TOTAL</th>
-                                            <th class="text-center">SALDO</th>
-                                            <th class="text-center">ACCIONES</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                   
-                                    </tbody>
-                                </table>
-                                
+                            <div class="table-responsive">
+                            <table class="table table-borderer table-sm table-condensed table-striped table-bordered table-hover mx-auto " name="tabla" id="tabla" style="width: 100%;">
+                                <thead class="bg-gradient-navy">
+                                    <tr>
+                                        <th class="text-center">MESUALIDAD</th>
+                                        <th class="text-center">FECHA</th>
+                                        <th class="text-center">CAPITAL</th>
+                                        <th class="text-center">INTERES</th>
+                                        <th class="text-center">TOTAL</th>
+                                        <th class="text-center">SALDO</th>
+                                        <th class="text-center">ACCIONES</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                            </div>
+                            
+
                         </div>
                     </div>
                 </div>
@@ -132,4 +215,3 @@ date_default_timezone_set('America/Mexico_City');
 <script src="https://cdn.datatables.net/plug-ins/1.10.21/sorting/formatted-numbers.js"></script>
 
 </html>
-

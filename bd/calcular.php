@@ -17,8 +17,15 @@ for ($i = 1; $i <= $nmens; $i++) {
     $minteres = $saldo * $interes;
     $saldo = $saldo - $mensualidad;
     $sumaTotal=$minteres + $mensualidad;
+    if ($minteres>0) {
+        $tipo="MCI";
+    }else
+    {
+        $tipo="";
+    }    
     $registro = [
         "id" => $i ,
+        "tipo"=>$tipo,
         "fecha" => $fechaini->format("Y-m-d"),
         "capital" => number_format($mensualidad, 2),
         "interes" => number_format($minteres, 2),
