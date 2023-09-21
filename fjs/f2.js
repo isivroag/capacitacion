@@ -46,9 +46,9 @@ $(document).ready(function() {
 
     $("#btnCalcular").click(function() {
        
-        vt=$('#vt').val()
-        nmens=$('#nmens').val()
-        tinteres=$('#tinteres').val()
+        vt=$('#vt').val().replace(/,/g, '')
+        nmens=$('#nmens').val().replace(/,/g, '')
+        tinteres=$('#tinteres').val().replace(/,/g, '')
         fechaini=$('#fechaini').val()
 
         tabla.clear()

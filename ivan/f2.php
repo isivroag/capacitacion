@@ -154,7 +154,7 @@ date_default_timezone_set('America/Mexico_City');
                        
                                 <div class="row justify-content-center">
                                     <div class="col-sm-12">
-                                        <input type="button" class="btn-success btn-block" value="Calcular" id="btnCalcular">
+                                        <input type="button" class="btn-success btn-md btn-block" value="Calcular" id="btnCalcular">
                                     </div>
                                 </div>
 
@@ -164,6 +164,7 @@ date_default_timezone_set('America/Mexico_City');
                                 <thead class="bg-gradient-navy">
                                     <tr>
                                         <th class="text-center">MESUALIDAD</th>
+                                        <th class="text-center">TIPO</th>
                                         <th class="text-center">FECHA</th>
                                         <th class="text-center">CAPITAL</th>
                                         <th class="text-center">INTERES</th>
