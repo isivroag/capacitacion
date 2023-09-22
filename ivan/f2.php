@@ -15,6 +15,12 @@ date_default_timezone_set('America/Mexico_City');
 <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="../css/estilo.css">
 
+<style>
+    .bg-normal {
+        background-color: rgba(187, 187, 187, .8) !important
+    }
+</style>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,10 +69,10 @@ date_default_timezone_set('America/Mexico_City');
                                     </div>
 
                                     <div class="col-sm-3">
-                                        <div class="form-group form-group-sm">
+                                        <!--<div class="form-group form-group-sm">
                                             <label for="nmens" class="form-control-sm"># Mensualidades:</label>
                                             <input type="number" class="form-control form-control-sm" id="nmens" name="nmens" placeholder="# Mensualidades">
-                                        </div>
+                                        </div>-->
                                     </div>
 
                                     <div class="col-sm-3">
@@ -151,7 +157,7 @@ date_default_timezone_set('America/Mexico_City');
                                     </div>
                                 </div>
 
-                       
+
                                 <div class="row justify-content-center">
                                     <div class="col-sm-12">
                                         <input type="button" class="btn-success btn-md btn-block" value="Calcular" id="btnCalcular">
@@ -160,25 +166,25 @@ date_default_timezone_set('America/Mexico_City');
 
                             </form>
                             <div class="table-responsive">
-                            <table class="table table-borderer table-sm table-condensed table-striped table-bordered table-hover mx-auto " name="tabla" id="tabla" style="width: 100%;">
-                                <thead class="bg-gradient-navy">
-                                    <tr>
-                                        <th class="text-center">MESUALIDAD</th>
-                                        <th class="text-center">TIPO</th>
-                                        <th class="text-center">FECHA</th>
-                                        <th class="text-center">CAPITAL</th>
-                                        <th class="text-center">INTERES</th>
-                                        <th class="text-center">TOTAL</th>
-                                        <th class="text-center">SALDO</th>
-                                        <th class="text-center">ACCIONES</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                <table class="table table-borderer table-sm table-condensed table-striped table-bordered table-hover mx-auto " name="tabla" id="tabla" style="width: 100%;">
+                                    <thead class="bg-gradient-navy">
+                                        <tr>
+                                            <th class="text-center">MESUALIDAD</th>
+                                            <th class="text-center">TIPO</th>
+                                            <th class="text-center">FECHA</th>
+                                            <th class="text-center">CAPITAL</th>
+                                            <th class="text-center">INTERES</th>
+                                            <th class="text-center">TOTAL</th>
+                                            <th class="text-center">SALDO</th>
+                                            <th class="text-center">ACCIONES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
                             </div>
-                            
+
 
                         </div>
                     </div>
@@ -187,7 +193,80 @@ date_default_timezone_set('America/Mexico_City');
         </div>
     </section>
 
+    <section>
+        <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-success">
+                        <h5 class="modal-title" id="exampleModalLabel">EDITAR MENSUALIDAD</h5>
 
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formDatos" action="" method="POST">
+                            <div class="modal-body">
+                                <div class="row justify-content-center">
+                                    <input type="hidden" class="form-control" name="tid" id="tid" autocomplete="off" placeholder="Id">
+
+
+                                    <div class="col-sm-5">
+                                        <div class="form-group input-group-sm">
+                                            <label for="tfecha" class="col-form-label">FECHA:</label>
+                                            <input type="date" class="form-control" name="tfecha" id="tfecha" autocomplete="off" placeholder="Fecha">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group input-group-sm">
+                                            <label for="tmonto" class="col-form-label">MONTO:</label>
+                                            <div class="input-group input-group-sm">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">$</span>
+                                                </div>
+                                                <input type="text" class="form-control" name="tmonto" id="tmonto" autocomplete="off" placeholder="Monto" onkeypress="return filterFloat(event,this);">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center">
+
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox">
+                                                <label class="form-check-label">Correr Fechas</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="radio1">
+                                                <label class="form-check-label">Disminiur # Pagos</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="radio1">
+                                                <label class="form-check-label">Disminuir Mensualidad</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                    </div>
+
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                        <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </body>
 

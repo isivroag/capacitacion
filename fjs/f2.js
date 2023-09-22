@@ -13,7 +13,6 @@ $(document).ready(function() {
                 defaultContent: "<div class='text-center'>\
                                     <div class='btn-group'>\
                                         <button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-edit'></i></button>\
-                                        <button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button>\
                                     </div>\
                                 </div>"
             },
@@ -41,15 +40,38 @@ $(document).ready(function() {
                 "sPrevious": "Anterior"
             },
             "sProcessing": "Procesando...",
-        }
+        },
+
+        rowCallback: function (row, data) {
+       
+          valor=data[1]
+         
+          if (valor == "ENG") {
+            //$($(row).find("td")[6]).css("background-color", "warning");
+            $($(row).find('td')).addClass('bg-gradient-purple')
+            //$($(row).find('td')['9']).text('PENDIENTE')
+          } else if (valor =="MSI") {
+            //$($(row).find("td")[9]).css("background-color", "blue");
+            $($(row).find('td')).addClass('bg-gradient-success')
+            //$($(row).find('td')['9']).text('ENVIADO')
+          } else{
+            $($(row).find('td')).addClass('bg-normal')
+           
+          }
+        },
     });
+
 
     $("#btnCalcular").click(function() {
        
         vt=$('#vt').val().replace(/,/g, '')
-        nmens=$('#nmens').val().replace(/,/g, '')
-        tinteres=$('#tinteres').val().replace(/,/g, '')
+        nmenseng=$('#nmenseng').val().replace(/,/g, '')
+        montoeng=$('#montoeng').val().replace(/,/g, '')
         fechaini=$('#fechaini').val()
+
+        tinteres=$('#tinteres').val().replace(/,/g, '')
+        nmenssin=$('#nmenssin').val().replace(/,/g, '')
+        nmenscon=$('#nmenscon').val().replace(/,/g, '')
 
         tabla.clear()
         tabla.draw()
@@ -59,7 +81,7 @@ $(document).ready(function() {
             url: "../bd/calcular.php",
             type: "POST",
             dataType: "json",
-            data: { vt: vt, nmens: nmens, tinteres: tinteres, fechaini: fechaini },
+            data: { vt: vt, nmenseng: nmenseng, tinteres: tinteres, fechaini: fechaini, montoeng: montoeng, nmenssin: nmenssin, nmenscon: nmenscon },
 
             success: function(res) {
             
@@ -86,8 +108,9 @@ $(document).ready(function() {
        
     });
 
-    $(".btnEditar").click(function() {
-        alert("BOTON EDITAR");
+    $(document).on('click', '.btnEditar', function () {
+        $("#modalEditar").modal('show')
+
        
     });
 
@@ -98,6 +121,8 @@ $(document).ready(function() {
        
     });
 
+
+    
     document.getElementById('vt').onblur = function () {
       
         this.value = parseFloat(this.value.replace(/,/g, ''))
@@ -123,6 +148,15 @@ $(document).ready(function() {
           .toString()
           .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
       }
+
+      document.getElementById('tmonto').onblur = function () {
+      
+        this.value = parseFloat(this.value.replace(/,/g, ''))
+          .toFixed(2)
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      }
+
 
       
       function calcularpor(monto){
