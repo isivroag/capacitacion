@@ -5,43 +5,41 @@ $conexion = $objeto->connect();
 
 // Recepción de los datos enviados mediante POST desde el JS   
 $rfc = (isset($_POST['rfc'])) ? $_POST['rfc'] : '';
-$razon = (isset($_POST['razon'])) ? $_POST['razon'] : '';
+$nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
 $dir = (isset($_POST['dir'])) ? $_POST['dir'] : '';
 $tel = (isset($_POST['tel'])) ? $_POST['tel'] : '';
-$contacto = (isset($_POST['contacto'])) ? $_POST['contacto'] : '';
-$tel_contacto = (isset($_POST['tel_contacto'])) ? $_POST['tel_contacto'] : '';
-$especialidad = (isset($_POST['especialidad'])) ? $_POST['especialidad'] : '';
+$movil = (isset($_POST['movil'])) ? $_POST['movil'] : '';
+$email = (isset($_POST['email'])) ? $_POST['email'] : '';
+
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
-
-
-
 
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO w_proveedor (rfc_prov,razon_prov,dir_prov,tel_prov,contacto_prov,telcon_prov,especialidad) VALUES('$rfc','$razon','$dir','$tel','$contacto','$tel_contacto','$especialidad') ";			
+        $consulta = "INSERT INTO proveedor (rfc,nombre,direccion,telefono,movil,email) 
+        VALUES('$rfc','$nombre','$dir','$tel','$movil','$email') ";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
-        $consulta = "SELECT * FROM w_proveedor ORDER BY id_prov DESC LIMIT 1";
+        $consulta = "SELECT * FROM proveedor ORDER BY id_prov DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2: //modificación
-        $consulta = "UPDATE w_proveedor SET rfc_prov='$rfc',razon_prov='$razon',dir_prov='$dir', tel_prov='$tel', contacto_prov='$contacto',telcon_prov='$tel_contacto',especialidad='$especialidad' WHERE id_prov='$id' ";		
+        $consulta = "UPDATE proveedor SET rfc='$rfc',nombre='$nombre',direccion='$dir', telefono='$tel', movil='$movil',email='$email' WHERE id_prov='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
-        $consulta = "SELECT * FROM w_proveedor WHERE id_prov='$id' ";       
+        $consulta = "SELECT * FROM proveedor WHERE id_prov='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;        
     case 3://baja
-        $consulta = "UPDATE w_proveedor SET estado_prov=0 WHERE id_prov='$id' ";		
+        $consulta = "UPDATE proveedor SET estado_prov=0 WHERE id_prov='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
         $data=1;                          

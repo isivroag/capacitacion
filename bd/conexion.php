@@ -3,15 +3,16 @@
         
         function connect(){
        //REMOTO
-       /* 
+        /*
             define('servidor','bosquedelasanimas.com.mx');
             define('bd_nombre','bosquede_inba');
             define('usuario','bosquede_sistema');
             define('password','Gpoferche2022#');
-            */
+  */          
 //LOCAL
+
             define('servidor','localhost');
-            define('bd_nombre','bosquede_inba');
+            define('bd_nombre','capacitacion');
             define('usuario','root');
             define('password','');
 

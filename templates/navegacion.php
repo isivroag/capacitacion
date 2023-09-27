@@ -4,7 +4,7 @@
   <a href="inicio.php" class="brand-link">
 
     <img src="img/logob.png" alt="Bosque Logo" class="brand-image img-circle elevation-3" style="opacity: .8;background-color:white">
-    <span class="brand-text font-weight-bold">INBA</span>
+    <span class="brand-text font-weight-bold">TECNIEM</span>
   </a>
 
   <!-- Sidebar -->
@@ -50,40 +50,18 @@
             <ul class="nav nav-treeview">
 
               <li class="nav-item">
-                <a href="cntaempresa.php" class="nav-link <?php echo ($pagina == 'empresa') ? "active seleccionado" : ""; ?>  ">
+                <a href="cntaproveedor.php" class="nav-link <?php echo ($pagina == 'proveedor') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-city nav-icon"></i>
-                  <p>Empresa</p>
+                  <p>Proveedor</p>
                 </a>
               </li>
 
               <li class="nav-item">
                 <a href="cntaproyecto.php" class="nav-link <?php echo ($pagina == 'proyecto') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-road nav-icon"></i>
-                  <p>Proyecto</p>
+                  <p>Productos y Servicios</p>
                 </a>
               </li>
-
-              <li class="nav-item">
-                <a href="cntaproveedor.php" class="nav-link <?php echo ($pagina == 'proveedor') ? "active seleccionado" : ""; ?>  ">
-                  <i class="fas fa-portrait nav-icon"></i>
-                  <p>Proveedor</p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="cntaconcepto.php" class="nav-link <?php echo ($pagina == 'concepto') ? "active seleccionado" : ""; ?>  ">
-                  <i class="fas fa-screwdriver nav-icon"></i>
-                  <p>Concepto</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="cntainmueble.php" class="nav-link <?php echo ($pagina == 'concepto') ? "active seleccionado" : ""; ?>  ">
-                  <i class="fa-solid fa-building nav-icon"></i>
-                  <p>Inmuebles</p>
-                </a>
-              </li>
-
-
             </ul>
 
           </li>
