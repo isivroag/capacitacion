@@ -57,7 +57,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="cntaproyecto.php" class="nav-link <?php echo ($pagina == 'proyecto') ? "active seleccionado" : ""; ?>  ">
+                <a href="cntaitems.php" class="nav-link <?php echo ($pagina == 'items') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-road nav-icon"></i>
                   <p>Productos y Servicios</p>
                 </a>
