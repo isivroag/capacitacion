@@ -99,7 +99,7 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- PRODUCTOS Y SERVICIOS -->
     <section>
-        <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-gradient-green">
@@ -108,58 +108,66 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                     <div class="card card-widget" style="margin: 10px;">
                         <form id="formDatos" action="" method="POST">
-                            <div class="modal-body row">
+                            <div class="modal-body ">
 
-                                <div class="col-sm-6">
-                                    <div class="form-group input-group-sm">
-                                        <label for="descripcion" class="col-form-label">DESCRIPCION:</label>
-                                        <input type="text" class="form-control" name="descripcion" id="descripcion" autocomplete="off" placeholder="DESCRIPCION">
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-12">
+                                        <div class="form-group input-group-sm">
+                                            <label for="descripcion" class="col-form-label">DESCRIPCION:</label>
+                                            <input type="text" class="form-control" name="descripcion" id="descripcion" autocomplete="off" placeholder="DESCRIPCION">
+                                        </div>
                                     </div>
                                 </div>
 
+                                <div class="row justify-content-center">
 
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group-sm">
+                                            <label for="tipo" class="col-form-label">TIPO:</label>
+                                            <select class="form-control" name="tipo" id="tipo" autocomplete="off" placeholder="TIPO DE PRODUCTO">
+                                                <option value="1">PRODUCTO</option>
+                                                <option value="2">SERVICIO</option>
 
-
-                                <div class="col-sm-12">
-                                    <div class="form-group input-group-sm">
-                                        <label for="tipo" class="col-form-label">TIPO:</label>
-                                        <input type="text" class="form-control" name="tipo" id="tipo" autocomplete="off" placeholder="TIPO DE PRODUCTO">
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-sm-12">
-                                    <div class="form-group input-group-sm">
-                                        <label for="precio" class="col-form-label">PRECIO:</label>
-                                        <input type="text" class="form-control" name="precio" id="precio" autocomplete="off" placeholder="PRECIO">
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group-sm">
+                                            <label for="precio" class="col-form-label">PRECIO:</label>
+                                            <input type="text" class="form-control" name="precio" id="precio" autocomplete="off" placeholder="PRECIO">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-sm-4">
-                                    <div class="form-group input-group-sm">
-                                        <label for="costo" class="col-form-label">COSTO:</label>
-                                        <input type="text" class="form-control" name="costo" id="costo" autocomplete="off" placeholder="COSTO">
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group-sm">
+                                            <label for="costo" class="col-form-label">COSTO:</label>
+                                            <input type="text" class="form-control" name="costo" id="costo" autocomplete="off" placeholder="COSTO">
+                                        </div>
                                     </div>
-                                </div>
 
 
 
-                                <div class="col-sm-4">
-                                    <div class="form-group input-group-sm">
-                                        <label for="existencia" class="col-form-label">EXISTENCIAS:</label>
-                                        <input type="text" class="form-control" name="existencia" id="existencia" autocomplete="off" placeholder="EXISTENCIAS">
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group-sm">
+                                            <label for="existencia" class="col-form-label">EXISTENCIAS:</label>
+                                            <input type="text" class="form-control" name="existencia" id="existencia" autocomplete="off" placeholder="EXISTENCIAS">
+                                        </div>
                                     </div>
                                 </div>
 
                             </div>
+
+
+
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                            </div>
+                        </form>
                     </div>
-
-
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                        <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-                    </div>
-                    </form>
                 </div>
             </div>
         </div>

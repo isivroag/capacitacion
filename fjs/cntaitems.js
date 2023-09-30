@@ -38,7 +38,7 @@ $(document).ready(function () {
                     "<div class='text-center'><button class='btn btn-sm btn-primary btnEditar' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-edit'></i></button>\
                      <button class='btn btn-sm btn-danger btnBorrar' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='fas fa-trash-alt'></i></button></div>",
             },
-            { className: 'hide_column', targets: [3] },
+          
         ],
 
         //Para cambiar el lenguaje a español
@@ -69,6 +69,8 @@ $(document).ready(function () {
         opcion = 1
     })
 
+ 
+
     $(document).on('click', '.btnEditar', function () {
         fila = $(this).closest('tr')
         id = parseInt(fila.find('td:eq(0)').text())
@@ -91,7 +93,7 @@ $(document).ready(function () {
 
 
         $('.modal-title').text('EDITAR ITEM')
-        $('#modalCRUD').modal('show')
+        //$('#modalCRUD').modal('show')
     })
 
 
