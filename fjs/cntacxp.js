@@ -35,7 +35,7 @@ $(document).ready(function () {
     })
   
     $('#btnNuevo').click(function () {
-      window.location.href = "ordencompra.php";
+      window.location.href = "cxp.php";
      
     })
   
@@ -44,7 +44,7 @@ $(document).ready(function () {
       fila = $(this).closest('tr')
       id = parseInt(fila.find('td:eq(0)').text())
   
-      window.location.href = "ordencompra.php?folio=" + id;
+      window.location.href = "cxp.php?folio=" + id;
    
     })
   
@@ -60,7 +60,7 @@ $(document).ready(function () {
   
       if (respuesta) {
         $.ajax({
-          url: 'bd/detalleorden.php',
+          url: 'bd/detallecxp.php',
           type: 'POST',
           dataType: 'json',
           data: { id: id, opcion: opcion },

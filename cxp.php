@@ -1,5 +1,6 @@
 <?php
-$pagina = "ordencompra";
+$pagina = "cxp";
+$opcion = 0;
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -17,7 +18,7 @@ $tokenid = md5($_SESSION['s_usuario']);
 if ($folio != "") {
 
     $opcion = 2;
-    $consulta = "SELECT * FROM orden where folio_ord='$folio'";
+    $consulta = "SELECT * FROM cxptmp where folio_cxp='$folio'";
 
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
@@ -26,19 +27,20 @@ if ($folio != "") {
     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($data as $dt) {
-        $folio = $dt['folio_ord'];
+        $folio = $dt['folio_cxp'];
 
         $fecha = $dt['fecha'];
         $id_prov = $dt['id_prov'];
-        $proveedor = $dt['nom_prov'];
-        $id_proy = $dt['id_proyecto'];
-        $proyecto = $dt['nom_proy'];
-        $concepto = $dt['concepto'];
+        $proveedor = $dt['nombre'];
+        $descripcion = $dt['descripcion'];
+        $subtotal = $dt['subtotal'];
+        $iva = $dt['iva'];
         $total = $dt['total'];
+        $descuento = $dt['descuento'];
+        $gtotal = $dt['gtotal'];
+        $saldo = $dt['saldo'];
+        $tipo = $dt['tipo'];
     }
-
-
-
 
 
     $message = "";
@@ -48,7 +50,7 @@ if ($folio != "") {
     //BUSCAR CUENTA ABIERTA
 
 
-    $consultatmp = "SELECT * FROM orden WHERE tokenid='$tokenid' and activo='0' ORDER BY folio_ord DESC LIMIT 1";
+    $consultatmp = "SELECT * FROM cxptmp WHERE tokenid= '$tokenid' and activo='0' ORDER BY folio_cxp DESC LIMIT 1";
     $resultadotmp = $conexion->prepare($consultatmp);
     $resultadotmp->execute();
     if ($resultadotmp->rowCount() >= 1) {
@@ -58,12 +60,12 @@ if ($folio != "") {
         // INSERTAR FOLIO NUEVO
 
         $fecha = date('Y-m-d');
-        $consultatmp = "INSERT INTO orden (tokenid,fecha,total,activo) VALUES('$tokenid','$fecha','0','0')";
+        $consultatmp = "INSERT INTO cxptmp (tokenid,fecha,total,activo) VALUES('$tokenid', '$fecha','0', '0')";
         $resultadotmp = $conexion->prepare($consultatmp);
         $resultadotmp->execute();
 
 
-        $consultatmp = "SELECT * FROM orden WHERE tokenid='$tokenid' and activo='0'  ORDER BY folio_ord DESC LIMIT 1";
+        $consultatmp = "SELECT * FROM cxptmp WHERE tokenid= '$tokenid' and activo='0' ORDER BY folio_cxp DESC LIMIT 1";
         $resultadotmp = $conexion->prepare($consultatmp);
         $resultadotmp->execute();
         $datatmp = $resultadotmp->fetchAll(PDO::FETCH_ASSOC);
@@ -75,32 +77,26 @@ if ($folio != "") {
 
     foreach ($datatmp as $dt) {
 
-        $folio =  $dt['folio_ord'];
+        $folio =  $dt['folio_cxp'];
         $opcion = 1;
         $fecha = $dt['fecha'];
         $id_prov = "";
         $proveedor = "";
-        $id_proy = "";
-        $proyecto = "";
-        $concepto = "";
+        $descripcion = "";
+        $subtotal =  $dt['subtotal'];
+        $iva =  $dt['iva'];
         $total =  $dt['total'];
+        $descuento =  $dt['descuento'];
+        $gtotal =  $dt['gtotal'];
+        $saldo =  $dt['saldo'];
+        $tipo =  $dt['tipo'];
     }
 }
 
-$consultac = "SELECT * FROM w_proveedor WHERE estado_prov=1 ORDER BY id_prov";
+$consultac = "SELECT * FROM proveedor WHERE estado_prov=1 ORDER BY id_prov";
 $resultadoc = $conexion->prepare($consultac);
 $resultadoc->execute();
 $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
-
-$consultacon = "SELECT * FROM w_proyecto WHERE estado_proy=1 ORDER BY id_proy";
-$resultadocon = $conexion->prepare($consultacon);
-$resultadocon->execute();
-$dataproyecto = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
-
-$cntades = "SELECT * FROM w_concepto where estado_concepto=1 order by id_concepto";
-$resdes = $conexion->prepare($cntades);
-$resdes->execute();
-$datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -207,7 +203,7 @@ $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
         <!-- Default box -->
         <div class="card">
             <div class="card-header bg-gradient-secondary text-light">
-                <h1 class="card-title mx-auto">ORDENES DE COMPRA</h1>
+                <h1 class="card-title mx-auto">CUENTA POR PAGAR</h1>
             </div>
 
             <div class="card-body">
@@ -234,7 +230,7 @@ $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
 
                             <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
 
-                                <h1 class="card-title ">DETALLE DE ORDEN DE COMPRA</h1>
+                                <h1 class="card-title ">DETALLE DE CUENTA POR PAGAR</h1>
                             </div>
 
                             <div class="card-body" style="margin:0px;padding:1px;">
@@ -283,36 +279,15 @@ $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-
-                                            <input type="hidden" class="form-control" name="id_proy" id="id_proy" value="<?php echo $id_proy; ?>">
-                                            <label for="proyecto" class="col-form-label">Proyecto:</label>
-
-                                            <div class="input-group input-group-sm">
-
-                                                <input type="text" class="form-control" name="proyecto" id="proyecto" value="<?php echo $proyecto; ?>" disabled>
-                                                <?php if ($opcion == 1) { ?>
-                                                    <span class="input-group-append">
-                                                        <button id="bproyecto" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
-                                                        <button id="bproyectoplus" type="button" class="btn btn-success "><i class="fas fa-plus-square"></i></button>
-                                                    </span>
-                                                <?php } ?>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-
+                                    
                                 </div>
 
                                 <div class=" row justify-content-sm-center">
                                     <div class="col-sm-8">
 
                                         <div class="form-group">
-                                            <label for="concepto" class="col-form-label">Concepto:</label>
-                                            <textarea rows="2" class="form-control" name="concepto" id="concepto"><?php echo $concepto; ?></textarea>
+                                            <label for="descripcion" class="col-form-label">Descripcion:</label>
+                                            <textarea rows="2" class="form-control" name="descripcion" id="descripcion"><?php echo $descripcion; ?></textarea>
                                         </div>
 
                                     </div>
@@ -536,8 +511,8 @@ $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
                                     ?>
                                         <tr>
                                             <td><?php echo $datc['id_prov'] ?></td>
-                                            <td><?php echo $datc['rfc_prov'] ?></td>
-                                            <td><?php echo $datc['razon_prov'] ?></td>
+                                            <td><?php echo $datc['rfc'] ?></td>
+                                            <td><?php echo $datc['nombre'] ?></td>
                                             <td></td>
                                         </tr>
                                     <?php
@@ -655,7 +630,7 @@ $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/ordencompra.js?v=<?php echo (rand()); ?>"></script>
+<script src="fjs/cxp.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

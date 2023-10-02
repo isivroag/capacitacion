@@ -1,5 +1,5 @@
 <?php
-$pagina = "empresa";
+$pagina = "cxp";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";

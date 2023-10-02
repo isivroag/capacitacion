@@ -37,8 +37,8 @@
 
         <?php if ($_SESSION['s_rol'] == '3' || $_SESSION['s_rol'] == '2' || $_SESSION['s_rol'] == '5') { ?>
 
-          <li class="nav-item  has-treeview <?php echo ($pagina == 'empresa' ||  $pagina == 'proyecto'  ||  $pagina == 'proveedor' ||  $pagina == 'concepto' ||  $pagina == 'inmueble') ? "menu-open" : ""; ?>">
-            <a href="#" class="nav-link  <?php echo ($pagina == 'empresa'  ||  $pagina == 'proyecto'  ||  $pagina == 'proveedor' ||  $pagina == 'concepto' ||  $pagina == 'inmueble') ? "active" : ""; ?>">
+          <li class="nav-item  has-treeview <?php echo ($pagina == 'items' ||  $pagina == 'proyecto'  ||  $pagina == 'proveedor' ||  $pagina == 'concepto' ||  $pagina == 'inmueble') ? "menu-open" : ""; ?>">
+            <a href="#" class="nav-link  <?php echo ($pagina == 'items'  ||  $pagina == 'proyecto'  ||  $pagina == 'proveedor' ||  $pagina == 'concepto' ||  $pagina == 'inmueble') ? "active" : ""; ?>">
               <i class="nav-icon fas fa-bars "></i>
               <p>
                 Catalogos
