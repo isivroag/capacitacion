@@ -18,7 +18,7 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO items (descripcion,tipo,precio,costo,existencia) 
+        $consulta = "INSERT INTO items (concepto,tipo,precio,costo,existencia) 
         VALUES('$descripcion','$tipo','$precio','$costo','$existencia') ";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
@@ -29,7 +29,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2: //modificación
-        $consulta = "UPDATE items SET descripcion='$descripcion',tipo='$tipo',precio='$precio', costo='$costo', existencia='$existencia' WHERE id_item='$id' ";		
+        $consulta = "UPDATE items SET concepto='$descripcion',tipo='$tipo',precio='$precio', costo='$costo', existencia='$existencia' WHERE id_item='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         

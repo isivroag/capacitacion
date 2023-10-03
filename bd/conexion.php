@@ -14,7 +14,7 @@
             define('servidor','localhost');
             define('bd_nombre','capacitacion');
             define('usuario','root');
-            define('password','tecniem');
+            define('password','');
 
             //USUARIO PARA ENTRAR admin CONTRASEÑA 12345
 

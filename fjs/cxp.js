@@ -5,6 +5,26 @@ $(document).ready(function () {
     var operacion = $('#opcion').val()
   
     var textopermiso = permisos()
+
+    document.getElementById('cantidaditem').onblur = function () {
+      this.value = parseFloat(this.value.replace(/,/g, ''))
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    }
+    document.getElementById('costoitem').onblur = function () {
+      this.value = parseFloat(this.value.replace(/,/g, ''))
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    }
+    document.getElementById('descuentoitem').onblur = function () {
+      this.value = parseFloat(this.value.replace(/,/g, ''))
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    }
+  
   
     function permisos() {
       if (operacion == 1) {
@@ -75,7 +95,7 @@ $(document).ready(function () {
     })
   
     //TABLA DETALLE DE desechables
-    tablaDetIndes = $('#tablaDetIndes').DataTable({
+    tablaDet = $('#tablaDet').DataTable({
       paging: false,
       ordering: false,
       info: false,
@@ -87,6 +107,8 @@ $(document).ready(function () {
           data: null,
           defaultContent: textopermiso,
         },
+        { className: 'hide_column', targets: [0] },
+        { className: 'hide_column', targets: [1] }
       ],
   
       language: {
@@ -126,13 +148,13 @@ $(document).ready(function () {
     })
   
     //TABLA DESECHABLE
-    tablaDes = $('#tablaDes').DataTable({
+    tablaItem = $('#tablaItem').DataTable({
       columnDefs: [
         {
           targets: -1,
           data: null,
           defaultContent:
-            "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelDesechable'><i class='fas fa-hand-pointer'></i></button></div></div>",
+            "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelItem'><i class='fas fa-hand-pointer'></i></button></div></div>",
         },
       ],
   
@@ -282,29 +304,49 @@ $(document).ready(function () {
     })
   
     //BOTON BUSCAR DESECHABLE
-    $(document).on('click', '#btnInsumodes', function () {
-      $('#modalDes').modal('show')
+    $(document).on('click', '#btnItem', function () {
+      $('#modalItem').modal('show')
     })
   
     // SELECCIONAR  DESECHABLE
-    $(document).on('click', '.btnSelDesechable', function () {
+    $(document).on('click', '.btnSelItem', function () {
       fila = $(this).closest('tr')
-      idconcepto = fila.find('td:eq(0)').text()
-      clave = fila.find('td:eq(1)').text()
-      concepto = fila.find('td:eq(2)').text()
-      unidad = fila.find('td:eq(3)').text()
+      iditem = fila.find('td:eq(0)').text()
+      concepto = fila.find('td:eq(1)').text()
+      costo = fila.find('td:eq(2)').text()
   
-      /*
-       */
-      $('#idconcepto').val(idconcepto)
-      $('#unidadm').val(unidad)
-      $('#nomconcepto').val(concepto)
-      $('#claveconcepto').val(clave)
-      $('#costou').prop('disabled', false)
-      $('#cantidadconcepto').prop('disabled', false)
+      $('#iditem').val(iditem)
+      $('#nomitem').val(concepto)
+      $('#costoitem').val(costo)
+      $('#descuentoitem').val(0)
+
+      $('#costoitem').prop('disabled', false)
+
+      $('#cantidaditem').prop('disabled', false)
+      $('#descuentoitem').prop('disabled', false)
+      
   
-      $('#modalDes').modal('hide')
+      $('#modalItem').modal('hide')
     })
+
+    $(document).on('change', '#cantidaditem,#descuentoitem,#costoitem ', function () {
+      cantidad= $('#cantidaditem').val().replace(/,/g, '')
+      costo= $('#costoitem').val().replace(/,/g, '')
+      descuento= $('#descuentoitem').val().replace(/,/g, '')
+      
+      calcular(cantidad,costo,descuento)
+    })
+    function calcular(cantidad,costo,descuento){
+      importe=cantidad*costo
+      gimporte=importe-descuento
+      $('#importeitem').val(  Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+        parseFloat(importe).toFixed(2),
+      ),)
+      $('#gimporteitem').val(  Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+        parseFloat(gimporte).toFixed(2),
+      ),)
+
+    }
   
     //BOTON LIMPIAR DESECHABLE
     $(document).on('click', '#btlimpiarides', function () {

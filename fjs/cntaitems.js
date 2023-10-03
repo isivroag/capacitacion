@@ -167,7 +167,7 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     id = data[0].id_item
-                    descripcion = data[0].descripcion
+                    descripcion = data[0].concepto
                     tipo = data[0].tipo
                     precio = data[0].precio
                     costo = data[0].costo

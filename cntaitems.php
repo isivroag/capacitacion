@@ -71,7 +71,7 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                         ?>
                                             <tr>
                                                 <td><?php echo $dat['id_item'] ?></td>
-                                                <td><?php echo $dat['descripcion'] ?></td>
+                                                <td><?php echo $dat['concepto'] ?></td>
                                                 <td><?php echo $dat['tipo'] ?></td>
                                                 <td><?php echo $dat['precio'] ?></td>
                                                 <td><?php echo $dat['costo'] ?></td>

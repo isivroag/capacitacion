@@ -98,6 +98,12 @@ $resultadoc = $conexion->prepare($consultac);
 $resultadoc->execute();
 $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
+
+$consultaitem = "SELECT * FROM items WHERE estado_item=1 and tipo=1 ORDER BY id_item";
+$resultadoitem = $conexion->prepare($consultaitem);
+$resultadoitem->execute();
+$dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -237,7 +243,7 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
                                 <div class="row justify-content-sm-center">
 
-                                    <div class="col-sm-2"></div>
+
 
                                     <div class="col-sm-2">
                                         <div class="form-group input-group-sm">
@@ -246,7 +252,7 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                             <input type="text" class="form-control" name="folior" id="folior" value="<?php echo   $folio; ?>">
                                         </div>
                                     </div>
-                                    <div class="col-sm-4"></div>
+
 
                                     <div class="col-sm-2">
                                         <div class="form-group input-group-sm">
@@ -254,10 +260,9 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                             <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha; ?>">
                                         </div>
                                     </div>
-                                    <div class="col-sm-2"></div>
 
 
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="tokenid" id="tokenid" value="<?php echo $tokenid; ?>">
                                             <input type="hidden" class="form-control" name="opcion" id="opcion" value="<?php echo $opcion; ?>">
@@ -276,14 +281,12 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                             </div>
                                         </div>
                                     </div>
-
-
-
-                                    
                                 </div>
 
+
+
                                 <div class=" row justify-content-sm-center">
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-10">
 
                                         <div class="form-group">
                                             <label for="descripcion" class="col-form-label">Descripcion:</label>
@@ -312,58 +315,74 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                             </div>
 
                                             <div class="card-body" style="margin:0px;padding:3px;">
-
                                                 <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
-
                                                     <div class="card-header " style="margin:0px;padding:8px;">
-
                                                         <button type="button" class="btn bg-gradient-secondary btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                                             Agregar Concepto <i class="fas fa-plus"></i>
                                                         </button>
-
                                                     </div>
 
                                                     <div class="card-body " style="margin:0px;padding:2px 5px;">
                                                         <div class="row justify-content-sm-center">
 
-                                                            <div class="col-lg-5">
+                                                            <div class="col-lg-11">
                                                                 <div class="input-group input-group-sm">
 
-                                                                    <input type="hidden" class="form-control" name="idconcepto" id="idconcepto">
-
-                                                                    <input type="hidden" class="form-control" name="claveconcepto" id="claveconcepto">
+                                                                    <input type="hidden" class="form-control" name="iditem" id="iditem">
 
 
-                                                                    <label for="nomconcepto" class="col-form-label">Concepto:</label>
+
+                                                                    <label for="nomitem" class="col-form-label">Concepto:</label>
                                                                     <div class="input-group input-group-sm">
-                                                                        <input type="text" class="form-control" name="nomconcepto" id="nomconcepto" disabled>
+                                                                        <input type="text" class="form-control" name="nomitem" id="nomitem" disabled>
                                                                         <span class="input-group-append">
-                                                                            <button id="btnInsumodes" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+                                                                            <button id="btnItem" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
                                                                         </span>
                                                                     </div>
 
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-1">
-                                                            <label for="unidadm" class="col-form-label">Unidad:</label>
+
+                                                        </div>
+                                                        <div class="row justify-content-sm-center">
+
+                                                            <div class="col-lg-2">
+                                                                <label for="costoitem" class="col-form-label">Costo:</label>
                                                                 <div class="input-group input-group-sm">
-                                                                    <input type="text" class="form-control" name="unidadm" id="unidadm" disabled>
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">
+                                                                            <i class="fas fa-dollar-sign"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                    <input type="text" class="form-control text-right" name="costoitem" id="costoitem" disabled onkeypress="return filterFloat(event,this);">
                                                                 </div>
                                                             </div>
 
-
-
                                                             <div class="col-lg-2">
-                                                                <label for="costou" class="col-form-label">Precio:</label>
+                                                                <label for="cantidaditem" class="col-form-label">Cantidad:</label>
                                                                 <div class="input-group input-group-sm">
-                                                                    <input type="text" class="form-control" name="costou" id="costou" disabled>
+                                                                    <input type="text" class="form-control text-right" name="cantidaditem" id="cantidaditem" disabled onkeypress="return filterFloat(event,this);">
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-lg-2">
-                                                                <label for="cantidadconcepto" class="col-form-label">Cantidad:</label>
+                                                                <label for="importeitem" class="col-form-label">Importe:</label>
                                                                 <div class="input-group input-group-sm">
-                                                                    <input type="text" class="form-control" name="cantidadconcepto" id="cantidadconcepto" disabled>
+                                                                    <input type="text" class="form-control text-right" name="importeitem" id="importeitem" disabled>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-2">
+                                                                <label for="descuentoitem" class="col-form-label">Descuento:</label>
+                                                                <div class="input-group input-group-sm">
+                                                                    <input type="text" class="form-control text-right" name="descuentoitem" id="descuentoitem" disabled onkeypress="return filterFloat(event,this);">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-2">
+                                                                <label for="gimporteitem" class="col-form-label">G-Importe:</label>
+                                                                <div class="input-group input-group-sm">
+                                                                    <input type="text" class="form-control text-right" name="gimporteitem" id="gimporteitem" disabled>
                                                                 </div>
                                                             </div>
 
@@ -371,10 +390,10 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                                                 <label for="" class="col-form-label">Acción:</label>
                                                                 <div class="input-group-append input-group-sm justify-content-center d-flex">
                                                                     <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
-                                                                        <button type="button" id="btnagregarides" name="btnagregarides" class="btn btn-sm bg-gradient-orange" value="btnGuardari"><i class="fas fa-plus-square"></i></button>
+                                                                        <button type="button" id="btnAgregar" name="btnAgregar" class="btn btn-sm bg-gradient-success" value="btnGuardari"><i class="fas fa-plus-square"></i></button>
                                                                     </span>
                                                                     <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
-                                                                        <button type="button" id="btlimpiarides" name="btlimpiarides" class="btn btn-sm bg-gradient-secondary" value="btnlimpiari"><i class="fas fa-brush"></i></button>
+                                                                        <button type="button" id="btnLimpiar" name="btnLimpiar" class="btn btn-sm bg-gradient-purple" value="btnlimpiari"><i class="fas fa-brush"></i></button>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -390,35 +409,38 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
                                                     <div class="col-lg-12 mx-auto">
                                                         <div class="table-responsive" style="padding:5px;">
-                                                            <table name="tablaDetIndes" id="tablaDetIndes" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
+                                                            <table name="tablaDet" id="tablaDet" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
                                                                 <thead class="text-center bg-gradient-secondary">
                                                                     <tr>
-                                                                        <th>Id</th>
-                                                                        <th>Clave</th>
+                                                                        <th>Id Reg</th>
+                                                                        <th>Id Prod</th>
                                                                         <th>Concepto </th>
                                                                         <th>Cantidad</th>
-                                                                        <th>Unidad</th>
                                                                         <th>Precio U.</th>
                                                                         <th>Importe</th>
+                                                                        <th>Descuento</th>
+                                                                        <th>G-Importe</th>
                                                                         <th>Acciones</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $consultadeto = "SELECT * FROM orden_detalle where folio_ord='$folio' and estado_reg=1 order by id_reg";
-                                                                    $resultadodeto = $conexion->prepare($consultadeto);
-                                                                    $resultadodeto->execute();
-                                                                    $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
-                                                                    foreach ($datadeto as $rowdet) {
+                                                                    $consulta = "SELECT * FROM vcxp_detalletmp where folio_cxp='$folio' and estado_reg=1 order by id_reg";
+                                                                    $resultado = $conexion->prepare($consulta);
+                                                                    $resultado->execute();
+                                                                    $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                                                                    foreach ($data as $rowdet) {
                                                                     ?>
                                                                         <tr>
                                                                             <td><?php echo $rowdet['id_reg'] ?></td>
-                                                                            <td><?php echo $rowdet['clave'] ?></td>
+                                                                            <td><?php echo $rowdet['id_item'] ?></td>
                                                                             <td><?php echo $rowdet['concepto'] ?></td>
-                                                                            <td class="text-right"><?php echo number_format($rowdet['cantidad'],2) ?></td>
-                                                                            <td ><?php echo $rowdet['unidad'] ?></td>
-                                                                            <td class="text-right"><?php echo number_format($rowdet['precio'],2) ?></td>
-                                                                            <td class="text-right"><?php echo number_format($rowdet['monto'],2) ?></td>
+                                                                            <td class="text-right"><?php echo number_format($rowdet['cantidad'], 2) ?></td>
+                                                                            <td class="text-right"><?php echo number_format($rowdet['precio'], 2) ?></td>
+                                                                            <td class="text-right"><?php echo number_format($rowdet['importe'], 2) ?></td>
+                                                                            <td class="text-right"><?php echo number_format($rowdet['descuento'], 2) ?></td>
+                                                                            <td class="text-right"><?php echo number_format($rowdet['gimporte'], 2) ?></td>
+
                                                                             <td></td>
                                                                         </tr>
                                                                     <?php
@@ -446,27 +468,69 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
                                 <div class="row justify-content-sm-center" style="padding:5px 0px;margin-bottom:5px">
 
-                                    <div class="col-sm-8 ">
-
-
-                                    </div>
-
-                                    
-
                                     <div class="col-sm-2 ">
-                                        <label for="total" class="col-form-label ">Total:</label>
-
+                                        <label for="subtotal" class="col-form-label ">Subtotal:</label>
                                         <div class="input-group input-group-sm">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                     <i class="fas fa-dollar-sign"></i>
                                                 </span>
                                             </div>
-
-                                            <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo number_format($total,2); ?>" onkeypress="return filterFloat(event,this);" disabled>
+                                            <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo number_format($subtotal, 2); ?>" onkeypress="return filterFloat(event,this);" disabled>
                                         </div>
-
                                     </div>
+
+                                    <div class="col-sm-2 ">
+                                        <label for="iva" class="col-form-label ">IVA:</label>
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-dollar-sign"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo number_format($iva, 2); ?>" onkeypress="return filterFloat(event,this);" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2 ">
+                                        <label for="total" class="col-form-label ">Total:</label>
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-dollar-sign"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo number_format($total, 2); ?>" onkeypress="return filterFloat(event,this);" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2 ">
+                                        <label for="descuento" class="col-form-label ">Descuento:</label>
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-dollar-sign"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo number_format($descuento, 2); ?>" onkeypress="return filterFloat(event,this);" disabled>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-sm-2 ">
+                                        <label for="gtotal" class="col-form-label ">G Total:</label>
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-dollar-sign"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control text-right" name="gtotal" id="gtotal" value="<?php echo number_format($gtotal, 2); ?>" onkeypress="return filterFloat(event,this);" disabled>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -528,58 +592,14 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
     </section>
     <!-- TERMINA TABLA PROVEEDOR-->
 
-    <!-- INICIA TABLA PROYECTO -->
-    <section>
-        <div class="container">
 
-            <!-- Default box -->
-            <div class="modal fade" id="modalProyecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-md" role="document">
-                    <div class="modal-content w-auto">
-                        <div class="modal-header bg-gradient-secondary">
-                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR PROYECTO</h5>
-
-                        </div>
-                        <br>
-                        <div class="table-hover table-responsive w-auto" style="padding:15px">
-                            <table name="tablaCon" id="tablaCon" class="table table-sm text-nowrap table-striped table-bordered table-condensed" style="width:100%">
-                                <thead class="text-center bg-gradient-primary">
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Clave</th>
-                                        <th>Proyecto</th>
-                                        <th>Seleccionar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    foreach ($dataproyecto as $datc) {
-                                    ?>
-                                        <tr>
-                                            <td><?php echo $datc['id_proy'] ?></td>
-                                            <td><?php echo $datc['clave_proy'] ?></td>
-                                            <td><?php echo $datc['nom_proy'] ?></td>
-                                            <td></td>
-                                        </tr>
-                                    <?php
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- TERMINA TABLA PROYECTO -->
 
     <!-- TABLA CONCEPTOS -->
     <section>
         <div class="container">
 
             <!-- Default box -->
-            <div class="modal fade" id="modalDes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="modalItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl modal-md" role="document">
                     <div class="modal-content w-auto">
                         <div class="modal-header bg-gradient-secondary">
@@ -588,27 +608,25 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <br>
                         <div class="table-hover table-responsive w-auto" style="padding:15px">
-                            <table name="tablaDes" id="tablaDes" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                            <table name="tablaItem" id="tablaItem" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
                                 <thead class="text-center bg-gradient-primary">
                                     <tr>
 
                                         <th>Id</th>
-                                        <th>Clave</th>
                                         <th>Concepto</th>
-                                        <th>Unidad</th>
+                                        <th>Costo</th>
                                         <th>Seleccionar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    foreach ($datades as $datd) {
+                                    foreach ($dataitem as $datd) {
                                     ?>
                                         <tr>
 
-                                            <td><?php echo $datd['id_concepto'] ?></td>
-                                            <td><?php echo $datd['clave_concepto'] ?></td>
-                                            <td><?php echo $datd['nom_concepto'] ?></td>
-                                            <td><?php echo $datd['unidad'] ?></td>
+                                            <td><?php echo $datd['id_item'] ?></td>
+                                            <td><?php echo $datd['concepto'] ?></td>
+                                            <td><?php echo $datd['costo'] ?></td>
                                             <td></td>
                                         </tr>
                                     <?php
