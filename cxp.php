@@ -368,6 +368,11 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                             <div class="col-lg-2">
                                                                 <label for="importeitem" class="col-form-label">Importe:</label>
                                                                 <div class="input-group input-group-sm">
+                                                                <div class="input-group-prepend">
+                                                                        <span class="input-group-text">
+                                                                            <i class="fas fa-dollar-sign"></i>
+                                                                        </span>
+                                                                    </div>
                                                                     <input type="text" class="form-control text-right" name="importeitem" id="importeitem" disabled>
                                                                 </div>
                                                             </div>
@@ -375,6 +380,11 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                             <div class="col-lg-2">
                                                                 <label for="descuentoitem" class="col-form-label">Descuento:</label>
                                                                 <div class="input-group input-group-sm">
+                                                                <div class="input-group-prepend">
+                                                                        <span class="input-group-text">
+                                                                            <i class="fas fa-dollar-sign"></i>
+                                                                        </span>
+                                                                    </div>
                                                                     <input type="text" class="form-control text-right" name="descuentoitem" id="descuentoitem" disabled onkeypress="return filterFloat(event,this);">
                                                                 </div>
                                                             </div>
@@ -382,6 +392,11 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                             <div class="col-lg-2">
                                                                 <label for="gimporteitem" class="col-form-label">G-Importe:</label>
                                                                 <div class="input-group input-group-sm">
+                                                                <div class="input-group-prepend">
+                                                                        <span class="input-group-text">
+                                                                            <i class="fas fa-dollar-sign"></i>
+                                                                        </span>
+                                                                    </div>
                                                                     <input type="text" class="form-control text-right" name="gimporteitem" id="gimporteitem" disabled>
                                                                 </div>
                                                             </div>
