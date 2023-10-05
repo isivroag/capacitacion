@@ -349,58 +349,57 @@ $(document).ready(function () {
     }
   
     //BOTON LIMPIAR DESECHABLE
-    $(document).on('click', '#btlimpiarides', function () {
+    $(document).on('click', '#btnLimpiar', function () {
       limpiardes()
     })
   
     //AGREGAR DESECHABLE
-    $(document).on('click', '#btnagregarides', function () {
-      folio = $('#folio').val()
-      idcon = $('#idconcepto').val()
-      cantidad = $('#cantidadconcepto').val().replace(/,/g, '')
-      concepto = $('#nomconcepto').val()
-      unidad = $('#unidadm').val()
-      costo = $('#costou').val().replace(/,/g, '')
-      clave = $('#claveconcepto').val()
-      subtotal = parseFloat(costo) * parseFloat(cantidad)
-      usuario = $('#nameuser').val()
+    $(document).on('click', '#btnAgregar', function () {
+      folio = $('#folior').val()
+      iditem = $('#iditem').val()
+      cantidad = $('#cantidaditem').val().replace(/,/g, '')
+      costo = $('#costoitem').val().replace(/,/g, '')
+      importe = $('#importeitem').val().replace(/,/g, '')
+      descuento = $('#descuentoitem').val().replace(/,/g, '')
+      gimporte = $('#gimporteitem').val().replace(/,/g, '')
+        
       opcion = 1
   
       if (
         folio.length != 0 &&
-        idcon.length != 0 &&
+        iditem.length != 0 &&
         cantidad.length != 0 &&
-        costo.length != 0
+        costo.length != 0 &&
+        descuento.lenght != 0
       ) {
         $.ajax({
           type: 'POST',
-          url: 'bd/detalleorden.php',
+          url: 'bd/detallecxp.php',
           dataType: 'json',
           //async: false,
           data: {
             folio: folio,
-            idcon: idcon,
+            iditem: iditem,
             cantidad: cantidad,
-            concepto: concepto,
-            opcion: opcion,
-            usuario: usuario,
-            subtotal,
-            subtotal,
-            unidad: unidad,
-            clave: clave,
             costo: costo,
+            importe: importe,
+            descuento: descuento,
+            gimporte: gimporte,  
+            opcion: opcion,
+
           },
           success: function (data) {
             id_reg = data[0].id_reg
-            clave = data[0].clave
+            iditem = data[0].id_item
             concepto = data[0].concepto
             cantidad = data[0].cantidad
-            unidad = data[0].unidad
-            precio = data[0].precio
-            subtotal = data[0].monto
+            costo = data[0].costo
+            importe = data[0].importe
+            descuento = data[0].descuento
+            gimporte = data[0].gimporte
   
-            tablaDetIndes.row
-              .add([id_reg, clave, concepto, cantidad, unidad, precio, subtotal])
+            tablaDet.row
+              .add([id_reg, iditem, concepto, cantidad, costo, importe, descuento, gimporte])
               .draw()
             tipo = 4
             $.ajax({
@@ -410,12 +409,12 @@ $(document).ready(function () {
               async: false,
               data: { folio: folio },
               success: function (data) {
-                total = data
+                subtotal = data
   
-                var myNumeral = numeral(total)
+                var myNumeral = numeral(subtotal)
                 var valor = myNumeral.format('0,0.00')
                 
-                $('#total').val(valor)
+                $('#subtotal').val(valor)
               },
             })
             limpiardes()
@@ -466,13 +465,18 @@ $(document).ready(function () {
     }
   
     function limpiardes() {
-      $('#idconcepto').val('')
-      $('#nomconcepto').val('')
-      $('#claveconcepto').val('')
-      $('#cantidadconcepto').val('')
-      $('#costou').val('')
-      $('#costou').prop('disabled', true)
-      $('#cantidadconcepto').prop('disabled', true)
+      $('#iditem').val('')
+      $('#cantidaditem').val('')
+      $('#nomitem').val('')
+      $('#costoitem').val('')
+      $('#importeitem').val('')
+      $('#descuentoitem').val('')
+      $('#gimporteitem').val('')
+
+      $('#costoitem').prop('disabled', true)
+      $('#cantidaditem').prop('disabled', true)
+      $('#descuentoitem').prop('disabled', true)
+      
     }
   
     function round(value, decimals) {
@@ -483,20 +487,20 @@ $(document).ready(function () {
     $(document).on('click', '.btnBorrar', function (e) {
       e.preventDefault()
       fila = $(this)
-      folio = $('#folio').val()
+      folio = $('#folior').val()
       id = parseInt($(this).closest('tr').find('td:eq(0)').text())
-      usuario = $('#nameuser').val()
+     
   
       tipooperacion = 2
   
       $.ajax({
         type: 'POST',
-        url: 'bd/detalleorden.php',
+        url: 'bd/detallecxp.php',
         dataType: 'json',
         data: { id: id, opcion: tipooperacion, folio: folio },
         success: function (data) {
           if (data == 1) {
-            tablaDetIndes.row(fila.parents('tr')).remove().draw()
+            tablaDet.row(fila.parents('tr')).remove().draw()
             tipo = 4
             $.ajax({
               url: 'bd/sumadetalle.php',
@@ -505,12 +509,12 @@ $(document).ready(function () {
               async: false,
               data: { folio: folio, tipo: tipo },
               success: function (data) {
-                 total = data
+                 subtotal = data
   
-                var myNumeral = numeral(total)
+                var myNumeral = numeral(subtotal)
                 var valor = myNumeral.format('0,0.00')
               
-                $('#total').val(valor)
+                $('#subtotal').val(valor)
                
               },
             })

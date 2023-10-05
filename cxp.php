@@ -451,7 +451,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                                             <td><?php echo $rowdet['id_item'] ?></td>
                                                                             <td><?php echo $rowdet['concepto'] ?></td>
                                                                             <td class="text-right"><?php echo number_format($rowdet['cantidad'], 2) ?></td>
-                                                                            <td class="text-right"><?php echo number_format($rowdet['precio'], 2) ?></td>
+                                                                            <td class="text-right"><?php echo number_format($rowdet['costo'], 2) ?></td>
                                                                             <td class="text-right"><?php echo number_format($rowdet['importe'], 2) ?></td>
                                                                             <td class="text-right"><?php echo number_format($rowdet['descuento'], 2) ?></td>
                                                                             <td class="text-right"><?php echo number_format($rowdet['gimporte'], 2) ?></td>
