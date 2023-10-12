@@ -61,7 +61,7 @@ switch ($opcion) {
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-            $total=0;
+            $subtotal=0;
             foreach ($data as $row) {
                 $subtotal+=$row['gimporte'];
             }

@@ -10,14 +10,18 @@ $tokenid = (isset($_POST['tokenid'])) ? $_POST['tokenid'] : '';
 $fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
 
 $id_prov = (isset($_POST['id_prov'])) ? $_POST['id_prov'] : '';
-$proveedor = (isset($_POST['proveedor'])) ? $_POST['proveedor'] : '';
-$id_proy = (isset($_POST['id_proy'])) ? $_POST['id_proy'] : '';
-$proyecto = (isset($_POST['proyecto'])) ? $_POST['proyecto'] : '';
-$concepto = (isset($_POST['concepto'])) ? $_POST['concepto'] : '';
+// $proveedor = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
+$descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : '';
+// $id_item = (isset($_POST['id_item'])) ? $_POST['id_item'] : '';
+// $concepto = (isset($_POST['concepto'])) ? $_POST['concepto'] : '';
 
+// $importe = (isset($_POST['importe'])) ? $_POST['importe'] : '';
+$subtotal = (isset($_POST['subtotal'])) ? $_POST['subtotal'] : '';
+$iva = (isset($_POST['iva'])) ? $_POST['iva'] : '';
 $total = (isset($_POST['total'])) ? $_POST['total'] : '';
-$saldo = (isset($_POST['saldo'])) ? $_POST['saldo'] : '';
-
+$descuento = (isset($_POST['descuento'])) ? $_POST['descuento'] : '';
+$gtotal = (isset($_POST['gtotal'])) ? $_POST['gtotal'] : '';
+//$saldo = (isset($_POST['saldo'])) ? $_POST['saldo'] : '';
 
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 $res = 0;
@@ -25,8 +29,8 @@ $res = 0;
 
 switch ($opcion) {
     case 1: //alta
-        $consulta = "UPDATE orden set fecha='$fecha',id_prov='$id_prov',nom_prov='$proveedor',id_proyecto='$id_proy',nom_proy='$proyecto',concepto='$concepto',
-        total='$total',activo='1' WHERE folio_ord='$folio'";
+        $consulta = "UPDATE cxptmp set fecha='$fecha',id_prov='$id_prov',descripcion='$descripcion',
+        subtotal='$subtotal',iva='$iva',total='$total',descuento='$descuento',gtotal='$gtotal', activo='1' WHERE folio_cxp='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $res = 1;
