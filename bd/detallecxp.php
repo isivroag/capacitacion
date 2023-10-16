@@ -5,78 +5,81 @@ $conexion = $objeto->connect();
 
 
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
-
-
 $iditem= (isset($_POST['iditem'])) ? $_POST['iditem'] : '';
 $cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : '';
-$precio = (isset($_POST['precio'])) ? $_POST['precio'] : '';
-$opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
+$costo = (isset($_POST['costo'])) ? $_POST['costo'] : '';
 $importe = (isset($_POST['importe'])) ? $_POST['importe'] : '';
-$id= (isset($_POST['id'])) ? $_POST['id'] : '';
 $descuento = (isset($_POST['descuento'])) ? $_POST['descuento'] : '';
 $gimporte = (isset($_POST['gimporte'])) ? $_POST['gimporte'] : '';
 
+$opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
+
+
+
+$id= (isset($_POST['id'])) ? $_POST['id'] : '';
+
+
+
 switch ($opcion) {
     case 1: //alta
-        $consulta = "INSERT INTO cxp_detalle (folio_cxp,id_item,cantidad,precio,importe,descuento,gimporte) 
-                    values ('$folio','$iditem','$cantidad','$precio','$importe','$descuento','$gimporte')";
+        $consulta = "INSERT INTO cxp_detalletmp 
+        (folio_cxp,id_item,cantidad,costo,importe,descuento,gimporte) 
+        values 
+        ('$folio','$iditem','$cantidad','$costo','$importe','$descuento','$gimporte')";
         
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
 
-        $consulta = "SELECT * from cxp_detalle where folio_cxp='$folio'";
-        
+        $consulta = "SELECT * from cxp_detalletmp where folio_cxp='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-        $total=0;
+
+        $subtotal=0;
         foreach ($data as $row) {
-            $total+=$row['importe'];
+            $subtotal+=$row['gimporte'];
         }
 
-        $consulta = "UPDATE cxp set total='$total' where folio_cxp='$folio'";
-        
+        $consulta = "UPDATE cxptmp set subtotal='$subtotal' where folio_cxp='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
 
-        $consulta = "SELECT * from detalle_cxp where folio_cxp='$folio' and id_item='$iditem'";
-        
+        $consulta = "SELECT * from vcxp_detalletmp where folio_cxp='$folio' and id_item='$iditem'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
 
 
-        break;
-        case 2:
-            $consulta = "DELETE FROM detalle_cxp where id_reg='$id'";
+    break;
+
+    case 2:
+            $consulta = "DELETE FROM cxp_detalletmp where id_reg='$id'";
         
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
     
-            $consulta = "SELECT * from detalle_cxp where folio_cxp='$folio'";
+            $consulta = "SELECT * from cxp_detalletmp where folio_cxp='$folio'";
         
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-            $total=0;
+            $subtotal=0;
             foreach ($data as $row) {
-                $total+=$row['ímporte'];
+                $subtotal+=$row['gimporte'];
             }
     
-            $consulta = "UPDATE cxp set total='$total' where folio_cxp='$folio'";
+            $consulta = "UPDATE cxptmp set subtotal='$subtotal' where folio_cxp='$folio'";
             
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
 
             $data=1;
-        break;
+    break;
 
 }
 
 print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
 $conexion = NULL;
-
-?>

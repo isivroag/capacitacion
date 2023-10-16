@@ -336,6 +336,8 @@ $(document).ready(function () {
       
       calcular(cantidad,costo,descuento)
     })
+
+
     function calcular(cantidad,costo,descuento){
       importe=cantidad*costo
       gimporte=importe-descuento
@@ -347,60 +349,62 @@ $(document).ready(function () {
       ),)
 
     }
+
+
   
     //BOTON LIMPIAR DESECHABLE
-    $(document).on('click', '#btlimpiarides', function () {
+    $(document).on('click', '#btnLimpiar', function () {
       limpiardes()
     })
   
     //AGREGAR DESECHABLE
-    $(document).on('click', '#btnagregarides', function () {
-      folio = $('#folio').val()
-      idcon = $('#idconcepto').val()
-      cantidad = $('#cantidadconcepto').val().replace(/,/g, '')
-      concepto = $('#nomconcepto').val()
-      unidad = $('#unidadm').val()
-      costo = $('#costou').val().replace(/,/g, '')
-      clave = $('#claveconcepto').val()
-      subtotal = parseFloat(costo) * parseFloat(cantidad)
-      usuario = $('#nameuser').val()
+    $(document).on('click', '#btnAgregar', function () {
+      folio = $('#folior').val()
+      iditem = $('#iditem').val()
+      cantidad = $('#cantidaditem').val().replace(/,/g, '')
+      costo = $('#costoitem').val().replace(/,/g, '')
+
+      importe = $('#importeitem').val().replace(/,/g, '')
+      descuento = $('#descuentoitem').val().replace(/,/g, '')
+      gimporte = $('#gimporteitem').val().replace(/,/g, '')
+     
+     
+     
       opcion = 1
   
       if (
         folio.length != 0 &&
-        idcon.length != 0 &&
+        iditem.length != 0 &&
         cantidad.length != 0 &&
-        costo.length != 0
+        costo.length != 0 &&
+        descuento.length !=0
       ) {
         $.ajax({
           type: 'POST',
-          url: 'bd/detalleorden.php',
+          url: 'bd/detallecxp.php',
           dataType: 'json',
           //async: false,
           data: {
             folio: folio,
-            idcon: idcon,
+            iditem: iditem,
             cantidad: cantidad,
-            concepto: concepto,
-            opcion: opcion,
-            usuario: usuario,
-            subtotal,
-            subtotal,
-            unidad: unidad,
-            clave: clave,
             costo: costo,
-          },
+            importe: importe,
+            descuento: descuento,
+            gimporte: gimporte,
+            opcion: opcion,
+            },
           success: function (data) {
             id_reg = data[0].id_reg
-            clave = data[0].clave
+            iditem = data[0].id_item
             concepto = data[0].concepto
             cantidad = data[0].cantidad
-            unidad = data[0].unidad
-            precio = data[0].precio
-            subtotal = data[0].monto
-  
-            tablaDetIndes.row
-              .add([id_reg, clave, concepto, cantidad, unidad, precio, subtotal])
+            costo = data[0].costo
+            importe = data[0].importe
+            descuento = data[0].descuento  
+            gimporte = data[0].gimporte  
+            tablaDet.row
+              .add([id_reg,iditem,  concepto, cantidad, costo, importe,descuento,gimporte])
               .draw()
             tipo = 4
             $.ajax({
@@ -410,12 +414,11 @@ $(document).ready(function () {
               async: false,
               data: { folio: folio },
               success: function (data) {
-                total = data
-  
-                var myNumeral = numeral(total)
+                subtotal = data
+                var myNumeral = numeral(subtotal)
                 var valor = myNumeral.format('0,0.00')
-                
-                $('#total').val(valor)
+                $('#subtotal').val(valor)
+                calcular2(subtotal)
               },
             })
             limpiardes()
@@ -466,14 +469,23 @@ $(document).ready(function () {
     }
   
     function limpiardes() {
-      $('#idconcepto').val('')
-      $('#nomconcepto').val('')
-      $('#claveconcepto').val('')
-      $('#cantidadconcepto').val('')
-      $('#costou').val('')
-      $('#costou').prop('disabled', true)
-      $('#cantidadconcepto').prop('disabled', true)
+
+      $('#iditem').val('')
+      $('#nomitem').val('')
+      $('#costoitem').val('')
+      $('#cantidaditem').val('')
+      $('#importeitem').val('')
+      $('#descuentoitem').val('')
+      $('#gimporteitem').val('')
+
+      $('#costoitem').prop('disabled', true)
+      $('#cantidaditem').prop('disabled', true)
+      $('#descuentoitem').prop('disabled', true)
+
+      
     }
+
+
   
     function round(value, decimals) {
       return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
@@ -483,20 +495,20 @@ $(document).ready(function () {
     $(document).on('click', '.btnBorrar', function (e) {
       e.preventDefault()
       fila = $(this)
-      folio = $('#folio').val()
+      folio = $('#folior').val()
       id = parseInt($(this).closest('tr').find('td:eq(0)').text())
-      usuario = $('#nameuser').val()
+  
   
       tipooperacion = 2
   
       $.ajax({
         type: 'POST',
-        url: 'bd/detalleorden.php',
+        url: 'bd/detallecxp.php',
         dataType: 'json',
         data: { id: id, opcion: tipooperacion, folio: folio },
         success: function (data) {
           if (data == 1) {
-            tablaDetIndes.row(fila.parents('tr')).remove().draw()
+            tablaDet.row(fila.parents('tr')).remove().draw()
             tipo = 4
             $.ajax({
               url: 'bd/sumadetalle.php',
@@ -505,12 +517,13 @@ $(document).ready(function () {
               async: false,
               data: { folio: folio, tipo: tipo },
               success: function (data) {
-                 total = data
+                 subtotal = data
   
-                var myNumeral = numeral(total)
+                var myNumeral = numeral(subtotal)
                 var valor = myNumeral.format('0,0.00')
               
-                $('#total').val(valor)
+                $('#subtotal').val(valor)
+                calcular2(subtotal)
                
               },
             })
@@ -520,6 +533,44 @@ $(document).ready(function () {
         },
       })
     })
+    
+
+    function calcular2(subtotal){
+
+      tipo=$('#tipo').val()
+      if (tipo==1){
+        total=parseFloat(subtotal)*1.16
+      iva=total-subtotal
+      }
+      else{
+        total=subtotal
+        iva=0
+      }
+      
+      $('#total').val(  Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+        parseFloat(total).toFixed(2),
+      ),)
+      $('#iva').val(  Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+        parseFloat(iva).toFixed(2),
+      ),)
+
+     descuento=$('#descuento').val().replace(/,/g, '')
+
+     gtotal=total-descuento
+
+     $('#gtotal').val(  Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+      parseFloat(gtotal).toFixed(2),
+    ),)
+
+    }
+
+    $(document).on('change', '#descuento, #tipo', function () {
+      subtotal= $('#subtotal').val().replace(/,/g, '')
+      
+      
+      calcular2(subtotal)
+    })
+
   
     function mensajeerror() {
       swal.fire({

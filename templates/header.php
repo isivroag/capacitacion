@@ -27,13 +27,13 @@ if ($_SESSION['s_usuario'] === null) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="plugins/fontawesome-pro/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="css/adminlte.css">
   <link rel="stylesheet" href="css/estilo.css?v=<?php echo (rand()); ?>">
-  <script src="https://kit.fontawesome.com/f1fe472df3.js" crossorigin="anonymous"></script>
+  <!--<script src="https://kit.fontawesome.com/f1fe472df3.js" crossorigin="anonymous"></script>-->
 
 
   <link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">

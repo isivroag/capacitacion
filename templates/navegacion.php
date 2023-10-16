@@ -85,7 +85,7 @@
             <li class="nav-item">
               <a href="cntacxp.php" class="nav-link <?php echo ($pagina == 'cxp') ? "active seleccionado" : ""; ?>  ">
 
-                <i class="fa-regular fa-pen-to-square text-green  nav-icon"></i>
+                <i class="fa-duotone fa-pencil-mechanical fa-beat text-white  nav-icon"></i>
                 <p>Compra</p>
               </a>
             </li>

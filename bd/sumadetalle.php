@@ -12,18 +12,18 @@ $total = 0;
 
 
 
-        $consulta = "SELECT monto from orden_detalle 
-                    where folio_ord='$folio'";
+        $consulta = "SELECT gimporte from cxp_detalletmp
+                    where folio_cxp='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-        $total=0;
+        $subtotal=0;
         foreach ($data as $row) {
-            $total+=$row['monto'];
+            $subtotal+=$row['gimporte'];
         }
 
 
  
 
-print json_encode($total, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
+print json_encode($subtotal, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
 $conexion = NULL;

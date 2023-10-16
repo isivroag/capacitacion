@@ -11,8 +11,10 @@ include_once 'bd/conexion.php';
 
 $folio = (isset($_GET['folio'])) ? $_GET['folio'] : '';
 
+
 $objeto = new conn();
 $conexion = $objeto->connect();
+
 $tokenid = md5($_SESSION['s_usuario']);
 
 if ($folio != "") {
@@ -60,7 +62,7 @@ if ($folio != "") {
         // INSERTAR FOLIO NUEVO
 
         $fecha = date('Y-m-d');
-        $consultatmp = "INSERT INTO cxptmp (tokenid,fecha,total,activo) VALUES('$tokenid', '$fecha','0', '0')";
+        $consultatmp = "INSERT INTO cxptmp (tokenid,fecha,total,activo) VALUES ('$tokenid', '$fecha','0', '0')";
         $resultadotmp = $conexion->prepare($consultatmp);
         $resultadotmp->execute();
 
@@ -245,7 +247,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-1">
                                         <div class="form-group input-group-sm">
                                             <label for="folior" class="col-form-label">Folio:</label>
                                             <input type="hidden" class="form-control" name="folio" id="folio" value="<?php echo $folio; ?>">
@@ -254,13 +256,22 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                     </div>
 
 
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-1">
                                         <div class="form-group input-group-sm">
                                             <label for="fecha" class="col-form-label">Fecha:</label>
                                             <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha; ?>">
                                         </div>
                                     </div>
 
+                                    <div class="col-sm-2">
+                                        <div class="form-group input-group-sm">
+                                            <label for="tipo" class="col-form-label">Fecha:</label>
+                                            <select class="form-control" id="tipo" name="tipo">
+                                                <option value="1">FACTURADO</option>
+                                                <option value="0">NO FACTURADO</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
                                     <div class="col-sm-6">
                                         <div class="form-group">
@@ -368,7 +379,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                             <div class="col-lg-2">
                                                                 <label for="importeitem" class="col-form-label">Importe:</label>
                                                                 <div class="input-group input-group-sm">
-                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-prepend">
                                                                         <span class="input-group-text">
                                                                             <i class="fas fa-dollar-sign"></i>
                                                                         </span>
@@ -380,7 +391,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                             <div class="col-lg-2">
                                                                 <label for="descuentoitem" class="col-form-label">Descuento:</label>
                                                                 <div class="input-group input-group-sm">
-                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-prepend">
                                                                         <span class="input-group-text">
                                                                             <i class="fas fa-dollar-sign"></i>
                                                                         </span>
@@ -392,7 +403,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                             <div class="col-lg-2">
                                                                 <label for="gimporteitem" class="col-form-label">G-Importe:</label>
                                                                 <div class="input-group input-group-sm">
-                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-prepend">
                                                                         <span class="input-group-text">
                                                                             <i class="fas fa-dollar-sign"></i>
                                                                         </span>
@@ -451,7 +462,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                                             <td><?php echo $rowdet['id_item'] ?></td>
                                                                             <td><?php echo $rowdet['concepto'] ?></td>
                                                                             <td class="text-right"><?php echo number_format($rowdet['cantidad'], 2) ?></td>
-                                                                            <td class="text-right"><?php echo number_format($rowdet['precio'], 2) ?></td>
+                                                                            <td class="text-right"><?php echo number_format($rowdet['costo'], 2) ?></td>
                                                                             <td class="text-right"><?php echo number_format($rowdet['importe'], 2) ?></td>
                                                                             <td class="text-right"><?php echo number_format($rowdet['descuento'], 2) ?></td>
                                                                             <td class="text-right"><?php echo number_format($rowdet['gimporte'], 2) ?></td>
@@ -527,7 +538,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                     <i class="fas fa-dollar-sign"></i>
                                                 </span>
                                             </div>
-                                            <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo number_format($descuento, 2); ?>" onkeypress="return filterFloat(event,this);" disabled>
+                                            <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo number_format($descuento, 2); ?>" onkeypress="return filterFloat(event,this);">
                                         </div>
                                     </div>
 

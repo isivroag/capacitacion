@@ -30,8 +30,31 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $res = 1;
+// consulto la tabla temporal y uso los campos o columnas en variables
+//inserto en la tabla definitiva estas variables el folio no , folio me lo va a generar la tablar al terminar el insert
+//consulto el ultimo registro de la tabla definitiva para ver que folio me toco
+//consulto todos los registros del detalle de compra temporal
+//y mientras los recorro todo los datos de cada renglo, los meto en variables y hago un insert a la tabla defintiva del detalle de compra
+//esto n numero de veces hasta terminar de recorrer la tabla temporal del detalle de compra.
 
-  
+
+
+
+        
+
+        $consulta= "SELECT * from cxp_detalletmp where folio_cxp='$folio'";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+
+  foreach($data as $dat){
+        $id_item=$dat['id_item'];
+
+        $consulta2="INSERT INTO cxp_detalle(folio_cxp,id_item) values($foliodefini,'$id_item')";
+        $resultado2 = $conexion->prepare($consulta2);
+        $resultado2->execute();
+
+  }
             //TERMINA EL INCREMENTO EN INVENTARIO   
 
 
