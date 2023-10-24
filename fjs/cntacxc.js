@@ -36,7 +36,7 @@ $(document).ready(function () {
     })
   
     $('#btnNuevo').click(function () {
-      window.location.href = "cxp.php";
+      window.location.href = "cxc.php";
      
     })
   
@@ -47,7 +47,7 @@ $(document).ready(function () {
       foliotmp = parseInt(fila.find('td:eq(6)').text())
 
   
-      window.location.href = "cxp.php?folio=" + foliotmp;
+      window.location.href = "cxc.php?folio=" + foliotmp;
    
     })
   
@@ -63,7 +63,7 @@ $(document).ready(function () {
   
       if (respuesta) {
         $.ajax({
-          url: 'bd/detallecxp.php',
+          url: 'bd/detallecxc.php',
           type: 'POST',
           dataType: 'json',
           data: { id: id, opcion: opcion },

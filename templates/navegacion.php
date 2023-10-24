@@ -49,10 +49,17 @@
 
             <ul class="nav nav-treeview">
 
+            <li class="nav-item">
+                <a href="cntacliente.php" class="nav-link <?php echo ($pagina == 'cliente') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-city nav-icon"></i>
+                  <p>Clientes</p>
+                </a>
+              </li>
+
               <li class="nav-item">
                 <a href="cntaproveedor.php" class="nav-link <?php echo ($pagina == 'proveedor') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-city nav-icon"></i>
-                  <p>Proveedor</p>
+                  <p>Proveedores</p>
                 </a>
               </li>
 
@@ -68,9 +75,8 @@
         <?php } ?>
 
         <li class="nav-item has-treeview <?php echo ($pagina == 'cxp') ? "menu-open" : ""; ?>">
-
-
           <a href="#" class="nav-link <?php echo ($pagina == 'cxp') ? "active" : ""; ?>">
+
 
             <i class="fa-solid fa-file-lines nav-icon"></i>
             <p>
@@ -87,6 +93,14 @@
 
                 <i class="fa-regular fa-pen-to-square text-green  nav-icon"></i>
                 <p>Compra</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="cntacxc.php" class="nav-link <?php echo ($pagina == 'cxc') ? "active seleccionado" : ""; ?>  ">
+
+                <i class="fa-regular fa-pen-to-square text-green  nav-icon"></i>
+                <p>Venta</p>
               </a>
             </li>
 

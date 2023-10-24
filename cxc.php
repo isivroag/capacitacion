@@ -1,5 +1,5 @@
 <?php
-$pagina = "cxp";
+$pagina = "cxc";
 $opcion = 0;
 
 include_once "templates/header.php";
@@ -18,7 +18,7 @@ $tokenid = md5($_SESSION['s_usuario']);
 if ($folio != "") {
 
     $opcion = 2;
-    $consulta = "SELECT * FROM vcxptmp where folio_cxp='$folio'";
+    $consulta = "SELECT * FROM vcxctmp where folio_cxc='$folio'";
 
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
@@ -27,11 +27,11 @@ if ($folio != "") {
     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($data as $dt) {
-        $folio = $dt['folio_cxp'];
+        $folio = $dt['folio_cxc'];
 
         $fecha = $dt['fecha'];
-        $id_prov = $dt['id_prov'];
-        $proveedor = $dt['nombre'];
+        $id_cliente = $dt['id_cliente'];
+        $cliente = $dt['nombre'];
         $descripcion = $dt['descripcion'];
         $subtotal = $dt['subtotal'];
         $iva = $dt['iva'];
@@ -50,7 +50,7 @@ if ($folio != "") {
     //BUSCAR CUENTA ABIERTA
 
 
-    $consultatmp = "SELECT * FROM cxptmp WHERE tokenid= '$tokenid' and activo='0' ORDER BY folio_cxp DESC LIMIT 1";
+    $consultatmp = "SELECT * FROM cxctmp WHERE tokenid= '$tokenid' and activo='0' ORDER BY folio_cxc DESC LIMIT 1";
     $resultadotmp = $conexion->prepare($consultatmp);
     $resultadotmp->execute();
     if ($resultadotmp->rowCount() >= 1) {
@@ -60,28 +60,24 @@ if ($folio != "") {
         // INSERTAR FOLIO NUEVO
 
         $fecha = date('Y-m-d');
-        $consultatmp = "INSERT INTO cxptmp (tokenid,fecha,total,activo) VALUES('$tokenid', '$fecha','0', '0')";
+        $consultatmp = "INSERT INTO cxctmp (tokenid,fecha,total,activo) VALUES('$tokenid', '$fecha','0', '0')";
         $resultadotmp = $conexion->prepare($consultatmp);
         $resultadotmp->execute();
 
 
-        $consultatmp = "SELECT * FROM cxptmp WHERE tokenid= '$tokenid' and activo='0' ORDER BY folio_cxp DESC LIMIT 1";
+        $consultatmp = "SELECT * FROM cxctmp WHERE tokenid= '$tokenid' and activo='0' ORDER BY folio_cxc DESC LIMIT 1";
         $resultadotmp = $conexion->prepare($consultatmp);
         $resultadotmp->execute();
         $datatmp = $resultadotmp->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-
-
-
     foreach ($datatmp as $dt) {
 
-        $folio =  $dt['folio_cxp'];
+        $folio =  $dt['folio_cxc'];
         $opcion = 1;
         $fecha = $dt['fecha'];
-        $id_prov = "";
-        $proveedor = "";
+        $id_cliente = "";
+        $cliente = "";
         $descripcion = "";
         $subtotal =  $dt['subtotal'];
         $iva =  $dt['iva'];
@@ -93,7 +89,7 @@ if ($folio != "") {
     }
 }
 
-$consultac = "SELECT * FROM proveedor WHERE estado_prov=1 ORDER BY id_prov";
+$consultac = "SELECT * FROM cliente WHERE estado_cliente=1 ORDER BY id_cliente";
 $resultadoc = $conexion->prepare($consultac);
 $resultadoc->execute();
 $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
@@ -209,7 +205,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
         <!-- Default box -->
         <div class="card">
             <div class="card-header bg-gradient-secondary text-light">
-                <h1 class="card-title mx-auto">CUENTA POR PAGAR</h1>
+                <h1 class="card-title mx-auto">CUENTA POR COBRAR</h1>
             </div>
 
             <div class="card-body">
@@ -236,7 +232,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
 
                             <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
 
-                                <h1 class="card-title ">DETALLE DE CUENTA POR PAGAR</h1>
+                                <h1 class="card-title ">DETALLE DE CUENTA POR COBRAR</h1>
                             </div>
 
                             <div class="card-body" style="margin:0px;padding:1px;">
@@ -275,12 +271,12 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="tokenid" id="tokenid" value="<?php echo $tokenid; ?>">
                                             <input type="hidden" class="form-control" name="opcion" id="opcion" value="<?php echo $opcion; ?>">
-                                            <input type="hidden" class="form-control" name="id_prov" id="id_prov" value="<?php echo $id_prov; ?>">
-                                            <label for="nombre" class="col-form-label">Proveedor:</label>
+                                            <input type="hidden" class="form-control" name="id_cliente" id="id_cliente" value="<?php echo $id_cliente; ?>">
+                                            <label for="nombre" class="col-form-label">Cliente:</label>
 
                                             <div class="input-group input-group-sm">
 
-                                                <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $proveedor; ?>" disabled>
+                                                <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $cliente; ?>" disabled>
                                                 <?php if ($opcion == 1) { ?>
                                                     <span class="input-group-append">
                                                         <button id="bproveedor" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
@@ -358,14 +354,14 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                         <div class="row justify-content-sm-center">
 
                                                             <div class="col-lg-2">
-                                                                <label for="costoitem" class="col-form-label">Costo:</label>
+                                                                <label for="precioitem" class="col-form-label">Precio:</label>
                                                                 <div class="input-group input-group-sm">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text">
                                                                             <i class="fas fa-dollar-sign"></i>
                                                                         </span>
                                                                     </div>
-                                                                    <input type="text" class="form-control text-right" name="costoitem" id="costoitem" disabled onkeypress="return filterFloat(event,this);">
+                                                                    <input type="text" class="form-control text-right" name="precioitem" id="precioitem" disabled onkeypress="return filterFloat(event,this);">
                                                                 </div>
                                                             </div>
 
@@ -451,7 +447,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $consulta = "SELECT * FROM vcxp_detalletmp where folio_cxp='$folio' and estado_reg=1 order by id_reg";
+                                                                    $consulta = "SELECT * FROM vcxc_detalletmp where folio_cxc='$folio' and estado_reg=1 order by id_reg";
                                                                     $resultado = $conexion->prepare($consulta);
                                                                     $resultado->execute();
                                                                     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -462,7 +458,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                                             <td><?php echo $rowdet['id_item'] ?></td>
                                                                             <td><?php echo $rowdet['concepto'] ?></td>
                                                                             <td class="text-right"><?php echo number_format($rowdet['cantidad'], 2) ?></td>
-                                                                            <td class="text-right"><?php echo number_format($rowdet['costo'], 2) ?></td>
+                                                                            <td class="text-right"><?php echo number_format($rowdet['precio'], 2) ?></td>
                                                                             <td class="text-right"><?php echo number_format($rowdet['importe'], 2) ?></td>
                                                                             <td class="text-right"><?php echo number_format($rowdet['descuento'], 2) ?></td>
                                                                             <td class="text-right"><?php echo number_format($rowdet['gimporte'], 2) ?></td>
@@ -572,7 +568,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
 
         </div>
     </section>
-    <!-- TERMINA ALTA CXP -->
+    <!-- TERMINA ALTA CXC -->
 
     <!-- INICIA TABLA PROVEEDOR-->
     <section>
@@ -581,7 +577,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content w-auto">
                         <div class="modal-header bg-gradient-secondary">
-                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR PROVEEDOR</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR CLIENTE</h5>
 
                         </div>
                         <br>
@@ -591,7 +587,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                     <tr>
                                         <th>Id</th>
                                         <th>RFC</th>
-                                        <th>Proveedor</th>
+                                        <th>Cliente</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -600,7 +596,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                     foreach ($datac as $datc) {
                                     ?>
                                         <tr>
-                                            <td><?php echo $datc['id_prov'] ?></td>
+                                            <td><?php echo $datc['id_cliente'] ?></td>
                                             <td><?php echo $datc['rfc'] ?></td>
                                             <td><?php echo $datc['nombre'] ?></td>
                                             <td></td>
@@ -640,7 +636,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
 
                                         <th>Id</th>
                                         <th>Concepto</th>
-                                        <th>Costo</th>
+                                        <th>Precio</th>
                                         <th>Seleccionar</th>
                                     </tr>
                                 </thead>
@@ -652,7 +648,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
 
                                             <td><?php echo $datd['id_item'] ?></td>
                                             <td><?php echo $datd['concepto'] ?></td>
-                                            <td><?php echo $datd['costo'] ?></td>
+                                            <td><?php echo $datd['precio'] ?></td>
                                             <td></td>
                                         </tr>
                                     <?php
@@ -674,7 +670,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/cxp.js?v=<?php echo (rand()); ?>"></script>
+<script src="fjs/cxc.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

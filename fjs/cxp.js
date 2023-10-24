@@ -31,7 +31,8 @@ $(document).ready(function () {
       columnas =
         "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
     } else {
-      columnas = ''
+      columnas = 
+      "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
     }
     return columnas
   }
@@ -243,7 +244,9 @@ $(document).ready(function () {
     total = $('#total').val().replace(/,/g, '')
     descuento = $('#descuento').val().replace(/,/g, '')
     gtotal = $('#gtotal').val().replace(/,/g, '')
-
+    tipo = $('#tipo').val()
+   
+    usuario = $('#nameuser').val()
 
     tokenid = $('#tokenid').val()
     opcion = $('#opcion').val()
@@ -257,12 +260,15 @@ $(document).ready(function () {
     console.log(total)
     console.log(descuento)
     console.log(gtotal)
+    console.log(usuario)
+
 
     if (
       folio.length != 0 &&
       fecha.length != 0 &&
       id_prov.length != 0 &&
-      descripcion.length != 0
+      descripcion.length != 0 &&
+      gtotal.lenght != 0
       
     ) {
       $.ajax({
@@ -281,6 +287,8 @@ $(document).ready(function () {
           total: total,
           descuento: descuento,
           gtotal: gtotal,
+          tipo: tipo,
+          usuario: usuario,
           tokenid: tokenid,
           opcion: opcion,
         },
@@ -298,9 +306,9 @@ $(document).ready(function () {
               icon: 'success',
             })
 
-            /*window.setTimeout(function () {
+            window.setTimeout(function () {
               window.location.href = 'cntacxp.php'
-            }, 1500)*/
+            }, 1500)
           }
         },
       })
@@ -368,7 +376,7 @@ $(document).ready(function () {
 
   }
 
-  //BOTON LIMPIAR DESECHABLE
+      //BOTON LIMPIAR DESECHABLE
   $(document).on('click', '#btnLimpiar', function () {
     limpiardes()
   })
@@ -435,6 +443,7 @@ $(document).ready(function () {
               var valor = myNumeral.format('0,0.00')
 
               $('#subtotal').val(valor)
+              calcular2 (subtotal)
             },
           })
           limpiardes()
@@ -535,6 +544,7 @@ $(document).ready(function () {
               var valor = myNumeral.format('0,0.00')
 
               $('#subtotal').val(valor)
+              calcular2 (subtotal)
 
             },
           })
@@ -543,6 +553,42 @@ $(document).ready(function () {
         }
       },
     })
+  })
+
+  function calcular2(subtotal) {
+
+    tipo=$('#tipo').val()
+    if (tipo == 1){
+      total = parseFloat(subtotal)*1.16
+      iva = total-subtotal
+
+    }
+    else{
+
+      total=subtotal
+      iva=0
+    }
+    
+    $('#total').val(Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+      parseFloat(total).toFixed(2),
+    ),)
+    $('#iva').val(Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+      parseFloat(iva).toFixed(2),
+    ),)
+
+    descuento = $('#descuento').val().replace(/,/g, '')
+    gtotal = total-descuento
+
+    $('#gtotal').val(Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+      parseFloat(gtotal).toFixed(2),
+      ),)
+
+  }
+
+  $(document).on('change', '#descuento, #tipo', function () {
+    subtotal = $('#subtotal').val().replace(/,/g, '')
+    
+    calcular2(subtotal)
   })
 
   function mensajeerror() {

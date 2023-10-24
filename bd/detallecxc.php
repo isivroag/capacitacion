@@ -7,7 +7,7 @@ $conexion = $objeto->connect();
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 $iditem= (isset($_POST['iditem'])) ? $_POST['iditem'] : '';
 $cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : '';
-$costo = (isset($_POST['costo'])) ? $_POST['costo'] : '';
+$precio = (isset($_POST['precio'])) ? $_POST['precio'] : '';
 $importe = (isset($_POST['importe'])) ? $_POST['importe'] : '';
 $descuento = (isset($_POST['descuento'])) ? $_POST['descuento'] : '';
 $gimporte = (isset($_POST['gimporte'])) ? $_POST['gimporte'] : '';
@@ -17,14 +17,14 @@ $id= (isset($_POST['id'])) ? $_POST['id'] : '';
 
 switch ($opcion) {
     case 1: //alta
-        $consulta = "INSERT INTO cxp_detalletmp (folio_cxp,id_item,cantidad,costo,importe,descuento,gimporte) 
-                    values ('$folio','$iditem','$cantidad','$costo','$importe','$descuento','$gimporte')";
+        $consulta = "INSERT INTO cxc_detalletmp (folio_cxc,id_item,cantidad,precio,importe,descuento,gimporte) 
+                    values ('$folio','$iditem','$cantidad','$precio','$importe','$descuento','$gimporte')";
         
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
 
-        $consulta = "SELECT * from cxp_detalletmp where folio_cxp='$folio'";
+        $consulta = "SELECT * from cxc_detalletmp where folio_cxc='$folio'";
         
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
@@ -35,13 +35,13 @@ switch ($opcion) {
             $subtotal+=$row['gimporte'];
         }
 
-        $consulta = "UPDATE cxptmp set subtotal='$subtotal' where folio_cxp='$folio'";
+        $consulta = "UPDATE cxctmp set subtotal='$subtotal' where folio_cxc='$folio'";
         
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
 
-        $consulta = "SELECT * from vcxp_detalletmp where folio_cxp='$folio' and id_item='$iditem'";
+        $consulta = "SELECT * from vcxc_detalletmp where folio_cxc='$folio' and id_item='$iditem'";
         
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
@@ -117,12 +117,12 @@ switch ($opcion) {
 
         break;
         case 2:
-            $consulta = "DELETE FROM cxp_detalletmp where id_reg='$id'";
+            $consulta = "DELETE FROM cxc_detalletmp where id_reg='$id'";
         
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
     
-            $consulta = "SELECT * from cxp_detalletmp where folio_cxp='$folio'";
+            $consulta = "SELECT * from cxc_detalletmp where folio_cxc='$folio'";
         
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
@@ -132,7 +132,7 @@ switch ($opcion) {
                 $subtotal+=$row['gimporte'];
             }
     
-            $consulta = "UPDATE cxp_detalletmp set subtotal='$subtotal' where folio_cxp='$folio'";
+            $consulta = "UPDATE cxc_detalletmp set subtotal='$subtotal' where folio_cxc='$folio'";
             
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();

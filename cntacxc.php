@@ -1,5 +1,5 @@
 <?php
-$pagina = "cxp";
+$pagina = "cxc";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vcxp WHERE estado_cxp=1 ORDER BY folio_cxp";
+$consulta = "SELECT * FROM vcxc WHERE estado_cxc=1 ORDER BY folio_cxc";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -37,7 +37,7 @@ $message = "";
     <!-- Default box -->
     <div class="card">
       <div class="card-header bg-gradient-green text-light">
-        <h1 class="card-title mx-auto">CUENTAS POR PAGAR</h1>
+        <h1 class="card-title mx-auto">CUENTAS POR COBRAR</h1>
       </div>
 
       <div class="card-body">
@@ -59,7 +59,7 @@ $message = "";
                       <th>FOLIO</th>
                       <th>FECHA</th>
                       
-                      <th>PROVEEDOR</th>
+                      <th>CLIENTE</th>
                       <th>DESCRIPCION</th>
                       <th>IMPORTE</th>
                       <th>SALDO</th>
@@ -72,7 +72,7 @@ $message = "";
                     foreach ($data as $dat) {
                     ?>
                       <tr>
-                        <td><?php echo $dat['folio_cxp'] ?></td>
+                        <td><?php echo $dat['folio_cxc'] ?></td>
                         <td><?php echo $dat['fecha'] ?></td>
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['descripcion'] ?></td>
@@ -107,7 +107,7 @@ $message = "";
 
 <?php include_once 'templates/footer.php'; ?>
 
-<script src="fjs/cntacxp.js?v=<?php echo(rand()); ?>"></script>
+<script src="fjs/cntacxc.js?v=<?php echo(rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

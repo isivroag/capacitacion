@@ -9,7 +9,7 @@ $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 $tokenid = (isset($_POST['tokenid'])) ? $_POST['tokenid'] : '';
 $fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
 
-$id_prov = (isset($_POST['id_prov'])) ? $_POST['id_prov'] : '';
+$id_cliente = (isset($_POST['id_cliente'])) ? $_POST['id_cliente'] : '';
 // $proveedor = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
 $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : '';
 // $id_item = (isset($_POST['id_item'])) ? $_POST['id_item'] : '';
@@ -31,10 +31,10 @@ $res = 0;
 
 switch ($opcion) {
     case 1: //alta
-        $consulta = "UPDATE cxptmp set fecha='$fecha',id_prov='$id_prov',descripcion='$descripcion',
+        $consulta = "UPDATE cxctmp set fecha='$fecha',id_cliente='$id_cliente',descripcion='$descripcion',
         subtotal='$subtotal',iva='$iva',total='$total',descuento='$descuento',gtotal='$gtotal',
         saldo='$gtotal',tipo='$tipo',usuario='$usuario',
-        activo='1' WHERE folio_cxp='$folio'";
+        activo='1' WHERE folio_cxc='$folio'";
 
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
@@ -63,13 +63,13 @@ switch ($opcion) {
         }*/
 
         //$fecha = date('Y-m-d');
-        $consultag = "INSERT INTO cxp (fecha,id_prov,descripcion,subtotal,iva,total,descuento,gtotal,saldo,tipo,usuario,folio_tmp) 
-                    values ('$fecha','$id_prov','$descripcion','$subtotal','$iva','$total','$descuento','$gtotal','$gtotal','$tipo','$usuario','$folio')";
+        $consultag = "INSERT INTO cxc (fecha,id_cliente,descripcion,subtotal,iva,total,descuento,gtotal,saldo,tipo,usuario,folio_tmp) 
+                    values ('$fecha','$id_cliente','$descripcion','$subtotal','$iva','$total','$descuento','$gtotal','$gtotal','$tipo','$usuario','$folio')";
 
         $resultadog = $conexion->prepare($consultag);
         $resultadog->execute();
 
-        $consultan = "SELECT * FROM cxp WHERE folio_tmp= '$folio'";
+        $consultan = "SELECT * FROM cxc WHERE folio_tmp= '$folio'";
         $resultadon = $conexion->prepare($consultan);
         $resultadon->execute();
         $data = $resultadon->fetchAll(PDO::FETCH_ASSOC);
@@ -77,11 +77,11 @@ switch ($opcion) {
 
         foreach ($data as $row) {
 
-            $folion =  $row['folio_cxp'];
+            $folion =  $row['folio_cxc'];
         
         }
 
-        $consultadet = "SELECT * from cxp_detalletmp where folio_cxp='$folio' order by id_reg";
+        $consultadet = "SELECT * from cxc_detalletmp where folio_cxc='$folio' order by id_reg";
 
         $resultadodet = $conexion->prepare($consultadet);
         $resultadodet->execute();
@@ -91,14 +91,14 @@ switch ($opcion) {
 
             $id_item = $dt['id_item'];
             $cantidad = $dt['cantidad'];
-            $costo =  $dt['costo'];
+            $precio =  $dt['precio'];
             $importe =  $dt['importe'];
             $descuento2 =  $dt['descuento'];
             $gimporte =  $dt['gimporte'];
         
 
-        $consultadd = "INSERT INTO cxp_detalle (folio_cxp,id_item,cantidad,costo,importe,descuento,gimporte) 
-        values('$folion','$id_item','$cantidad','$costo','$importe','$descuento2','$gimporte')";
+        $consultadd = "INSERT INTO cxc_detalle (folio_cxc,id_item,cantidad,precio,importe,descuento,gimporte) 
+        values('$folion','$id_item','$cantidad','$precio','$importe','$descuento2','$gimporte')";
         $resultadodd = $conexion->prepare($consultadd);
         $resultadodd->execute();
 
@@ -108,16 +108,16 @@ switch ($opcion) {
         break;
     case 2:
 
-        $consulta = "UPDATE cxptmp set fecha='$fecha',id_prov='$id_prov',descripcion='$descripcion',
+        $consulta = "UPDATE cxctmp set fecha='$fecha',id_cliente='$id_cliente',descripcion='$descripcion',
         subtotal='$subtotal',iva='$iva',total='$total',descuento='$descuento',gtotal='$gtotal',
         saldo='$gtotal',tipo='$tipo',usuario='$usuario',
-        activo='1' WHERE folio_cxp='$folio'";
+        activo='1' WHERE folio_cxc='$folio'";
 
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $res = 1;
 
-        $consultag = "UPDATE cxp set fecha='$fecha',id_prov='$id_prov',descripcion='$descripcion',
+        $consultag = "UPDATE cxc set fecha='$fecha',id_cliente='$id_cliente',descripcion='$descripcion',
         subtotal='$subtotal',iva='$iva',total='$total',descuento='$descuento',gtotal='$gtotal',
         saldo='$gtotal',tipo='$tipo',usuario='$usuario'
         WHERE folio_tmp='$folio'";
@@ -125,7 +125,7 @@ switch ($opcion) {
         $resultadog = $conexion->prepare($consultag);
         $resultadog->execute();
 
-        $consultan = "SELECT * FROM cxp WHERE folio_tmp= '$folio'";
+        $consultan = "SELECT * FROM cxc WHERE folio_tmp= '$folio'";
         $resultadon = $conexion->prepare($consultan);
         $resultadon->execute();
         $data = $resultadon->fetchAll(PDO::FETCH_ASSOC);
@@ -133,15 +133,15 @@ switch ($opcion) {
 
         foreach ($data as $row) {
 
-            $folion =  $row['folio_cxp'];
+            $folion =  $row['folio_cxc'];
         
         }
 
-        $consultabr = "DELETE * from cxp_detalle where folio_cxp='$folion'";
+        $consultabr = "DELETE * from cxc_detalle where folio_cxc='$folion'";
         $resultadobr = $conexion->prepare($consultabr);
         $resultadobr->execute();
                 
-        $consultadet = "SELECT * from cxp_detalletmp where folio_cxp='$folio' order by id_reg";
+        $consultadet = "SELECT * from cxc_detalletmp where folio_cxc='$folio' order by id_reg";
         $resultadodet = $conexion->prepare($consultadet);
         $resultadodet->execute();
         $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
@@ -150,14 +150,14 @@ switch ($opcion) {
 
             $id_item = $dt['id_item'];
             $cantidad = $dt['cantidad'];
-            $costo =  $dt['costo'];
+            $precio =  $dt['precio'];
             $importe =  $dt['importe'];
             $descuento2 =  $dt['descuento'];
             $gimporte =  $dt['gimporte'];
         
 
-        $consultadd = "INSERT INTO cxp_detalle (folio_cxp,id_item,cantidad,costo,importe,descuento,gimporte) 
-        values('$folion','$id_item','$cantidad','$costo','$importe','$descuento2','$gimporte')";
+        $consultadd = "INSERT INTO cxc_detalle (folio_cxc,id_item,cantidad,precio,importe,descuento,gimporte) 
+        values('$folion','$id_item','$cantidad','$precio','$importe','$descuento2','$gimporte')";
         $resultadodd = $conexion->prepare($consultadd);
         $resultadodd->execute();
 
@@ -166,13 +166,13 @@ switch ($opcion) {
         break;
 
     case 3:
-        $consulta = "UPDATE cxp SET estado_cxp='0' WHERE folio_cxp='$folio'";
+        $consulta = "UPDATE cxc SET estado_cxc='0' WHERE folio_cxc='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $res = 1;
 
         // CONSULTA DEL DETALLE
-        $consulta = "SELECT * FROM detallecxp_herramienta WHERE folio_cxp='$folio'";
+        $consulta = "SELECT * FROM detallecxc_herramienta WHERE folio_cxc='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
