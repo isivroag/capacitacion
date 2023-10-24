@@ -31,7 +31,8 @@ $(document).ready(function () {
         columnas =
           "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
       } else {
-        columnas = ''
+        columnas =
+          "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
       }
       return columnas
     }
@@ -229,38 +230,50 @@ $(document).ready(function () {
     })
   
     $(document).on('click', '#btnGuardar', function () {
-      folio = $('#folio').val()
+      folio = $('#folior').val()
       fecha = $('#fecha').val()
   
       id_prov = $('#id_prov').val()
-      proveedor = $('#nombre').val()
-      id_proy = $('#id_proy').val()
-      proyecto = $('#proyecto').val()
-      concepto = $('#concepto').val()
+      
+      descripcion = $('#descripcion').val()
   
+      subtotal = $('#subtotal').val().replace(/,/g, '')
+      iva = $('#iva').val().replace(/,/g, '')
       total = $('#total').val().replace(/,/g, '')
+      descuento = $('#descuento').val().replace(/,/g, '')
+      
+      gtotal = $('#gtotal').val().replace(/,/g, '')
+      tipo = $('#tipo').val()
+
+      usuario=$('#nameuser').val()
+
       tokenid = $('#tokenid').val()
       opcion = $('#opcion').val()
   
       if (
-        total.length != 0 &&
-        concepto.length != 0 &&
+        folio.length != 0 &&
+        fecha.length != 0 &&
+        descripcion.length != 0 &&
         id_prov.length != 0 &&
-        id_proy.length != 0
+        gtotal.length != 0 
+        
       ) {
         $.ajax({
           type: 'POST',
-          url: 'bd/crudorden.php',
+          url: 'bd/crudcxp.php',
           dataType: 'json',
           data: {
-            fecha: fecha,
             folio: folio,
+            fecha: fecha,
             id_prov: id_prov,
-            proveedor: proveedor,
-            id_proy: id_proy,
-            proyecto: proyecto,
-            concepto: concepto,
+            descripcion: descripcion,
+            subtotal: subtotal,
+            iva: iva,
             total: total,
+            descuento: descuento,
+            gtotal: gtotal,
+            usuario: usuario,
+            tipo: tipo,
             tokenid: tokenid,
             opcion: opcion,
           },
@@ -279,8 +292,9 @@ $(document).ready(function () {
               })
   
               window.setTimeout(function () {
-                window.location.href = 'cntaordencompra.php'
+                window.location.href = 'cntacxp.php'
               }, 1500)
+              
             }
           },
         })

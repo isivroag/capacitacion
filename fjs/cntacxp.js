@@ -13,6 +13,7 @@ $(document).ready(function () {
             <button class='btn btn-sm bg-orange btnPdf' data-toggle='tooltip' data-placement='top' title='Imprimir'><i class='text-white fas fa-file-pdf'></i></button>\
               <button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>",
         },
+        { className: 'hide_column', targets: [6] },
       ],
   
       //Para cambiar el lenguaje a español
@@ -42,9 +43,10 @@ $(document).ready(function () {
     
     $(document).on('click', '.btnEditar', function () {
       fila = $(this).closest('tr')
-      id = parseInt(fila.find('td:eq(0)').text())
-  
-      window.location.href = "cxp.php?folio=" + id;
+      folio = parseInt(fila.find('td:eq(0)').text())
+      foliotmp= parseInt(fila.find('td:eq(6)').text())
+
+      window.location.href = "cxp.php?folio=" + foliotmp;
    
     })
   

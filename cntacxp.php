@@ -63,6 +63,7 @@ $message = "";
                       <th>DESCRIPCION</th>
                       <th>IMPORTE</th>
                       <th>SALDO</th>
+                      <th>FOLIO TMP</th>
                       <th>ACCIONES</th>
                     </tr>
                   </thead>
@@ -77,6 +78,7 @@ $message = "";
                         <td><?php echo $dat['descripcion'] ?></td>
                         <td class="text-right"><?php echo number_format($dat['gtotal'],2) ?></td>
                         <td class="text-right"><?php echo number_format($dat['saldo'],2) ?></td>
+                        <td><?php echo $dat['folio_tmp'] ?></td>
                         <td></td>
                       </tr>
                     <?php

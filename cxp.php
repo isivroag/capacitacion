@@ -20,7 +20,7 @@ $tokenid = md5($_SESSION['s_usuario']);
 if ($folio != "") {
 
     $opcion = 2;
-    $consulta = "SELECT * FROM cxptmp where folio_cxp='$folio'";
+    $consulta = "SELECT * FROM vcxptmp where folio_cxp='$folio'";
 
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
@@ -218,9 +218,9 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <?php if ($opcion == 1) { ?>
-                            <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar" <?php echo $opcion == 2 ? 'disabled' : '' ?>><i class="far fa-save"></i> Guardar</button>
-                        <?php } ?>
+                      
+                            <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar" ><i class="far fa-save"></i> Guardar</button>
+                      
 
                     </div>
                 </div>
@@ -249,8 +249,9 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
 
                                     <div class="col-sm-1">
                                         <div class="form-group input-group-sm">
-                                            <label for="folior" class="col-form-label">Folio:</label>
+                                       
                                             <input type="hidden" class="form-control" name="folio" id="folio" value="<?php echo $folio; ?>">
+                                            <label for="folior" class="col-form-label">Folio:</label>
                                             <input type="text" class="form-control" name="folior" id="folior" value="<?php echo   $folio; ?>">
                                         </div>
                                     </div>
@@ -267,8 +268,8 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                         <div class="form-group input-group-sm">
                                             <label for="tipo" class="col-form-label">Fecha:</label>
                                             <select class="form-control" id="tipo" name="tipo">
-                                                <option value="1">FACTURADO</option>
-                                                <option value="0">NO FACTURADO</option>
+                                                <option value="1" <?php echo ($tipo == 1) ? 'selected' : '' ?>>FACTURADO</option>
+                                                <option value="0" <?php echo ($tipo == 0) ? 'selected' : '' ?>>NO FACTURADO</option>
                                             </select>
                                         </div>
                                     </div>
@@ -326,11 +327,14 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                             </div>
 
                                             <div class="card-body" style="margin:0px;padding:3px;">
+
                                                 <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
                                                     <div class="card-header " style="margin:0px;padding:8px;">
-                                                        <button type="button" class="btn bg-gradient-secondary btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                                            Agregar Concepto <i class="fas fa-plus"></i>
-                                                        </button>
+                                                       
+                                                            <button type="button" class="btn bg-gradient-secondary btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse" >
+                                                                Agregar Concepto <i class="fas fa-plus"></i>
+                                                            </button>
+                                                       
                                                     </div>
 
                                                     <div class="card-body " style="margin:0px;padding:2px 5px;">

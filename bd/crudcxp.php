@@ -10,14 +10,17 @@ $tokenid = (isset($_POST['tokenid'])) ? $_POST['tokenid'] : '';
 $fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
 
 $id_prov = (isset($_POST['id_prov'])) ? $_POST['id_prov'] : '';
-$proveedor = (isset($_POST['proveedor'])) ? $_POST['proveedor'] : '';
-$id_proy = (isset($_POST['id_proy'])) ? $_POST['id_proy'] : '';
-$proyecto = (isset($_POST['proyecto'])) ? $_POST['proyecto'] : '';
-$concepto = (isset($_POST['concepto'])) ? $_POST['concepto'] : '';
 
+$descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : '';
+$subtotal = (isset($_POST['subtotal'])) ? $_POST['subtotal'] : '';
+$iva = (isset($_POST['iva'])) ? $_POST['iva'] : '';
 $total = (isset($_POST['total'])) ? $_POST['total'] : '';
-$saldo = (isset($_POST['saldo'])) ? $_POST['saldo'] : '';
+$descuento = (isset($_POST['descuento'])) ? $_POST['descuento'] : '';
+$gtotal = (isset($_POST['gtotal'])) ? $_POST['gtotal'] : '';
+//$saldo = (isset($_POST['saldo'])) ? $_POST['saldo'] : '';
 
+$tipo = (isset($_POST['tipo'])) ? $_POST['tipo'] : '';
+$usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
 
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 $res = 0;
@@ -25,20 +28,106 @@ $res = 0;
 
 switch ($opcion) {
     case 1: //alta
-        $consulta = "UPDATE orden set fecha='$fecha',id_prov='$id_prov',nom_prov='$proveedor',id_proyecto='$id_proy',nom_proy='$proyecto',concepto='$concepto',
-        total='$total',activo='1' WHERE folio_ord='$folio'";
+        $consulta = "UPDATE cxptmp set fecha='$fecha',id_prov='$id_prov',descripcion='$descripcion',
+        subtotal='$subtotal',iva='$iva',total='$total',descuento='$descuento',gtotal='$gtotal',
+        saldo='$gtotal',tipo='$tipo',usuario='$usuario',
+        total='$total',activo='1' WHERE folio_cxp='$folio'";
+
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $res = 1;
 
-  
-            //TERMINA EL INCREMENTO EN INVENTARIO   
+        $consulta2 = "INSERT INTO cxp (fecha,id_prov,descripcion,subtotal,iva,total,descuento,gtotal,saldo,tipo,folio_tmp,usuario) 
+        values ('$fecha','$id_prov','$descripcion','$subtotal','$iva','$total','$descuento','$gtotal','$gtotal','$tipo','$folio','$usuario')";
+        $resultado2 = $conexion->prepare($consulta2);
+        $resultado2->execute();
+
+        $consulta3 = "SELECT * FROM cxp WHERE folio_tmp='$folio'";
+        $resultado3 = $conexion->prepare($consulta3);
+        $resultado3->execute();
+        $data = $resultado3->fetchAll(PDO::FETCH_ASSOC);
+        $folion = "";
+        foreach ($data as $row) {
+            $folion = $row['folio_cxp'];
+        }
+
+
+        $consulta4 = "SELECT * from cxp_detalletmp where folio_cxp='$folio' order by id_reg";
+        $resultado4 = $conexion->prepare($consulta4);
+        $resultado4->execute();
+        $data2 = $resultado4->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($data2 as $row) {
+            $id_item = $row['id_item'];
+            $cantidad = $row['cantidad'];
+            $costo = $row['costo'];
+            $importe = $row['importe'];
+            $descuento2 = $row['descuento'];
+            $gimporte = $row['gimporte'];
+
+
+            $consulta5 = "INSERT INTO cxp_detalle (folio_cxp,id_item,cantidad,costo,importe,descuento,gimporte)
+            values ('$folion','$id_item','$cantidad','$costo','$importe','$descuento2','$gimporte')";
+            $resultado5 = $conexion->prepare($consulta5);
+            $resultado5->execute();
+        }
+
+
 
 
 
         break;
     case 2:
 
+        $consulta = "UPDATE cxptmp set fecha='$fecha',id_prov='$id_prov',descripcion='$descripcion',
+        subtotal='$subtotal',iva='$iva',total='$total',descuento='$descuento',gtotal='$gtotal',
+        saldo='$gtotal',tipo='$tipo',usuario='$usuario',
+        activo='1' WHERE folio_cxp='$folio'";
+
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $res = 1;
+
+        $consulta2 = "UPDATE cxp set fecha='$fecha',id_prov='$id_prov',descripcion='$descripcion',
+        subtotal='$subtotal',iva='$iva',total='$total',descuento='$descuento',gtotal='$gtotal',
+        saldo='$gtotal',tipo='$tipo',usuario='$usuario'
+        WHERE folio_tmp='$folio'";
+
+        $resultado2 = $conexion->prepare($consulta2);
+        $resultado2->execute();
+
+        $consulta3 = "SELECT * FROM cxp WHERE folio_tmp='$folio'";
+        $resultado3 = $conexion->prepare($consulta3);
+        $resultado3->execute();
+        $data = $resultado3->fetchAll(PDO::FETCH_ASSOC);
+        $folion = "";
+        foreach ($data as $row) {
+            $folion = $row['folio_cxp'];
+        }
+
+
+        $consultad = "DELETE FROM cxp_detalle where folio_cxp='$folion'";
+        $resultadod = $conexion->prepare($consultad);
+        $resultadod->execute();
+
+        $consulta4 = "SELECT * from cxp_detalletmp where folio_cxp='$folio' order by id_reg";
+        $resultado4 = $conexion->prepare($consulta4);
+        $resultado4->execute();
+        $data2 = $resultado4->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($data2 as $row) {
+            $id_item = $row['id_item'];
+            $cantidad = $row['cantidad'];
+            $costo = $row['costo'];
+            $importe = $row['importe'];
+            $descuento2 = $row['descuento'];
+            $gimporte = $row['gimporte'];
+
+            $consulta5 = "INSERT INTO cxp_detalle (folio_cxp,id_item,cantidad,costo,importe,descuento,gimporte)
+            values ('$folion','$id_item','$cantidad','$costo','$importe','$descuento2','$gimporte')";
+            $resultado5 = $conexion->prepare($consulta5);
+            $resultado5->execute();
+        }
 
         break;
 
@@ -62,11 +151,11 @@ switch ($opcion) {
             $saldo = 0;
             $montomov = $row['cant_her'];
             $saldofin = 0;
-            $descripcion = "CANCELACION DE COMPRA DE HERRAMIENTA CXP FOLIO: ". $folio;
-            
-            $usuario=$row['usuario'];
-            
-         
+            $descripcion = "CANCELACION DE COMPRA DE HERRAMIENTA CXP FOLIO: " . $folio;
+
+            $usuario = $row['usuario'];
+
+
             $consultam = "SELECT * from herramienta where id_her='$id'";
             $resultadom = $conexion->prepare($consultam);
             if ($resultadom->execute()) {
@@ -96,7 +185,7 @@ switch ($opcion) {
         }
 
 
-        
+
         break;
 }
 
