@@ -37,8 +37,8 @@
 
         <?php if ($_SESSION['s_rol'] == '3' || $_SESSION['s_rol'] == '2' || $_SESSION['s_rol'] == '5') { ?>
 
-          <li class="nav-item  has-treeview <?php echo ($pagina == 'items' ||  $pagina == 'proyecto'  ||  $pagina == 'proveedor' ||  $pagina == 'concepto' ||  $pagina == 'inmueble') ? "menu-open" : ""; ?>">
-            <a href="#" class="nav-link  <?php echo ($pagina == 'items'  ||  $pagina == 'proyecto'  ||  $pagina == 'proveedor' ||  $pagina == 'concepto' ||  $pagina == 'inmueble') ? "active" : ""; ?>">
+          <li class="nav-item  has-treeview <?php echo ($pagina == 'items' ||  $pagina == 'cliente'  ||  $pagina == 'proveedor' ||  $pagina == 'caja' ||  $pagina == 'inmueble') ? "menu-open" : ""; ?>">
+            <a href="#" class="nav-link  <?php echo ($pagina == 'items'  ||  $pagina == 'cliente'  ||  $pagina == 'proveedor' ||  $pagina == 'caja' ||  $pagina == 'inmueble') ? "active" : ""; ?>">
               <i class="nav-icon fas fa-bars "></i>
               <p>
                 Catalogos
@@ -49,7 +49,7 @@
 
             <ul class="nav nav-treeview">
 
-            <li class="nav-item">
+              <li class="nav-item">
                 <a href="cntacliente.php" class="nav-link <?php echo ($pagina == 'cliente') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-city nav-icon"></i>
                   <p>Clientes</p>
@@ -69,14 +69,20 @@
                   <p>Productos y Servicios</p>
                 </a>
               </li>
+
+              <li class="nav-item">
+                <a href="cntacaja.php" class="nav-link <?php echo ($pagina == 'caja') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-road nav-icon"></i>
+                  <p>Cajas</p>
+                </a>
+              </li>
             </ul>
 
           </li>
         <?php } ?>
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'cxp') ? "menu-open" : ""; ?>">
-          <a href="#" class="nav-link <?php echo ($pagina == 'cxp') ? "active" : ""; ?>">
-
+        <li class="nav-item has-treeview <?php echo ($pagina == 'cxp' || $pagina == 'cxc') ? "menu-open" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'cxp' || $pagina == 'cxc') ? "active" : ""; ?>">
 
             <i class="fa-solid fa-file-lines nav-icon"></i>
             <p>
@@ -103,8 +109,6 @@
                 <p>Venta</p>
               </a>
             </li>
-
-
 
           </ul>
         </li>

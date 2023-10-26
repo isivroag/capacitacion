@@ -36,7 +36,7 @@ $message = "";
 
     <!-- Default box -->
     <div class="card">
-      <div class="card-header bg-gradient-green text-light">
+      <div class="card-header bg-gradient-blue text-light">
         <h1 class="card-title mx-auto">CUENTAS POR COBRAR</h1>
       </div>
 
@@ -44,7 +44,7 @@ $message = "";
 
         <div class="row">
           <div class="col-lg-12">
-            <button id="btnNuevo" type="button" class="btn bg-gradient-green btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
+            <button id="btnNuevo" type="button" class="btn bg-gradient-blue btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
           </div>
         </div>
         <br>
@@ -54,11 +54,10 @@ $message = "";
             <div class="col-lg-12">
               <div class="table-responsive">
                 <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
-                  <thead class="text-center bg-gradient-green">
+                  <thead class="text-center bg-gradient-blue">
                     <tr>
                       <th>FOLIO</th>
                       <th>FECHA</th>
-                      
                       <th>CLIENTE</th>
                       <th>DESCRIPCION</th>
                       <th>IMPORTE</th>
