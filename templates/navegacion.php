@@ -138,6 +138,41 @@
           </ul>
         </li>
 
+        <li class="nav-item has-treeview <?php echo ($pagina == 'cntacategoria' || $pagina == 'cntavales') ? "menu-open" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'cntacategoria' || $pagina == 'cntavales') ? "active" : ""; ?>">
+
+
+            <i class="fa-solid fa-file-lines nav-icon"></i>
+            <p>
+              Inventario
+
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+
+
+            <li class="nav-item">
+              <a href="cntacategoria.php" class="nav-link <?php echo ($pagina == 'cntacategoria') ? "active seleccionado" : ""; ?>  ">
+
+                <i class="fa-regular fa-pen-to-square text-green  nav-icon"></i>
+                <p>Categoria</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="cntavales.php" class="nav-link <?php echo ($pagina == 'cntavales') ? "active seleccionado" : ""; ?>  ">
+
+                <i class="fa-regular fa-pen-to-square text-green  nav-icon"></i>
+                <p>Vales de Salida</p>
+              </a>
+            </li>
+
+
+
+          </ul>
+        </li>
+
 
         <?php if ($_SESSION['s_rol'] == '3') {
         ?>

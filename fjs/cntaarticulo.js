@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     tabla1 = $('#tabla1').DataTable({
 
-      
+
         columnDefs: [
             {
                 targets: -1,
@@ -15,7 +15,7 @@ $(document).ready(function () {
                     "<div class='text-center'><button class='btn btn-sm btn-primary btnEditar' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-edit'></i></button>\
                      <button class='btn btn-sm btn-danger btnBorrar' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='fas fa-trash-alt'></i></button></div>",
             },
-          
+
         ],
 
         //Para cambiar el lenguaje a español
@@ -40,29 +40,37 @@ $(document).ready(function () {
     $('#btnNuevo').click(function () {
 
         $('#formDatos').trigger('reset')
+        
         $('#modalCRUD').modal('show')
         id = null
         opcion = 1
     })
 
- 
+
 
     $(document).on('click', '.btnEditar', function () {
         fila = $(this).closest('tr')
         id = parseInt(fila.find('td:eq(0)').text())
 
-        nombre = fila.find('td:eq(1)').text()
-    
+        clave = fila.find('td:eq(1)').text()
+        nombre = fila.find('td:eq(2)').text()
+        cantidad = fila.find('td:eq(3)').text()
+        categoria = fila.find('td:eq(4)').text()
+        referencia = fila.find('td:eq(5)').text()
+        
 
-
+        $('#clave').val(clave)
         $('#nombre').val(nombre)
-       
+        $('#cantidad').val(cantidad)
+        $('#categoria').val(categoria)
+        $('#referencia').val(referencia)
+    
 
 
         opcion = 2 //editar
 
 
-        $('.modal-title').text('EDITAR CATEGORIA')
+        $('.modal-title').text('EDITAR ARTICULO')
         $('#modalCRUD').modal('show')
     })
 
@@ -87,7 +95,7 @@ $(document).ready(function () {
             .then(function (isConfirm) {
                 if (isConfirm.value) {
                     $.ajax({
-                        url: 'bd/crudcategoria.php',
+                        url: 'bd/crudarticulo.php',
                         type: 'POST',
                         dataType: 'json',
                         data: { id: id, opcion: opcion },
@@ -104,39 +112,57 @@ $(document).ready(function () {
 
     $('#formDatos').submit(function (e) {
         e.preventDefault()
+        var clave = $('#clave').val()
         var nombre = $('#nombre').val()
+        var cantidad = $('#cantidad').val()
+        var categoria = $('#categoria').val()
+        var referencia = $('#referencia').val()
+     
     
 
 
-
-        if (nombre.length == 0) {
+        if (nombre.length == 0 || clave.length == 0) {
             Swal.fire({
                 title: 'Datos Faltantes',
-                text: 'Debe ingresar todos los datos del Prospecto',
+                text: 'Debe ingresar todos los datos del articulo',
                 icon: 'warning',
             })
             return false
         } else {
             $.ajax({
-                url: 'bd/crudcategoria.php',
+                url: 'bd/crudarticulo.php',
                 type: 'POST',
                 dataType: 'json',
                 data: {
+                    clave: clave,
                     nombre: nombre,
+                    cantidad: cantidad,
+                    categoria: categoria,
+                    referencia: referencia,
                     id: id,
                     opcion: opcion,
                 },
                 success: function (data) {
-                    id = data[0].id_cat
+                    idart = data[0].id_art
+                    clave = data[0].clave
                     nombre = data[0].nombre
-                  
-            
+                    cantidad = data[0].cantidad
+                    categoria = data[0].categoria
+                    referencia = data[0].referencia
+                    fecha_alta = data[0].fecha_alta
+                    fecha_baja = data[0].fecha_baja
+
                     if (opcion == 1) {
                         tabla1.row
                             .add([
-                                id,
+                                idart,
+                                clave,
                                 nombre,
-                            
+                                cantidad,
+                                categoria,
+                                referencia,
+                                fecha_alta,
+                                fecha_baja,
 
                             ])
                             .draw()
@@ -144,15 +170,28 @@ $(document).ready(function () {
                         tabla1
                             .row(fila)
                             .data([
-                                id,
+                                idart,
+                                clave,
                                 nombre,
-                             
+                                cantidad,
+                                categoria,
+                                referencia,
+                                fecha_alta,
+                                fecha_baja,
                             ])
                             .draw()
                     }
                 },
+                error: function(){
+                    Swal.fire({
+                        title: 'ERROR',
+                        
+                        icon: 'error',
+                    })
+                }
             })
             $('#modalCRUD').modal('hide')
         }
+
     })
 })

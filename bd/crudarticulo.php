@@ -4,7 +4,11 @@ $objeto = new conn();
 $conexion = $objeto->connect();
 
 // Recepción de los datos enviados mediante POST desde el JS   
+$clave = (isset($_POST['clave'])) ? $_POST['clave'] : '';
 $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
+$cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : '';
+$categoria = (isset($_POST['categoria'])) ? $_POST['categoria'] : '';
+$referencia = (isset($_POST['referencia'])) ? $_POST['referencia'] : '';
 
 
 
@@ -15,28 +19,30 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO categoria (nombre) 
-        VALUES('$nombre') ";			
+        $consulta = "INSERT INTO articulo (clave,nombre,cantidad,categoria,referencia) 
+        VALUES('$clave','$nombre','$cantidad','$categoria','$referencia') ";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
-        $consulta = "SELECT * FROM categoria ORDER BY id_cat DESC LIMIT 1";
+        $consulta = "SELECT * FROM articulo ORDER BY id_art DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+
         break;
     case 2: //modificación
-        $consulta = "UPDATE categoria SET nombre='$nombre' WHERE id_cat='$id' ";		
+        $consulta = "UPDATE articulo SET clave='$clave',nombre='$nombre',cantidad='$cantidad',
+        categoria='$categoria', referencia='$referencia' WHERE id_art='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
-        $consulta = "SELECT * FROM categoria WHERE id_cat='$id' ";       
+        $consulta = "SELECT * FROM articulo WHERE id_art='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;        
     case 3://baja
-        $consulta = "UPDATE categoria SET estado_cat=0 WHERE id_cat='$id' ";		
+        $consulta = "UPDATE articulo SET estado_art=0 WHERE id_art='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
         $data=1;                          
