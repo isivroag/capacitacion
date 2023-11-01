@@ -9,6 +9,7 @@ $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
 $cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : '';
 $categoria = (isset($_POST['categoria'])) ? $_POST['categoria'] : '';
 $referencia = (isset($_POST['referencia'])) ? $_POST['referencia'] : '';
+$fecha_alta = (isset($_POST['fecha_alta'])) ? $_POST['fecha_alta'] : '';
 
 
 
@@ -19,8 +20,8 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO articulo (clave,nombre,cantidad,categoria,referencia) 
-        VALUES('$clave','$nombre','$cantidad','$categoria','$referencia') ";			
+        $consulta = "INSERT INTO articulo (clave,nombre,cantidad,categoria,referencia,fecha_alta) 
+        VALUES('$clave','$nombre','$cantidad','$categoria','$referencia','$fecha_alta') ";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
@@ -32,7 +33,7 @@ switch($opcion){
         break;
     case 2: //modificación
         $consulta = "UPDATE articulo SET clave='$clave',nombre='$nombre',cantidad='$cantidad',
-        categoria='$categoria', referencia='$referencia' WHERE id_art='$id' ";		
+        categoria='$categoria', referencia='$referencia', fecha_alta='$fecha_alta' WHERE id_art='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         

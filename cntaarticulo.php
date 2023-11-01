@@ -125,7 +125,14 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                             <input type="text" class="form-control" name="clave" id="clave" autocomplete="off" placeholder="CLAVE">
                                         </div>
                                     </div>
-                                    <div class="col-sm-8"></div>
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-4">
+
+                                        <div class="form-group input-group-sm">
+                                            <label for="fecha_alta" class="col-form-label">Fecha Alta:</label>
+                                            <input type="date" class="form-control" name="fecha_alta" id="fecha_alta" autocomplete="off" placeholder="fecha_alta">
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="row justify-content-center">
@@ -150,11 +157,11 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                         <div class="form-group input-group-sm">
                                             <label for="categoria" class="col-form-label">CATEGORIA:</label>
                                             <select class="form-control" name="categoria" id="categoria" autocomplete="off" placeholder="categoria">
-                                            <?php
-                                        foreach ($datac as $datc) {
-                                        ?>
-                                            <option value="<?php echo $datc['nombre']?>"> <?php  echo $datc['nombre'] ?></option>
-                                        <?php  }?>
+                                                <?php
+                                                foreach ($datac as $datc) {
+                                                ?>
+                                                    <option value="<?php echo $datc['nombre'] ?>"> <?php echo $datc['nombre'] ?></option>
+                                                <?php  } ?>
 
                                             </select>
                                         </div>
@@ -172,29 +179,32 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
                                 </div>
                             </div>
+                            <div class="modal-footer">
+                                <div class="row justify-content-end">
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                    <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                                </div>
 
+                            </div>
 
+                        </form>
 
                     </div>
 
 
 
-                    <div class="modal-footer">
 
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                        <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-                    </div>
-                    </form>
+
                 </div>
             </div>
         </div>
-</div>
-</section>
+
+    </section>
 
 
 
 
-<!-- /.content -->
+    <!-- /.content -->
 </div>
 
 <?php include_once 'templates/footer.php'; ?>

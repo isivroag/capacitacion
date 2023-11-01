@@ -15,6 +15,7 @@ $(document).ready(function () {
                     "<div class='text-center'><button class='btn btn-sm btn-primary btnEditar' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-edit'></i></button>\
                      <button class='btn btn-sm btn-danger btnBorrar' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='fas fa-trash-alt'></i></button></div>",
             },
+            { className: 'hide_column', targets: [7] },
 
         ],
 
@@ -57,13 +58,14 @@ $(document).ready(function () {
         cantidad = fila.find('td:eq(3)').text()
         categoria = fila.find('td:eq(4)').text()
         referencia = fila.find('td:eq(5)').text()
-        
+        fecha_alta= fila.find('td:eq(6)').text()
 
         $('#clave').val(clave)
         $('#nombre').val(nombre)
         $('#cantidad').val(cantidad)
         $('#categoria').val(categoria)
         $('#referencia').val(referencia)
+        $('#fecha_alta').val(fecha_alta)
     
 
 
@@ -117,11 +119,11 @@ $(document).ready(function () {
         var cantidad = $('#cantidad').val()
         var categoria = $('#categoria').val()
         var referencia = $('#referencia').val()
-     
+        var fecha_alta = $('#fecha_alta').val()
     
 
 
-        if (nombre.length == 0 || clave.length == 0) {
+        if (nombre.length == 0 || clave.length == 0 || fecha_alta.length==0) {
             Swal.fire({
                 title: 'Datos Faltantes',
                 text: 'Debe ingresar todos los datos del articulo',
@@ -139,6 +141,7 @@ $(document).ready(function () {
                     cantidad: cantidad,
                     categoria: categoria,
                     referencia: referencia,
+                    fecha_alta: fecha_alta,
                     id: id,
                     opcion: opcion,
                 },
