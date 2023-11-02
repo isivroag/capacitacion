@@ -6,10 +6,7 @@ $(document).ready(function () {
   
     var textopermiso = permisos()
   
-  
-  
-  
-    function permisos() {
+  function permisos() {
       if (operacion == 1) {
         columnas =
           "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
@@ -89,84 +86,60 @@ $(document).ready(function () {
 
   
     $(document).on('click', '#btnGuardar', function () {
-      folio = $('#folior').val()
+      folio = $('#folio').val()
       fecha = $('#fecha').val()
+      fecha_salida = $('#fecha_salida').val()
   
-      id_prov = $('#id_prov').val()
-      // proveedor = $('#nombre').val()
-      // id_item = $('#id_item').val()
-      descripcion = $('#descripcion').val()
+      responsable = $('#responsable').val()
+      evento = $('#evento').val()
+      obs = $('#obs').val()
   
-      // importe = $('#importe').val().replace(/,/g, '')
-      subtotal = $('#subtotal').val().replace(/,/g, '')
-      iva = $('#iva').val().replace(/,/g, '')
-      total = $('#total').val().replace(/,/g, '')
-      descuento = $('#descuento').val().replace(/,/g, '')
-      gtotal = $('#gtotal').val().replace(/,/g, '')
-      tipo = $('#tipo').val()
-     
       usuario = $('#nameuser').val()
   
-      tokenid = $('#tokenid').val()
+      //tokenid = $('#tokenid').val()
       opcion = $('#opcion').val()
   
-      console.log(folio)
-      console.log(fecha)
-      console.log(id_prov)
-      console.log(descripcion)
-      console.log(subtotal)
-      console.log(iva)
-      console.log(total)
-      console.log(descuento)
-      console.log(gtotal)
-      console.log(usuario)
-  
-  
-      if (
+     if (
         folio.length != 0 &&
         fecha.length != 0 &&
-        id_prov.length != 0 &&
-        descripcion.length != 0 &&
-        gtotal.lenght != 0
+        responsable.length != 0 &&
+        evento.lenght != 0
         
       ) {
         $.ajax({
           type: 'POST',
-          url: 'bd/crudcxp.php',
+          url: 'bd/crudprestamo.php',
           dataType: 'json',
           data: {
-            fecha: fecha,
             folio: folio,
-            id_prov: id_prov,
-            //proveedor: proveedor,
-            descripcion: descripcion,
-            subtotal: subtotal,
-            //importe: importe,
-            iva: iva,
-            total: total,
-            descuento: descuento,
-            gtotal: gtotal,
-            tipo: tipo,
+
+            fecha: fecha,
+            fecha_salida: fecha_salida,
+            
+            responsable: responsable,
+            evento: evento,
+            obs: obs,
+       
             usuario: usuario,
-            tokenid: tokenid,
+            //tokenid: tokenid,
             opcion: opcion,
           },
           success: function (res) {
             if (res == 0) {
               Swal.fire({
                 title: 'Error al Guardar',
-                text: 'No se pudo guardar los datos de la cuenta por pagar',
+                text: 'No se pudo guardar los datos del vale de salida',
                 icon: 'error',
               })
             } else {
               Swal.fire({
                 title: 'Operación Exitosa',
-                text: 'Cuenta por pagar registrada',
+                text: 'Vale de salida registrado',
                 icon: 'success',
               })
   
               window.setTimeout(function () {
-                window.location.href = 'cntacxp.php'
+                window.location.href = 'cntaprestamo.php'
               }, 1500)
             }
           },
@@ -174,7 +147,7 @@ $(document).ready(function () {
       } else {
         Swal.fire({
           title: 'Datos Faltantes',
-          text: 'Debe ingresar todos los datos del Item',
+          text: 'Debe ingresar todos los datos del articulo',
           icon: 'warning',
         })
         return false
@@ -186,9 +159,6 @@ $(document).ready(function () {
 
     $(document).on('click', '#bntAgregar', function () {
         
-        
-        
-        
         $('#modalArticulo').modal('show')
       })
     
@@ -198,7 +168,7 @@ $(document).ready(function () {
       id_art = fila.find('td:eq(0)').text()
       folio=$('#folio').val()
       opcion=1
-      
+            
 
       $.ajax({
         type: 'POST',
@@ -211,8 +181,11 @@ $(document).ready(function () {
           opcion: opcion,
         },
         success: function (data) {
+
+          if(data != 0){
+
             id_reg = data[0].id_reg
-            id_art=data[0].id_art
+            id_art= data[0].id_art
             clave = data[0].clave
             nombre=data[0].nombre
             referencia=data[0].referencia
@@ -224,12 +197,22 @@ $(document).ready(function () {
                         clave,
                         nombre,
                         referencia,
-                    
-
-                    ])
+                       ])
                     .draw()
-                    $('#modalArticulo').modal('hide')
+                  
+            }
+            else{
+              swal.fire({
+                title: 'Articulo duplicado',
+                icon: 'error',
+                focusConfirm: true,
+                confirmButtonText: 'Aceptar',
+              })
+            }
+            $('#modalArticulo').modal('hide')
+                                      
         },
+        
       })
       
       

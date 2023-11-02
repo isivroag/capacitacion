@@ -18,7 +18,7 @@ $usuario = $_SESSION['s_nombre'];
 if ($folio != "") {
 
     $opcion = 2;
-    $consulta = "SELECT * FROM vcxptmp where folio_cxp='$folio'";
+    $consulta = "SELECT * FROM prestamo where folio_pres='$folio'";
 
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
@@ -27,19 +27,14 @@ if ($folio != "") {
     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($data as $dt) {
-        $folio = $dt['folio_cxp'];
-
+   
+        $folio =  $dt['folio_pres'];       
         $fecha = $dt['fecha'];
-        $id_prov = $dt['id_prov'];
-        $proveedor = $dt['nombre'];
-        $descripcion = $dt['descripcion'];
-        $subtotal = $dt['subtotal'];
-        $iva = $dt['iva'];
-        $total = $dt['total'];
-        $descuento = $dt['descuento'];
-        $gtotal = $dt['gtotal'];
-        $saldo = $dt['saldo'];
-        $tipo = $dt['tipo'];
+        $responsable = $dt['responsable'];
+        $evento =  $dt['evento'];
+        $obs = $dt['obs'];
+        $fecha_salida = $dt['fecha_salida'];
+       
     }
 
 
@@ -71,10 +66,6 @@ if ($folio != "") {
         $datatmp = $resultadotmp->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-
-
-
     foreach ($datatmp as $dt) {
 
         $folio =  $dt['folio_pres'];
@@ -87,9 +78,6 @@ if ($folio != "") {
        
     }
 }
-
-
-
 
 $consultaitem = "SELECT * FROM articulo WHERE estado_art=1 ORDER BY id_art";
 $resultadoitem = $conexion->prepare($consultaitem);

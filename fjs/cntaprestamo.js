@@ -43,8 +43,7 @@ $(document).ready(function () {
     
     $(document).on('click', '.btnEditar', function () {
       fila = $(this).closest('tr')
-      folio = parseInt(fila.find('td:eq(0)').text())
-    
+      folio = parseInt(fila.find('td:eq(0)').text())   
 
   
       window.location.href = "prestamo.php?folio=" + folio;
@@ -63,7 +62,7 @@ $(document).ready(function () {
   
       if (respuesta) {
         $.ajax({
-          url: 'bd/detallecxp.php',
+          url: 'bd/detalleprestamo.php',
           type: 'POST',
           dataType: 'json',
           data: { id: id, opcion: opcion },
