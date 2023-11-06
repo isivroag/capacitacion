@@ -41,9 +41,7 @@ if ($folio != "") {
     $message = "";
 } else {
 
-
     //BUSCAR CUENTA ABIERTA
-
 
     $consultatmp = "SELECT * FROM prestamo WHERE usuario='$usuario' and activo='0' ORDER BY folio_pres DESC LIMIT 1";
     $resultadotmp = $conexion->prepare($consultatmp);
@@ -79,7 +77,7 @@ if ($folio != "") {
     }
 }
 
-$consultaitem = "SELECT * FROM articulo WHERE estado_art=1 ORDER BY id_art";
+$consultaitem = "SELECT * FROM articulo WHERE estado_art=1 and prestado=0 ORDER BY id_art";
 $resultadoitem = $conexion->prepare($consultaitem);
 $resultadoitem->execute();
 $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);

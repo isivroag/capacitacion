@@ -189,6 +189,7 @@ $(document).ready(function () {
             clave = data[0].clave
             nombre=data[0].nombre
             referencia=data[0].referencia
+            
 
                 tablaDet.row
                     .add([
@@ -217,10 +218,7 @@ $(document).ready(function () {
       
       
     })
-  
- 
-
-
+   
         //BOTON LIMPIAR DESECHABLE
     $(document).on('click', '#btnLimpiar', function () {
       limpiardes()

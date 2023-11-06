@@ -7,7 +7,7 @@ $conexion = $objeto->connect();
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 $id_art = (isset($_POST['id_art'])) ? $_POST['id_art'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
-$data=0;
+$data = 0;
 
 
 switch ($opcion) {
@@ -15,12 +15,16 @@ switch ($opcion) {
         $consulta = "SELECT * FROM prestamo_det where folio_pres=$folio and id_art='$id_art'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
-        
 
-        if ($resultado-> rowCount() == 0) {
+
+        if ($resultado->rowCount() == 0) {
             $consulta = "INSERT INTO prestamo_det (folio_pres,id_art) 
             values ('$folio','$id_art')";
 
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+
+            $consulta = "UPDATE articulo set prestado = 1 where id_art='$id_art'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
 
@@ -30,8 +34,8 @@ switch ($opcion) {
             $resultado->execute();
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         }
-        
-                
+
+
         break;
 
     case 2:
