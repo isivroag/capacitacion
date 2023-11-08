@@ -187,7 +187,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
         <!-- Default box -->
         <div class="card">
             <div class="card-header bg-gradient-secondary text-light">
-                <h1 class="card-title mx-auto">CUENTA POR PAGAR</h1>
+                <h1 class="card-title mx-auto">INVENTARIO</h1>
             </div>
 
             <div class="card-body">
