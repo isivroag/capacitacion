@@ -214,7 +214,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
 
                             <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
 
-                                <h1 class="card-title ">vALE DE SALIDA</h1>
+                                <h1 class="card-title ">VALE DE SALIDA</h1>
                             </div>
 
                             <div class="card-body" style="margin:0px;padding:1px;">

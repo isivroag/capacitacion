@@ -130,13 +130,13 @@ switch ($opcion) {
         break;
 
     case 3:
-        $consulta = "UPDATE cxp SET estado_cxp='0' WHERE folio_cxp='$folio'";
+        $consulta = "UPDATE prestamo SET estado_pres='0', estado='CANCELADO' WHERE folio_pres='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $res = 1;
 
         // CONSULTA DEL DETALLE
-        $consulta = "SELECT * FROM detallecxp_herramienta WHERE folio_cxp='$folio'";
+        $consulta = "SELECT * FROM prestamo_det WHERE folio_pres='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -144,41 +144,13 @@ switch ($opcion) {
         foreach ($data as $row) {
 
             // EMPIEZA EL INCREMENTO EN INVENTARIO
-            $id = $row['id_her'];
-            $tipomov = 'Salida Can';
-            $saldo = 0;
-            $montomov = $row['cant_her'];
-            $saldofin = 0;
-            $descripcion = "CANCELACION DE COMPRA DE HERRAMIENTA CXP FOLIO: " . $folio;
-
-            $usuario = $row['usuario'];
+            $id = $row['id_art'];
+           
 
 
-            $consultam = "SELECT * from herramienta where id_her='$id'";
+            $consultam = "UPDATE articulo SET prestado=0 WHERE id_art='$id'";
             $resultadom = $conexion->prepare($consultam);
-            if ($resultadom->execute()) {
-                $datam = $resultadom->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($datam as $rowdatam) {
-                    $saldo = $rowdatam['cant_her'];
-                }
-                $res += 1;
-            }
-
-            $saldofin = $saldo - $montomov;
-
-            //guardar el movimiento
-            $consultam = "INSERT INTO mov_herramienta(id_her,fecha_movh,tipo_movh,cantidad,saldoini,saldofin,descripcion,usuario) values('$id','$fecha_actual','$tipomov','$montomov','$saldo','$saldofin','$descripcion','$usuario')";
-            $resultadom = $conexion->prepare($consultam);
-            if ($resultadom->execute()) {
-                $res += 1;
-            }
-
-            $consultam = "UPDATE herramienta SET cant_her='$saldofin' WHERE id_her='$id'";
-            $resultadom = $conexion->prepare($consultam);
-            if ($resultadom->execute()) {
-                $res += 1;
-            }
-            //TERMINA EL INCREMENTO EN INVENTARIO   
+            $resultadom->execute();
 
         }
 

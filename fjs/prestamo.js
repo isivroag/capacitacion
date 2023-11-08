@@ -158,8 +158,26 @@ $(document).ready(function () {
     
 
     $(document).on('click', '#bntAgregar', function () {
+        tablaArticulo.clear();
+        tablaArticulo.draw();
         
         $('#modalArticulo').modal('show')
+
+        $.ajax({
+          type: "POST",
+          url: "bd/buscarArticulo.php",
+          dataType: "json",
+          async:false,
+          data: {  },
+
+          success: function(data) {
+              for (var i = 0; i < data.length; i++) {
+                tablaArticulo.row.add([data[i].id_art,data[i].clave, data[i].nombre,data[i].referencia,]).draw();
+              }
+          },
+      });
+
+        
       })
     
   
@@ -283,43 +301,44 @@ $(document).ready(function () {
     $(document).on('click', '.btnBorrar', function (e) {
       e.preventDefault()
       fila = $(this)
-      folio = $('#folior').val()
-      id = parseInt($(this).closest('tr').find('td:eq(0)').text())
-  
-  
-      tipooperacion = 2
-  
+      id_art = parseInt($(this).closest('tr').find('td:eq(1)').text())
+      folio=$('#folio').val()
+      opcion=2
+            
+
       $.ajax({
         type: 'POST',
-        url: 'bd/detallecxp.php',
+        url: 'bd/detalleprestamo.php',
         dataType: 'json',
-        data: { id: id, opcion: tipooperacion, folio: folio },
-        success: function (data) {
-          if (data == 1) {
-            tablaDet.row(fila.parents('tr')).remove().draw()
-            tipo = 4
-            $.ajax({
-              url: 'bd/sumadetalle.php',
-              type: 'POST',
-              dataType: 'json',
-              async: false,
-              data: { folio: folio, tipo: tipo },
-              success: function (data) {
-                subtotal = data
-  
-                var myNumeral = numeral(subtotal)
-                var valor = myNumeral.format('0,0.00')
-  
-                $('#subtotal').val(valor)
-                calcular2 (subtotal)
-  
-              },
-            })
-          } else {
-            mensajeerror()
-          }
+        data: {
+       
+          folio: folio,
+          id_art: id_art,
+          opcion: opcion,
         },
+        success: function (data) {
+          console.log(data)
+          if(data == 1){
+
+            tablaDet.row(fila.parents('tr')).remove().draw()
+            tablaDet.row(fila.parents('tr')).remove().draw()
+
+                  
+            }
+            else{
+              swal.fire({
+                title: 'Error Al Eliminar',
+                icon: 'error',
+                focusConfirm: true,
+                confirmButtonText: 'Aceptar',
+              })
+            }
+                                      
+        },
+        
       })
+
+
     })
   
  

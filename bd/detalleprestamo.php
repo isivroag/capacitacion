@@ -39,8 +39,18 @@ switch ($opcion) {
         break;
 
     case 2:
+        $consulta = "UPDATE articulo set prestado = 0 where id_art='$id_art'";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
 
-        $datac = 1;
+
+        $consulta = "DELETE FROM prestamo_det WHERE folio_pres='$folio' and id_art='$id_art'";
+        $resultado = $conexion->prepare($consulta);
+        if ($resultado->execute()){
+            $data=1;
+        }
+
+       
         break;
 }
 
