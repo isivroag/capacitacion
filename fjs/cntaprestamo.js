@@ -4,6 +4,7 @@ $(document).ready(function () {
   var fila
 
   tablaVis = $('#tablaV').DataTable({
+
     columnDefs: [
       {
         targets: -1,

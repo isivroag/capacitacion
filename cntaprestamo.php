@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM prestamo ORDER BY folio_pres";
+$consulta = "SELECT * FROM prestamo where activo=1 ORDER BY folio_pres";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -50,7 +50,13 @@ $message = "";
         <br>
         <div class="container-fluid">
 
-          <div class="row">
+          <div class="row justify-content-center">
+            <div>
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="customCheckbox2" >
+                <label for="customCheckbox2" class="custom-control-label">Mostrar todos los Vales</label>
+              </div>
+            </div>
             <div class="col-lg-12">
               <div class="table-responsive">
                 <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
@@ -60,7 +66,7 @@ $message = "";
                       <th>FECHA</th>
                       <th>RESPOSABLE</th>
                       <th>EVENTO</th>
-                    
+
                       <th>FECHA DE SALIDA</th>
                       <th>FECHA DE ENTRADA</th>
                       <th>ESTADO</th>
@@ -76,8 +82,8 @@ $message = "";
                         <td><?php echo $dat['fecha'] ?></td>
                         <td><?php echo $dat['responsable'] ?></td>
                         <td><?php echo $dat['evento'] ?></td>
-                        <td ><?php echo $dat['fecha_salida'] ?></td>
-                        <td ><?php echo $dat['fecha_entrada'] ?></td>
+                        <td><?php echo $dat['fecha_salida'] ?></td>
+                        <td><?php echo $dat['fecha_entrada'] ?></td>
                         <td><?php echo $dat['estado'] ?></td>
                         <td></td>
                       </tr>

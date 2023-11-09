@@ -36,31 +36,38 @@ header {
 #logo {
     float: left;
     margin-top: 0px;
-    width: 25%;
+    width: 10%;
 }
 
 #logo img {
-    height: 50px;
+    height: 5px;
+    width: 5px;
+}
+#espacio {
+    float: left;
+    margin-top: 0px;
+    width: 10%;
 }
 
 #company {
     float: left;
     text-align: center;
-    width: 50%;
+    width: 60%;
     margin-top: 15px;
+    
     font-weight: 900;
     font-size: large;
 }
 
 #folio {
-    float: left;
+    float: right;
     text-align:justify;
-    width: 25%;
- 
+    width: 20%;
+    
     
 }
 #folio table tr td{
-    font-size: 15px !important;
+    font-size: 13 !important;
     padding: 0px ;
 }
 
@@ -177,7 +184,7 @@ table .unit {
 /*table .qty {}*/
 
 table .total {
-    background: #067623;
+    background: #9B9B9B;
     color: #fff;
 }
 
@@ -253,6 +260,11 @@ footer {
     display: block !important;
     margin: 0px auto !important;
 }
+
+#tabla {
+    table-layout: fixed;
+    width: 100%;  
+   }
 /*
 .sborde {
     border: none !important;
