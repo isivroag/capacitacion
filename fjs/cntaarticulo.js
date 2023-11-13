@@ -5,6 +5,29 @@ $(document).ready(function () {
 
 
     tabla1 = $('#tabla1').DataTable({
+        dom:
+        "<'row justify-content-center'<'col-sm-12 col-md-4 form-group'l><'col-sm-12 col-md-4 form-group'B><'col-sm-12 col-md-4 form-group'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+
+    buttons: [
+        {
+            extend: 'excelHtml5',
+            text: "<i class='fas fa-file-excel'> Excel</i>",
+            titleAttr: 'Exportar a Excel',
+            title: 'Listado de Clientes',
+            className: 'btn bg-success ',
+            exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7,8] },
+        },
+        {
+            extend: 'pdfHtml5',
+            text: "<i class='far fa-file-pdf'> PDF</i>",
+            titleAttr: 'Exportar a PDF',
+            title: 'Listado de Clientes',
+            className: 'btn bg-danger',
+            exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6,7,8] },
+        },
+    ],
 
 
         columnDefs: [
@@ -47,6 +70,18 @@ $(document).ready(function () {
         opcion = 1
     })
 
+    $(document).on("click", "#btnCodigos", function () {
+   
+        var ancho = 1000;
+        var alto = 800;
+        var x = parseInt((window.screen.width / 2) - (ancho / 2));
+        var y = parseInt((window.screen.height / 2) - (alto / 2));
+    
+        url = "codigos.php";
+    
+        window.open(url, "Codigos", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");
+    
+      });
 
 
     $(document).on('click', '.btnEditar', function () {
@@ -154,6 +189,7 @@ $(document).ready(function () {
                     referencia = data[0].referencia
                     fecha_alta = data[0].fecha_alta
                     fecha_baja = data[0].fecha_baja
+                    codigo="<img src='barcode.php?text="+clave+"&size=30&type=Code39&print=true' />"
 
                     if (opcion == 1) {
                         tabla1.row
@@ -166,6 +202,7 @@ $(document).ready(function () {
                                 referencia,
                                 fecha_alta,
                                 fecha_baja,
+                                codigo,
 
                             ])
                             .draw()
@@ -181,6 +218,7 @@ $(document).ready(function () {
                                 referencia,
                                 fecha_alta,
                                 fecha_baja,
+                                codigo,
                             ])
                             .draw()
                     }

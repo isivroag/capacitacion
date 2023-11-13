@@ -47,6 +47,7 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                 <div class="row">
                     <div class="col-lg-12">
                         <button id="btnNuevo" type="button" class="btn bg-gradient-green btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
+                        <button id="btnCodigos" type="button" class="btn bg-gradient-primary btn-ms" data-toggle="modal"><i class="fa-solid fa-barcode text-light"></i><span class="text-light"> Imp. Codigos</span></button>
                     </div>
                 </div>
                 <br>
@@ -68,6 +69,7 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                             <th>REFERENCIA</th>
                                             <th>FECHA ALTA</th>
                                             <th>FECHA BAJA</th>
+                                            <th>CODIGO</th>
                                             <th>ACCIONES</th>
 
                                         </tr>
@@ -85,6 +87,7 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                                 <td><?php echo $dat['referencia'] ?></td>
                                                 <td><?php echo $dat['fecha_alta'] ?></td>
                                                 <td><?php echo $dat['fecha_baja'] ?></td>
+                                                <td><img src='barcode.php?text=<?php echo $dat['clave']?>&size=30&type=Code39&print=true' /></td>
                                                 <td></td>
 
                                             </tr>
