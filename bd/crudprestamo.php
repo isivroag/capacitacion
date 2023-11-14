@@ -145,14 +145,16 @@ switch ($opcion) {
 
             // EMPIEZA EL INCREMENTO EN INVENTARIO
             $id = $row['id_art'];
-           
-
 
             $consultam = "UPDATE articulo SET prestado=0 WHERE id_art='$id'";
             $resultadom = $conexion->prepare($consultam);
             $resultadom->execute();
 
         }
+
+        $consultam = "UPDATE prestamo_det SET prestado=0, devuelto=1 WHERE  folio_pres='$folio'";
+        $resultadom = $conexion->prepare($consultam);
+        $resultadom->execute();
 
 
 

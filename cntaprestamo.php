@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM prestamo where activo=1 ORDER BY folio_pres";
+$consulta = "SELECT * FROM prestamo where activo=1 and estado='ACTIVO' ORDER BY folio_pres";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -53,8 +53,8 @@ $message = "";
           <div class="row justify-content-center">
             <div>
               <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="customCheckbox2" >
-                <label for="customCheckbox2" class="custom-control-label">Mostrar todos los Vales</label>
+                <input class="custom-control-input" type="checkbox" id="chtodos">
+                <label for="chtodos" class="custom-control-label">Mostrar todos los Vales</label>
               </div>
             </div>
             <div class="col-lg-12">
@@ -104,6 +104,131 @@ $message = "";
     </div>
     <!-- /.card -->
 
+  </section>
+
+  <section>
+    <div class="container">
+
+      <!-- Default box -->
+      <div class="modal fade" id="modalArticulo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content w-auto">
+            <div class="modal-header bg-gradient-secondary">
+              <h5 class="modal-title" id="exampleModalLabel">BUSCAR CONCEPTOS</h5>
+
+            </div>
+            <br>
+            <div class="table-hover table-responsive w-auto" style="padding:15px">
+              <table name="tablaArticulo" id="tablaArticulo" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                <thead class="text-center bg-gradient-primary">
+                  <tr>
+
+                    <th>Id_Reg</th>
+                    <th>Folio Pres</th>
+                    <th>Id Art</th>
+                    <th>Clave</th>
+                    <th>Descripción</th>
+                    <th>Seleccionar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section>
+  <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-green">
+                        <h5 class="modal-title" id="exampleModalLabel">DEVOLUCIÓN</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formDatos" action="" method="POST">
+                            <div class="modal-body ">
+
+                                <div class="row justify-content">
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="clave" class="col-form-label">CLAVE:</label>
+                                            <input type="hidden" class="form-control" name="idreg" id="idreg" >
+                                            <input type="hidden" class="form-control" name="foliopres" id="foliopres" >
+                                            <input type="hidden" class="form-control" name="idart" id="idart" >
+                                            <input type="text" class="form-control" name="clave" id="clave" autocomplete="off" placeholder="CLAVE">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="estado" class="col-form-label">ESTADO:</label>
+                                            <select class="form-control" name="estado" id="estado" autocomplete="off" placeholder="categoria">
+                                              
+                                              <option value="1">DEVUELTO</option>
+                                              <option value="2">DAÑADO</option>
+                                              <option value="0">BAJA</option>
+                                              
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" id='colfecha' style="display: none;">
+
+                                        <div class="form-group input-group-sm">
+                                            <label for="fecha_baja" class="col-form-label">Fecha Baja:</label>
+                                            <input type="date" class="form-control" name="fecha_baja" id="fecha_baja" autocomplete="off" placeholder="fecha_alta">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center">
+
+                                    <div class="col-sm-12">
+                                        <div class="form-group input-group-sm">
+                                            <label for="articulo" class="col-form-label">DESCRIPCION:</label>
+                                            <input type="text" class="form-control" name="articulo" id="articulo" autocomplete="off" placeholder="DESCRIPCION">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-12">
+                                        <div class="form-group input-group-sm">
+                                            <label for="obs" class="col-form-label">OBSERVACIONES:</label>
+                                            <textarea name="obs" class="form-control" id="obs" cols="1" rows="2"></textarea>
+                                            
+                                        </div>
+                                    </div>
+
+                                   
+
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="row justify-content-end">
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                    <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
   </section>
 
 
