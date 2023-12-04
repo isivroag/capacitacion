@@ -138,8 +138,8 @@
           </ul>
         </li>
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'cntacategoria' || $pagina == 'cntaprestamo' || $pagina == 'cntaarticulo') ? "menu-open" : ""; ?>">
-          <a href="#" class="nav-link <?php echo ($pagina == 'cntacategoria' || $pagina == 'cntaprestamo' || $pagina == 'cntaarticulo') ? "active" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'cntacategoria' || $pagina == 'cntaprestamo' || $pagina == 'cntaarticulo' || $pagina == 'cntainsumo' || $pagina == 'cntaconsumo') ? "menu-open" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'cntacategoria' || $pagina == 'cntaprestamo' || $pagina == 'cntaarticulo' || $pagina == 'cntainsumo' || $pagina == 'cntaconsumo') ? "active" : ""; ?>">
 
 
             <i class="fa-solid fa-file-lines nav-icon"></i>
@@ -169,6 +169,14 @@
             </li>
 
             <li class="nav-item">
+              <a href="cntainsumo.php" class="nav-link <?php echo ($pagina == 'cntainsumo') ? "active seleccionado" : ""; ?>  ">
+
+                <i class="fa-regular fa-pen-to-square text-green  nav-icon"></i>
+                <p>Insumos</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
               <a href="cntaprestamo.php" class="nav-link <?php echo ($pagina == 'cntaprestamo') ? "active seleccionado" : ""; ?>  ">
 
                 <i class="fa-regular fa-pen-to-square text-green  nav-icon"></i>
@@ -176,6 +184,13 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a href="cntaconsumo.php" class="nav-link <?php echo ($pagina == 'cntaconsumo') ? "active seleccionado" : ""; ?>  ">
+
+                <i class="fa-regular fa-pen-to-square text-green  nav-icon"></i>
+                <p>Vales de Consumo</p>
+              </a>
+            </li>
 
 
           </ul>
