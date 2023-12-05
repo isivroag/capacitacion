@@ -191,15 +191,18 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <div class="card-body">
+            <?php
+                if ($opcion == 1) {
+                ?>
 
                 <div class="row">
                     <div class="col-lg-12">
-
                         <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-
-
                     </div>
                 </div>
+                <?php
+                }
+                ?>
 
                 <br>
 
@@ -297,6 +300,9 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                             </div>
 
                                             <div class="card-body" style="margin:0px;padding:3px;">
+                                            <?php
+                                                if ($opcion == 1) {
+                                                ?>
 
                                                 <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
                                                     <div class="card-header " style="margin:0px;padding:8px;">
@@ -304,11 +310,11 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                         <button type="button" class="btn bg-gradient-secondary btn-sm" id="bntAgregar" name="bntAgregar">
                                                             Agregar Artículo <i class="fas fa-plus"></i>
                                                         </button>
-                                                    </div>
-
-                                            
+                                                    </div>                                          
 
                                                 </div>
+                                                <?php }
+                                                ?>
 
 
                                                 <div class="row">

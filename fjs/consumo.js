@@ -12,7 +12,7 @@ $(document).ready(function () {
         "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
     } else {
       columnas =
-        "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
+        ""
     }
     return columnas
   }

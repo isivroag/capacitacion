@@ -49,7 +49,7 @@ switch ($opcion) {
 
         break;
     case 2:
-
+/*
         $consulta = "UPDATE consumo set fecha='$fecha',fecha_salida='$fecha_salida',responsable='$responsable',
         evento='$evento',obs='$obs', usuario='$usuario',
         activo='1' WHERE folio_cons='$folio'";
@@ -73,16 +73,15 @@ switch ($opcion) {
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
         }
-
+*/
         break;
 
     case 3:
-        $consulta = "UPDATE consumo SET estado_cons='0', estado='CANCELADO' WHERE folio_cons='$folio'";
+        $consulta = "UPDATE consumo SET estado='CANCELADO' WHERE folio_cons='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $res = 1;
 
-        // CONSULTA DEL DETALLE
         $consulta = "SELECT * FROM consumo_det WHERE folio_cons='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
@@ -90,21 +89,15 @@ switch ($opcion) {
 
         foreach ($data as $row) {
 
-            // EMPIEZA EL INCREMENTO EN INVENTARIO
             $id = $row['id_ins'];
+            $cantidad = $row['cantidad'];
 
-            $consultam = "UPDATE insumo set WHERE id_ins='$id'";
+            $consultam = "UPDATE insumo set cantidad = cantidad + '$cantidad' WHERE id_ins='$id'";
             $resultadom = $conexion->prepare($consultam);
             $resultadom->execute();
         }
 
-        $consultam = "UPDATE consumo_det WHERE folio_cons='$folio'";
-        $resultadom = $conexion->prepare($consultam);
-        $resultadom->execute();
-
-
-
-        break;
+       break;
 }
 
 print json_encode($res, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS

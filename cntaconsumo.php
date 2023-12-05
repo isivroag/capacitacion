@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM consumo where activo=1 ORDER BY folio_cons";
+$consulta = "SELECT * FROM consumo where activo=1 and estado <> 'CANCELADO' ORDER BY folio_cons";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

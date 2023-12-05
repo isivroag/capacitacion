@@ -189,15 +189,17 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <div class="card-body">
-
-                <div class="row">
-                    <div class="col-lg-12">
-
-                        <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-
-
+                <?php
+                if ($opcion == 1) {
+                ?>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                        </div>
                     </div>
-                </div>
+                <?php
+                }
+                ?>
 
                 <br>
 
@@ -284,30 +286,30 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
 
                                             <div class="card-header bg-secondary " style="margin:0px;padding:8px">
                                                 <div class="card-tools" style="margin:0px;padding:0px;">
-
-
                                                 </div>
+
                                                 <h1 class="card-title text-light">INSUMOS</h1>
                                                 <div class="card-tools" style="margin:0px;padding:0px;">
-
-
                                                 </div>
                                             </div>
 
                                             <div class="card-body" style="margin:0px;padding:3px;">
 
-                                                <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
-                                                    <div class="card-header " style="margin:0px;padding:8px;">
+                                                <?php
+                                                if ($opcion == 1) {
+                                                ?>
 
-                                                        <button type="button" class="btn bg-gradient-secondary btn-sm" id="bntAgregar" name="bntAgregar">
-                                                            Agregar Insumo <i class="fas fa-plus"></i>
-                                                        </button>
+                                                    <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
+                                                        <div class="card-header " style="margin:0px;padding:8px;">
+
+                                                            <button type="button" class="btn bg-gradient-secondary btn-sm" id="bntAgregar" name="bntAgregar">
+                                                                Agregar Insumo <i class="fas fa-plus"></i>
+                                                            </button>
+                                                        </div>
+
                                                     </div>
-
-
-
-                                                </div>
-
+                                                <?php }
+                                                ?>
 
                                                 <div class="row">
 
@@ -412,7 +414,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  
+
                                 </tbody>
                             </table>
                         </div>
@@ -445,7 +447,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
-                                    <div class="form-group input-group-sm">
+                                        <div class="form-group input-group-sm">
                                             <label for="existencia" class="col-form-label">EXISTENCIAS:</label>
                                             <input type="text" class="form-control" name="existencia" id="existencia" autocomplete="off" placeholder="EXISTENCIAS" disabled>
                                         </div>

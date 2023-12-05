@@ -11,7 +11,7 @@ $(document).ready(function () {
           data: null,
           defaultContent:
             "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fa-solid fa-magnifying-glass'></i></button>\
-            <button class='btn btn-sm btn-success  btnDevolver'><i class='fa-solid fa-arrow-rotate-left'></i></button>\
+            \
               <button class='btn btn-sm bg-orange btnPdf' data-toggle='tooltip' data-placement='top' title='Imprimir'><i class='text-white fas fa-file-pdf'></i></button>\
                 <button class='btn btn-sm btn-danger btnBorrar'><i class='fa-solid fa-ban'></i></button></div>",
         },
@@ -292,8 +292,8 @@ $(document).ready(function () {
       if (estado == 'ACTIVO') {
         swal
           .fire({
-            title: 'ELIMINAR',
-            text: '¿Desea eliminar el registro seleccionado?',
+            title: 'CANCELAR',
+            text: '¿Desea cancelar el registro seleccionado?',
             showCancelButton: true,
             icon: 'question',
             focusConfirm: true,
