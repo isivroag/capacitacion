@@ -47,7 +47,7 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                 <div class="row">
                     <div class="col-lg-12">
                         <button id="btnNuevo" type="button" class="btn bg-gradient-green btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
-                        
+
                     </div>
                 </div>
                 <br>
@@ -69,7 +69,7 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                             <th>CATEGORIA</th>
                                             <th>FECHA ALTA</th>
                                             <th>FECHA BAJA</th>
-                                            
+
                                             <th>ACCIONES</th>
 
                                         </tr>
@@ -85,10 +85,10 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                                 <td><?php echo $dat['unidadm'] ?></td>
                                                 <td><?php echo $dat['cantidad'] ?></td>
                                                 <td><?php echo $dat['categoria'] ?></td>
-                                                
+
                                                 <td><?php echo $dat['fecha_alta'] ?></td>
                                                 <td><?php echo $dat['fecha_baja'] ?></td>
-                                                
+
                                                 <td></td>
 
                                             </tr>
@@ -149,23 +149,22 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                     </div>
                                 </div>
 
-                                <div class="row justify-content-left">
-                                    <div class="col-sm-6">
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-4">
                                         <div class="form-group input-group-sm">
                                             <label for="unidadm" class="col-form-label">UNIDAD DE MEDIDA:</label>
                                             <input type="text" class="form-control" name="unidadm" id="unidadm" autocomplete="off" placeholder="UNIDAD DE MEDIDA">
                                         </div>
                                     </div>
 
-                                <div class="row justify-content-right">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group input-group-sm">
                                             <label for="cantidad" class="col-form-label">CANTIDAD:</label>
                                             <input type="text" class="form-control" name="cantidad" id="cantidad" autocomplete="off" placeholder="CANTIDAD">
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group input-group-sm">
                                             <label for="categoria" class="col-form-label">CATEGORIA:</label>
                                             <select class="form-control" name="categoria" id="categoria" autocomplete="off" placeholder="categoria">
@@ -179,18 +178,16 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                         </div>
                                     </div>
 
-
-                                    
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <div class="row justify-content-end">
-                                    <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                                    <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
                                 </div>
 
-                            </div>
+                                <div class="modal-footer">
+                                    <div class="row justify-content-end">
+                                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                        <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                                    </div>
 
+                                </div>
+                            </div>
                         </form>
 
                     </div>

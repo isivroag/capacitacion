@@ -27,14 +27,13 @@ if ($folio != "") {
     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($data as $dt) {
-   
-        $folio =  $dt['folio_cons'];       
+
+        $folio =  $dt['folio_cons'];
         $fecha = $dt['fecha'];
         $responsable = $dt['responsable'];
         $evento =  $dt['evento'];
         $obs = $dt['obs'];
         $fecha_salida = $dt['fecha_salida'];
-       
     }
 
 
@@ -73,7 +72,6 @@ if ($folio != "") {
         $evento =  $dt['evento'];
         $obs = $dt['obs'];
         $fecha_salida = $dt['fecha_salida'];
-       
     }
 }
 
@@ -252,13 +250,13 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                             <input type="hidden" class="form-control" name="opcion" id="opcion" value="<?php echo $opcion; ?>">
 
                                             <label for="responsable" class="col-form-label">Responsable:</label>
-                                            <input type="text" class="form-control" name="responsable" id="responsable" value="<?php echo $responsable; ?>" >
+                                            <input type="text" class="form-control" name="responsable" id="responsable" value="<?php echo $responsable; ?>">
                                         </div>
                                     </div>
                                     <div class="col-sm-5">
                                         <div class="form-group">
                                             <label for="evento" class="col-form-label">Evento:</label>
-                                            <input type="text" class="form-control" name="evento" id="evento" value="<?php echo $evento; ?>" >
+                                            <input type="text" class="form-control" name="evento" id="evento" value="<?php echo $evento; ?>">
 
 
                                         </div>
@@ -306,7 +304,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                         </button>
                                                     </div>
 
-                                            
+
 
                                                 </div>
 
@@ -322,7 +320,8 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                                         <th>Id Ins</th>
                                                                         <th>Clave </th>
                                                                         <th>Descripcion</th>
-                                                                        <th>Unidad de Medida</th>
+                                                                        <th>Cantidad</th>
+                                                                        <th>UMedida</th>
                                                                         <th>Acciones</th>
                                                                     </tr>
                                                                 </thead>
@@ -336,9 +335,10 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                                     ?>
                                                                         <tr>
                                                                             <td><?php echo $rowdet['id_reg'] ?></td>
-                                                                            <td><?php echo $rowdet['id_cons'] ?></td>
+                                                                            <td><?php echo $rowdet['id_ins'] ?></td>
                                                                             <td><?php echo $rowdet['clave'] ?></td>
                                                                             <td><?php echo $rowdet['nombre'] ?></td>
+                                                                            <td><?php echo $rowdet['cantidad'] ?></td>
                                                                             <td><?php echo $rowdet['unidadm'] ?></td>
                                                                             <td></td>
                                                                         </tr>
@@ -365,7 +365,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
 
 
-                             
+
                             </div>
                         </div>
                     </div>
@@ -406,25 +406,13 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                         <th>Id_Ins</th>
                                         <th>Clave</th>
                                         <th>Descripción</th>
+                                        <th>Existencias</th>
                                         <th>Unidad de medida</th>
                                         <th>Seleccionar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    foreach ($dataitem as $datd) {
-                                    ?>
-                                        <tr>
-
-                                            <td><?php echo $datd['id_ins'] ?></td>
-                                            <td><?php echo $datd['clave'] ?></td>
-                                            <td><?php echo $datd['nombre'] ?></td>
-                                            <td><?php echo $datd['unidadm'] ?></td>
-                                            <td></td>
-                                        </tr>
-                                    <?php
-                                    }
-                                    ?>
+                                  
                                 </tbody>
                             </table>
                         </div>
@@ -434,6 +422,90 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </section>
     <!-- TERMINA CONCEPTOS -->
+
+
+    <section>
+        <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-green">
+                        <h5 class="modal-title" id="exampleModalLabel">AGREGAR INSUMO</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formDatos" action="" method="POST">
+                            <div class="modal-body ">
+
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-6">
+                                        <div class="form-group input-group-sm">
+                                            <label for="clave" class="col-form-label">CLAVE:</label>
+                                            <input type="text" class="form-control" name="clave" id="clave" autocomplete="off" placeholder="CLAVE" disabled>
+                                            <input type="hidden" class="form-control" name="idins" id="idins" autocomplete="off" placeholder="CLAVE" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                    <div class="form-group input-group-sm">
+                                            <label for="existencia" class="col-form-label">EXISTENCIAS:</label>
+                                            <input type="text" class="form-control" name="existencia" id="existencia" autocomplete="off" placeholder="EXISTENCIAS" disabled>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row justify-content-center">
+
+                                    <div class="col-sm-12">
+                                        <div class="form-group input-group-sm">
+                                            <label for="nombre" class="col-form-label">DESCRIPCION:</label>
+                                            <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="off" placeholder="DESCRIPCION" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center">
+
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group input-group-sm">
+                                            <label for="cantidad" class="col-form-label">CANTIDAD:</label>
+                                            <input type="text" class="form-control" name="cantidad" id="cantidad" autocomplete="off" placeholder="CANTIDAD">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group input-group-sm">
+                                            <label for="unidadm" class="col-form-label">UNIDAD DE MEDIDA:</label>
+                                            <input type="text" class="form-control" name="unidadm" id="unidadm" autocomplete="off" placeholder="UNIDAD DE MEDIDA" disabled>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <div class="row justify-content-end">
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                    <button type="button" id="btnGuardarIn" name="btnGuardarIn" class="btn btn-success" value="btnGuardarIn"><i class="far fa-save"></i> Guardar</button>
+                                </div>
+
+                            </div>
+
+
+                        </form>
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+
+    </section>
 
     <!-- /.content -->
 </div>

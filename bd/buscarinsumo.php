@@ -4,7 +4,7 @@ $objeto = new conn();
 $conexion = $objeto->connect();;
 $data = 0;
 
-$consulta = "SELECT * FROM insumo WHERE estado_ins=1 and ORDER BY id_ins";
+$consulta = "SELECT * FROM insumo WHERE estado_ins=1 ORDER BY id_ins";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
