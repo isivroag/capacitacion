@@ -138,8 +138,8 @@
           </ul>
         </li>
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'cntacategoria' || $pagina == 'cntaprestamo' || $pagina == 'cntaarticulo' || $pagina == 'cntainsumo' || $pagina == 'cntaconsumo') ? "menu-open" : ""; ?>">
-          <a href="#" class="nav-link <?php echo ($pagina == 'cntacategoria' || $pagina == 'cntaprestamo' || $pagina == 'cntaarticulo' || $pagina == 'cntainsumo' || $pagina == 'cntaconsumo') ? "active" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'cntacategoria' || $pagina == 'cntaprestamo' || $pagina == 'cntaarticulo' || $pagina == 'cntainsumo' || $pagina == 'cntaumedida' || $pagina == 'cntaconsumo') ? "menu-open" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'cntacategoria' || $pagina == 'cntaprestamo' || $pagina == 'cntaarticulo' || $pagina == 'cntainsumo' || $pagina == 'cntaumedida' || $pagina == 'cntaconsumo') ? "active" : ""; ?>">
 
 
             <i class="fa-solid fa-file-lines nav-icon"></i>
@@ -173,6 +173,14 @@
 
                 <i class="fa-regular fa-pen-to-square text-green  nav-icon"></i>
                 <p>Insumos</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="cntaumedida.php" class="nav-link <?php echo ($pagina == 'cntaumedida') ? "active seleccionado" : ""; ?>  ">
+
+                <i class="fa-regular fa-pen-to-square text-green  nav-icon"></i>
+                <p>U de medida</p>
               </a>
             </li>
 

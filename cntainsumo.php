@@ -14,6 +14,11 @@ $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
+$consultau = "SELECT * FROM umedida WHERE estado_umed=1 ORDER BY id_umed";
+$resultadou = $conexion->prepare($consultau);
+$resultadou->execute();
+$datau = $resultadou->fetchAll(PDO::FETCH_ASSOC);
+
 $consultac = "SELECT * FROM categoria WHERE estado_cat=1 ORDER BY id_cat";
 $resultadoc = $conexion->prepare($consultac);
 $resultadoc->execute();
@@ -152,8 +157,15 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="row justify-content-center">
                                     <div class="col-sm-4">
                                         <div class="form-group input-group-sm">
-                                            <label for="unidadm" class="col-form-label">UNIDAD DE MEDIDA:</label>
-                                            <input type="text" class="form-control" name="unidadm" id="unidadm" autocomplete="off" placeholder="UNIDAD DE MEDIDA">
+                                            <label for="umedida" class="col-form-label">U DE MEDIDA:</label>
+                                            <select class="form-control" name="umedida" id="umedida" autocomplete="off" placeholder="u de medida">
+                                                <?php
+                                                foreach ($datau as $datu) {
+                                                ?>
+                                                    <option value="<?php echo $datu['nombre'] ?>"> <?php echo $datu['nombre'] ?></option>
+                                                <?php  } ?>
+
+                                            </select>
                                         </div>
                                     </div>
 
@@ -177,35 +189,36 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                             </select>
                                         </div>
                                     </div>
-
                                 </div>
 
-                                <div class="modal-footer">
-                                    <div class="row justify-content-end">
-                                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                                        <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-                                    </div>
-
-                                </div>
                             </div>
-                        </form>
 
+                            <div class="modal-footer">
+                                <div class="row justify-content-end">
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                    <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                                </div>
+
+                            </div>
                     </div>
-
-
-
-
+                    </form>
 
                 </div>
+
+
+
+
+
             </div>
         </div>
+</div>
 
-    </section>
+</section>
 
 
 
 
-    <!-- /.content -->
+<!-- /.content -->
 </div>
 
 <?php include_once 'templates/footer.php'; ?>

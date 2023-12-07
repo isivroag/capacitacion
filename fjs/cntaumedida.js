@@ -5,31 +5,8 @@ $(document).ready(function () {
 
 
     tabla1 = $('#tabla1').DataTable({
-        dom:
-        "<'row justify-content-center'<'col-sm-12 col-md-4 form-group'l><'col-sm-12 col-md-4 form-group'B><'col-sm-12 col-md-4 form-group'f>>" +
-        "<'row'<'col-sm-12'tr>>" +
-        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 
-    buttons: [
-        {
-            extend: 'excelHtml5',
-            text: "<i class='fas fa-file-excel'> Excel</i>",
-            titleAttr: 'Exportar a Excel',
-            title: 'Listado de Clientes',
-            className: 'btn bg-success ',
-            exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7,8] },
-        },
-        {
-            extend: 'pdfHtml5',
-            text: "<i class='far fa-file-pdf'> PDF</i>",
-            titleAttr: 'Exportar a PDF',
-            title: 'Listado de Clientes',
-            className: 'btn bg-danger',
-            exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6,7,8] },
-        },
-    ],
-
-
+      
         columnDefs: [
             {
                 targets: -1,
@@ -38,8 +15,7 @@ $(document).ready(function () {
                     "<div class='text-center'><button class='btn btn-sm btn-primary btnEditar' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-edit'></i></button>\
                      <button class='btn btn-sm btn-danger btnBorrar' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='fas fa-trash-alt'></i></button></div>",
             },
-            { className: 'hide_column', targets: [7] },
-
+          
         ],
 
         //Para cambiar el lenguaje a español
@@ -64,38 +40,27 @@ $(document).ready(function () {
     $('#btnNuevo').click(function () {
 
         $('#formDatos').trigger('reset')
-        
         $('#modalCRUD').modal('show')
         id = null
         opcion = 1
     })
 
+ 
+
     $(document).on('click', '.btnEditar', function () {
         fila = $(this).closest('tr')
         id = parseInt(fila.find('td:eq(0)').text())
 
-        clave = fila.find('td:eq(1)').text()
-        nombre = fila.find('td:eq(2)').text()
-        unidadm = fila.find('td:eq(3)').text()
-        cantidad = fila.find('td:eq(4)').text()
-        categoria = fila.find('td:eq(5)').text()
-        
-        fecha_alta= fila.find('td:eq(6)').text()
+        nombre = fila.find('td:eq(1)').text()
 
-        $('#clave').val(clave)
         $('#nombre').val(nombre)
-        $('#umedida').val(unidadm)
-        $('#cantidad').val(cantidad)
-        $('#categoria').val(categoria)
-        
-        $('#fecha_alta').val(fecha_alta)
-    
+       
 
 
         opcion = 2 //editar
 
 
-        $('.modal-title').text('EDITAR INSUMO')
+        $('.modal-title').text('EDITAR UNIDAD DE MEDIDA')
         $('#modalCRUD').modal('show')
     })
 
@@ -120,7 +85,7 @@ $(document).ready(function () {
             .then(function (isConfirm) {
                 if (isConfirm.value) {
                     $.ajax({
-                        url: 'bd/crudinsumo.php',
+                        url: 'bd/crudumedida.php',
                         type: 'POST',
                         dataType: 'json',
                         data: { id: id, opcion: opcion },
@@ -137,65 +102,39 @@ $(document).ready(function () {
 
     $('#formDatos').submit(function (e) {
         e.preventDefault()
-        var clave = $('#clave').val()
         var nombre = $('#nombre').val()
-        var unidadm = $('#umedida').val()
-        var cantidad = $('#cantidad').val()
-        var categoria = $('#categoria').val()
-        
-        var fecha_alta = $('#fecha_alta').val()
     
 
 
-        if (nombre.length == 0 || clave.length == 0 || fecha_alta.length==0) {
+
+        if (nombre.length == 0) {
             Swal.fire({
                 title: 'Datos Faltantes',
-                text: 'Debe ingresar todos los datos del insumo',
+                text: 'Debe ingresar todos los datos del registro',
                 icon: 'warning',
             })
             return false
         } else {
             $.ajax({
-                url: 'bd/crudinsumo.php',
+                url: 'bd/crudumedida.php',
                 type: 'POST',
                 dataType: 'json',
                 data: {
-                    clave: clave,
                     nombre: nombre,
-                    unidadm: unidadm,
-                    cantidad: cantidad,
-                    
-                    categoria: categoria,
-                    
-                    fecha_alta: fecha_alta,
                     id: id,
                     opcion: opcion,
                 },
                 success: function (data) {
-                    idins = data[0].id_ins
-                    clave = data[0].clave
+                    id = data[0].id_umed
                     nombre = data[0].nombre
-                    unidadm = data[0].unidadm
-                    cantidad = data[0].cantidad
-                    categoria = data[0].categoria
-                   
-                    fecha_alta = data[0].fecha_alta
-                    fecha_baja = data[0].fecha_baja
-                    
-
+                  
+            
                     if (opcion == 1) {
                         tabla1.row
                             .add([
-                                idins,
-                                clave,
+                                id,
                                 nombre,
-                                unidadm,
-                                cantidad,
-                                categoria,
-                                
-                                fecha_alta,
-                                fecha_baja,
-                                
+                            
 
                             ])
                             .draw()
@@ -203,30 +142,15 @@ $(document).ready(function () {
                         tabla1
                             .row(fila)
                             .data([
-                                idins,
-                                clave,
+                                id,
                                 nombre,
-                                unidadm,
-                                cantidad,
-                                categoria,
-                               
-                                fecha_alta,
-                                fecha_baja,
-                                
+                             
                             ])
                             .draw()
                     }
                 },
-                error: function(){
-                    Swal.fire({
-                        title: 'ERROR',
-                        
-                        icon: 'error',
-                    })
-                }
             })
             $('#modalCRUD').modal('hide')
         }
-
     })
 })
