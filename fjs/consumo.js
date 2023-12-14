@@ -207,24 +207,48 @@ $(document).ready(function () {
     id_ins = fila.find('td:eq(0)').text()
     clave = fila.find('td:eq(1)').text()
     nombre = fila.find('td:eq(2)').text()
-    
-    unidadm = fila.find('td:eq(4)').text()
     existencia = fila.find('td:eq(3)').text()
+    unidadm = fila.find('td:eq(4)').text()
+    folio= $('#folio').val()
+    
+    $.ajax({
+      type: "POST",
+      url: "bd/buscarinsumo.php",
+      dataType: "json",
+      async: false,
+      data: {
+        folio: folio,
+        id_ins: id_ins
+      },
 
-    $('#idins').val(id_ins)
-    $('#clave').val(clave)
-    $('#nombre').val(nombre)
-    $('#unidadm').val(unidadm)
-    $('#existencia').val(existencia)
-    $('#cantidad').val(0)
-    $('#modalArticulo').modal('hide')
-    $('#modalCRUD').modal('show')
+      success: function (data) {
+        if (data == 1){
+          swal.fire({
+            title: 'Insumo duplicado',
+            icon: 'error',
+            focusConfirm: true,
+            confirmButtonText: 'Aceptar',
+          })
+          
+
+        }
+        else{
+          $('#idins').val(id_ins)
+          $('#clave').val(clave)
+          $('#nombre').val(nombre)
+          $('#unidadm').val(unidadm)
+          $('#existencia').val(existencia)
+          $('#cantidad').val(0)
+          $('#modalArticulo').modal('hide')
+          $('#modalCRUD').modal('show')
     
     
     opcion = 1
 
-
-
+        }
+        
+      },
+    });
 
 
   })
@@ -415,10 +439,6 @@ $(document).ready(function () {
 
 
   })
-
-
-
-
 
 
   function mensajeerror() {
