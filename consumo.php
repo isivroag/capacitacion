@@ -185,7 +185,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
         <!-- Default box -->
         <div class="card">
             <div class="card-header bg-gradient-secondary text-light">
-                <h1 class="card-title mx-auto">INVENTARIO</h1>
+                <h1 class="card-title mx-auto">VALE DE CONSUMO</h1>
             </div>
 
             <div class="card-body">
@@ -244,7 +244,9 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                             <input type="date" class="form-control" name="fecha_salida" id="fecha_salida" value="<?php echo $fecha_salida; ?>">
                                         </div>
                                     </div>
+
                                 </div>
+
                                 <div class="row justify-content-sm-center">
                                     <div class="col-sm-5">
                                         <div class="form-group">
@@ -263,11 +265,13 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
 
                                         </div>
                                     </div>
+
                                 </div>
 
 
 
-                                <div class=" row justify-content-sm-center">
+                                <div class="row justify-content-sm-center">
+                                    
                                     <div class="col-sm-10">
 
                                         <div class="form-group">
@@ -276,21 +280,14 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                         </div>
 
                                     </div>
-
-
-
                                 </div>
-                                <div class="row justify-content-sm-center m-auto" style="padding:5px 0px;margin-bottom:5px">
+
+                                <div class="row justify-content-sm-center " >
                                     <div class="col-sm-10">
                                         <div class="card ">
 
                                             <div class="card-header bg-secondary " style="margin:0px;padding:8px">
-                                                <div class="card-tools" style="margin:0px;padding:0px;">
-                                                </div>
-
                                                 <h1 class="card-title text-light">INSUMOS</h1>
-                                                <div class="card-tools" style="margin:0px;padding:0px;">
-                                                </div>
                                             </div>
 
                                             <div class="card-body" style="margin:0px;padding:3px;">
@@ -314,6 +311,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                 <div class="row">
 
                                                     <div class="col-lg-12 mx-auto">
+
                                                         <div class="table-responsive" style="padding:5px;">
                                                             <table name="tablaDet" id="tablaDet" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
                                                                 <thead class="text-center bg-gradient-secondary">
@@ -327,6 +325,7 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                                         <th>Acciones</th>
                                                                     </tr>
                                                                 </thead>
+
                                                                 <tbody>
                                                                     <?php
                                                                     $consulta = "SELECT * FROM vconsumo_det WHERE folio_cons='$folio'";
@@ -349,8 +348,8 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                                     ?>
 
                                                                 </tbody>
-                                                            </table>
 
+                                                            </table>
                                                         </div>
 
                                                     </div>
@@ -358,18 +357,19 @@ $dataitem = $resultadoitem->fetchAll(PDO::FETCH_ASSOC);
                                                 </div>
 
 
-
-
                                             </div>
 
                                         </div>
+
                                     </div>
                                 </div>
 
 
 
                             </div>
+
                         </div>
+
                     </div>
                 </form>
 

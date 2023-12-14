@@ -71,7 +71,7 @@ $(document).ready(function () {
         data: null,
         defaultContent: textopermiso,
       },
-      {className: 'hide_column',targets: [0,1]}
+      { className: 'hide_column', targets: [0, 1] }
 
     ],
 
@@ -209,11 +209,11 @@ $(document).ready(function () {
     nombre = fila.find('td:eq(2)').text()
     existencia = fila.find('td:eq(3)').text()
     unidadm = fila.find('td:eq(4)').text()
-    folio= $('#folio').val()
-    
+    folio = $('#folio').val()
+
     $.ajax({
       type: "POST",
-      url: "bd/buscarinsumo.php",
+      url: "bd/buscardetalleinsumo.php",
       dataType: "json",
       async: false,
       data: {
@@ -222,17 +222,19 @@ $(document).ready(function () {
       },
 
       success: function (data) {
-        if (data == 1){
+        if (data == 1) {
           swal.fire({
             title: 'Insumo duplicado',
-            icon: 'error',
-            focusConfirm: true,
-            confirmButtonText: 'Aceptar',
+            text: 'El insumo ya se encuentra registrado',
+                        icon: 'error',
+                        focusConfirm: true,
+                        confirmButtonText: 'Aceptar',
+            
           })
-          
+
 
         }
-        else{
+        else {
           $('#idins').val(id_ins)
           $('#clave').val(clave)
           $('#nombre').val(nombre)
@@ -241,12 +243,12 @@ $(document).ready(function () {
           $('#cantidad').val(0)
           $('#modalArticulo').modal('hide')
           $('#modalCRUD').modal('show')
-    
-    
-    opcion = 1
+
+
+          opcion = 1
 
         }
-        
+
       },
     });
 
@@ -258,66 +260,57 @@ $(document).ready(function () {
   $(document).on('click', '#btnGuardarIn', function () {
 
     id_ins = $('#idins').val()
-    existencia=$('#existencia').val()
-    cantidad=$('#cantidad').val() 
+    existencia = $('#existencia').val()
+    cantidad = $('#cantidad').val()
     folio = $('#folio').val()
- 
-    
-    if (parseFloat(existencia)>= parseFloat(cantidad)){
+
+
+    if (parseFloat(existencia) >= parseFloat(cantidad)) {
 
       $.ajax({
         type: 'POST',
         url: 'bd/detalleconsumo.php',
         dataType: 'json',
         data: {
-  
+
           folio: folio,
           id_ins: id_ins,
           cantidad: cantidad,
           opcion: opcion,
         },
         success: function (data) {
-  
-          if (data != 0) {
-  
-            id_reg = data[0].id_reg
-            id_ins = data[0].id_ins
-            clave = data[0].clave
-            nombre = data[0].nombre
-            cantidad = data[0].cantidad
-            unidadm = data[0].unidadm
-  
-  
-            tablaDet.row
-              .add([
-                id_reg,
-                id_ins,
-                clave,
-                nombre,
-                cantidad,
-                unidadm,
-              ])
-              .draw()
-  
-          }
-          else {
-            swal.fire({
-              title: 'Insumo duplicado',
-              icon: 'error',
-              focusConfirm: true,
-              confirmButtonText: 'Aceptar',
-            })
-          }
+
+
+          id_reg = data[0].id_reg
+          id_ins = data[0].id_ins
+          clave = data[0].clave
+          nombre = data[0].nombre
+          cantidad = data[0].cantidad
+          unidadm = data[0].unidadm
+
+
+          tablaDet.row
+            .add([
+              id_reg,
+              id_ins,
+              clave,
+              nombre,
+              cantidad,
+              unidadm,
+            ])
+            .draw()
+
+
           $('#modalCRUD').modal('hide')
-  
+
         },
         error: function (data) {
           console.log('Error:', data);
         }
-  
+
       })
 
-    }else{
+    } else {
       swal.fire({
         title: 'Existencia insuficiente',
         icon: 'error',
@@ -332,7 +325,7 @@ $(document).ready(function () {
 
 
 
- 
+
 
   })
 
