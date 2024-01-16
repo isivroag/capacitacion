@@ -200,25 +200,101 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
 
                             </div>
+
+                        </form>
+
                     </div>
-                    </form>
+
+
+
+
 
                 </div>
-
-
-
-
-
             </div>
         </div>
-</div>
 
-</section>
+    </section>
+
+    <section>
+        <div class="modal fade" id="modalMOV" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-secondary">
+                        <h5 class="modal-title" id="exampleModalLabel">MOVIMIENTOS DE INVENTARIO</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formMov" action="" method="POST">
+                            <div class="modal-body row">
+                                <div class="col-sm-2">
+                                    <div class="form-group input-group-sm">
+                                        <label for="idm" class="col-form-label">ID:</label>
+                                        <input type="text" class="form-control" name="idm" id="idm" autocomplete="off" placeholder="ID" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="form-group input-group-sm">
+                                        <label for="nombrem" class="col-form-label">Insumo:</label>
+                                        <input type="text" class="form-control" name="nombrem" id="nombrem" autocomplete="off" placeholder="Nombre/Descripción" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+
+
+                                    <div class="form-group input-group-sm">
+                                        <label for="extm" class="col-form-label">Existencias:</label>
+                                        <input type="text" class="form-control text-right" name="extm" id="extm" value="" placeholder="Existencias" disabled>
+                                    </div>
+                                </div>
 
 
 
+                               
 
-<!-- /.content -->
+
+
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                        <label for="descripcion" class="col-form-label">Descripción del Movimiento:</label>
+                                        <textarea rows="2" class="form-control" name="descripcion" id="descripcion" placeholder="Descripción del Movimiento"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group input-group-sm auto">
+                                        <label for="tipomov" class="col-form-label">Tipo Movimiento:</label>
+                                        <select class="form-control" name="tipomov" id="tipomov">
+                                            <option id="Inventario Inicial" value="Inventario Inicial"> Inventario Inicial</option>
+                                            <option id="Entrada" value="Entrada"> Entrada</option>
+                                            <option id="Salida" value="Salida"> Salida</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="montom" class="col-form-label">Cantidad Movimiento:</label>
+                                        <input type="text" class="form-control text-right" name="montom" id="montom" value="" placeholder="Cantidad Movimiento">
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                           
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                <button type="submit" id="btnGuardarM" name="btnGuardarM" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- /.content -->
 </div>
 
 <?php include_once 'templates/footer.php'; ?>

@@ -15,6 +15,8 @@ $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 $res = 0;
+$fecha=date('Y-m-d');
+
 
 
 switch ($opcion) {
@@ -34,10 +36,37 @@ switch ($opcion) {
 
         foreach ($data as $row) {
 
+
+
+
+
             $id_ins =  $row['id_ins'];
             $cantidad =  $row['cantidad'];
 
-            $consulta = "UPDATE insumo SET cantidad = cantidad - '$cantidad' WHERE id_ins = '$id_ins' ";
+
+            $consulta2 = "SELECT * FROM insumo WHERE id_ins= '$id_ins' ";
+            $resultado2 = $conexion->prepare($consulta2);
+            $resultado2->execute();
+            $data2 = $resultado2->fetchAll(PDO::FETCH_ASSOC);
+            $saldoini = 0;
+            $saldofin = 0;
+            foreach ($data2 as $row2) {
+                $saldoini = $row2['cantidad'];
+            }
+
+            $saldofin = $saldoini - $cantidad;
+            $tipo = 'Salida';
+            $descripcion = "Salida por consumo folio # " . $folio;
+          
+
+            $consultam = "INSERT INTO insumo_mov(id_ins,fecha,tipo,cantidad,saldoini,saldofin,descripcion,usuario) 
+                values('$id_ins','$fecha','$tipo','$cantidad','$saldoini','$saldofin','$descripcion','$usuario')";
+            $resultadom = $conexion->prepare($consultam);
+            $resultadom->execute();
+
+
+
+            $consulta = "UPDATE insumo SET cantidad =  '$saldofin' WHERE id_ins = '$id_ins' ";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
         }
@@ -49,7 +78,7 @@ switch ($opcion) {
 
         break;
     case 2:
-/*
+        /*
         $consulta = "UPDATE consumo set fecha='$fecha',fecha_salida='$fecha_salida',responsable='$responsable',
         evento='$evento',obs='$obs', usuario='$usuario',
         activo='1' WHERE folio_cons='$folio'";
@@ -92,12 +121,32 @@ switch ($opcion) {
             $id = $row['id_ins'];
             $cantidad = $row['cantidad'];
 
-            $consultam = "UPDATE insumo set cantidad = cantidad + '$cantidad' WHERE id_ins='$id'";
+            $consulta2 = "SELECT * FROM insumo WHERE id_ins= '$id' ";
+            $resultado2 = $conexion->prepare($consulta2);
+            $resultado2->execute();
+            $data2 = $resultado2->fetchAll(PDO::FETCH_ASSOC);
+            $saldoini = 0;
+            $saldofin = 0;
+            foreach ($data2 as $row2) {
+                $saldoini = $row2['cantidad'];
+            }
+
+            $saldofin = $saldoini + $cantidad;
+            $tipo = 'Entrada';
+            $descripcion = "Entrada por cancelación consumo folio # " . $folio;
+          
+
+            $consultam = "INSERT INTO insumo_mov(id_ins,fecha,tipo,cantidad,saldoini,saldofin,descripcion,usuario) 
+                values('$id','$fecha','$tipo','$cantidad','$saldoini','$saldofin','$descripcion','$usuario')";
+            $resultadom = $conexion->prepare($consultam);
+            $resultadom->execute();
+
+            $consultam = "UPDATE insumo set cantidad = '$saldofin' WHERE id_ins='$id'";
             $resultadom = $conexion->prepare($consultam);
             $resultadom->execute();
         }
 
-       break;
+        break;
 }
 
 print json_encode($res, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS

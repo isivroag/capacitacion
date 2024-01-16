@@ -288,6 +288,7 @@ $(document).ready(function () {
       folio = parseInt($(this).closest('tr').find('td:eq(0)').text())
       estado = $(this).closest('tr').find('td:eq(6)').text()
       opcion = 3 //borrar
+      usuario = $('#nameuser').val()
   
       if (estado == 'ACTIVO') {
         swal
@@ -308,7 +309,7 @@ $(document).ready(function () {
                 url: 'bd/crudconsumo.php',
                 type: 'POST',
                 dataType: 'json',
-                data: { folio: folio, opcion: opcion },
+                data: { folio: folio, opcion: opcion, usuario: usuario },
                 success: function (data) {
                   tablaVis.row(fila.parents('tr')).remove().draw()
                 },
